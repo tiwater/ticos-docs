@@ -1,0 +1,71 @@
+# API Documentation
+
+This section provides detailed information about the Ticos Platform API, which allows you to integrate your applications with our services.
+
+## Authentication
+
+All API requests require authentication using an API key. You can obtain your API key from the Ticos Cloud dashboard.
+
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" https://api.ticos.ai/v1/terminals
+```
+
+## Endpoints
+
+### Terminals
+
+#### List Terminals
+
+```
+GET /v1/terminals
+```
+
+Returns a list of all terminals associated with your account.
+
+#### Get Terminal
+
+```
+GET /v1/terminals/{terminal_id}
+```
+
+Returns detailed information about a specific terminal.
+
+#### Update Terminal
+
+```
+PATCH /v1/terminals/{terminal_id}
+```
+
+Updates a terminal's configuration.
+
+### Face Recognition
+
+#### Register Face
+
+```
+POST /v1/faces
+```
+
+Registers a new face for authentication.
+
+#### List Faces
+
+```
+GET /v1/faces
+```
+
+Returns a list of all registered faces.
+
+## Error Handling
+
+The API uses standard HTTP status codes to indicate the success or failure of requests:
+
+- 200: Success
+- 400: Bad Request
+- 401: Unauthorized
+- 404: Not Found
+- 500: Server Error
+
+## Rate Limiting
+
+API requests are limited to 100 requests per minute per API key. If you exceed this limit, you will receive a 429 Too Many Requests response.

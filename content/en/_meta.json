@@ -1,0 +1,10 @@
+{
+  "index": {
+    "title": "Getting Started",
+    "type": "page"
+  },
+  "api": {
+    "title": "API Documentation",
+    "type": "page"
+  }
+}

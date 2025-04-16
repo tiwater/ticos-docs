@@ -1,0 +1,71 @@
+# API 文档
+
+本节提供了 Ticos 平台 API 的详细信息，您可以通过这些 API 将您的应用程序与我们的服务集成。
+
+## 认证
+
+所有 API 请求都需要使用 API 密钥进行认证。您可以从 Ticos Cloud 控制面板获取您的 API 密钥。
+
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" https://api.ticos.ai/v1/terminals
+```
+
+## 端点
+
+### 终端
+
+#### 列出终端
+
+```
+GET /v1/terminals
+```
+
+返回与您账户关联的所有终端列表。
+
+#### 获取终端
+
+```
+GET /v1/terminals/{terminal_id}
+```
+
+返回特定终端的详细信息。
+
+#### 更新终端
+
+```
+PATCH /v1/terminals/{terminal_id}
+```
+
+更新终端的配置。
+
+### 人脸识别
+
+#### 注册人脸
+
+```
+POST /v1/faces
+```
+
+注册新的人脸用于认证。
+
+#### 列出人脸
+
+```
+GET /v1/faces
+```
+
+返回所有已注册的人脸列表。
+
+## 错误处理
+
+API 使用标准 HTTP 状态码来表示请求的成功或失败：
+
+- 200: 成功
+- 400: 请求错误
+- 401: 未授权
+- 404: 未找到
+- 500: 服务器错误
+
+## 速率限制
+
+API 请求限制为每个 API 密钥每分钟 100 个请求。如果您超过此限制，您将收到 429 Too Many Requests 响应。
