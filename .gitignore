@@ -38,3 +38,7 @@
 .local/ 
 
 .next/
+.turbo/
+.nextra/
+.pagefind/
+.nextra-cache/
