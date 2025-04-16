@@ -1,59 +1,130 @@
 /* eslint-env node */
-import { Footer, Layout, Navbar } from "nextra-theme-docs";
+import { SwrIcon, VercelIcon } from "@app/_icons";
+import type { Metadata } from "next";
+import {
+  Footer,
+  LastUpdated,
+  Layout,
+  Link,
+  LocaleSwitch,
+  Navbar,
+} from "nextra-theme-docs";
 import { Banner, Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
-import "nextra-theme-docs/style.css";
+import Image from "next/image";
+import type { FC, ReactNode } from "react";
+import { getDictionary, getDirection } from "../_dictionaries/get-dictionary";
+import "./styles.css";
 
-export const metadata = {
-  metadataBase: new URL("https://nextra.site"),
+export const metadata: Metadata = {
+  description:
+    "Ticos Cloud is a platform for building and deploying AI agents.",
   title: {
-    template: "%s - Nextra",
+    absolute: "",
+    template: "%s | Ticos Cloud",
   },
-  description: "Nextra: the Next.js site builder",
-  applicationName: "Nextra",
-  generator: "Next.js",
-  appleWebApp: {
-    title: "Nextra",
-  },
-  other: {
-    "msapplication-TileImage": "/ms-icon-144x144.png",
-    "msapplication-TileColor": "#fff",
+  metadataBase: new URL("https://cloud.ticos.ai"),
+  openGraph: {
+    images:
+      "https://assets.vercel.com/image/upload/v1572282926/swr/twitter-card.jpg",
   },
   twitter: {
-    site: "https://nextra.site",
+    site: "@vercel",
+  },
+  appleWebApp: {
+    title: "Ticos Cloud",
+  },
+  other: {
+    "msapplication-TileColor": "#fff",
   },
 };
 
-export default async function RootLayout({ children }) {
+type LayoutProps = Readonly<{
+  children: ReactNode;
+  params: Promise<{
+    lang: string;
+  }>;
+}>;
+
+const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang);
+  let pageMap = await getPageMap(`/${lang}`);
+
+  if (lang === "en") {
+    pageMap = [...pageMap];
+  }
+  const banner = (
+    <Banner storageKey="swr-2">
+      Ticos Cloud is out! <Link href="#">Read more →</Link>
+    </Banner>
+  );
   const navbar = (
     <Navbar
       logo={
-        <div>
-          <b>Nextra</b>{" "}
-          <span style={{ opacity: "60%" }}>The Next Docs Builder</span>
-        </div>
+        <>
+          <img
+            src="/logo.svg"
+            alt="Ticos Cloud"
+            height="24"
+            width="24"
+            style={{ height: "24px", width: "auto" }}
+          />
+          <span
+            className="ms-2 select-none font-extrabold max-md:hidden"
+            title={`Ticos Cloud: ${dictionary.logo.title}`}
+          >
+            Ticos Cloud
+          </span>
+        </>
       }
-      // Next.js discord server
-      projectLink="https://github.com/shuding/nextra"
-    />
+      projectLink="https://github.com/tiwater/ticos-docs"
+    >
+      <LocaleSwitch lite />
+    </Navbar>
   );
-  const pageMap = await getPageMap();
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
-      <Head faviconGlyph="✦" />
+    <html lang={lang} dir={getDirection(lang)} suppressHydrationWarning>
+      <Head
+        backgroundColor={{
+          dark: "#111",
+          light: "#fff",
+        }}
+        color={{
+          hue: { dark: 204, light: 204 },
+          saturation: { dark: 100, light: 100 },
+        }}
+      />
       <body>
         <Layout
-          banner={<Banner storageKey="Nextra 2">Nextra 2 Alpha</Banner>}
           navbar={navbar}
-          footer={<Footer>MIT {new Date().getFullYear()} © Nextra.</Footer>}
-          editLink="Edit this page on GitHub"
-          docsRepositoryBase="https://github.com/shuding/nextra/blob/main/examples/docs"
-          sidebar={{ defaultMenuCollapseLevel: 1 }}
+          docsRepositoryBase="https://github.com/tiwater/ticos-docs"
+          i18n={[
+            { locale: "en", name: "English" },
+            { locale: "zh", name: "中文" },
+          ]}
+          sidebar={{
+            defaultMenuCollapseLevel: 1,
+            autoCollapse: true,
+          }}
+          toc={{
+            backToTop: dictionary.backToTop,
+          }}
+          editLink={dictionary.editPage}
           pageMap={pageMap}
+          nextThemes={{ defaultTheme: "dark" }}
+          lastUpdated={<LastUpdated>{dictionary.lastUpdated}</LastUpdated>}
+          themeSwitch={{
+            dark: dictionary.dark,
+            light: dictionary.light,
+            system: dictionary.system,
+          }}
         >
           {children}
         </Layout>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
