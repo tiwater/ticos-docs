@@ -1,71 +1,171 @@
-# API Documentation
+---
+title: 'API Reference'
+description: 'Comprehensive API documentation for Ticos Platform'
+---
 
-This section provides detailed information about the Ticos Platform API, which allows you to integrate your applications with our services.
+# API Reference
+
+Ticos Platform provides a comprehensive set of APIs for managing embodied AI terminals, handling face recognition, and integrating with LLM capabilities. This documentation covers all available API endpoints and their usage.
 
 ## Authentication
 
-All API requests require authentication using an API key. You can obtain your API key from the Ticos Cloud dashboard.
+All API endpoints require authentication using Bearer Token. The token should be your terminal's secret, passed through the Authorization header:
 
-```bash
-curl -H "Authorization: Bearer YOUR_API_KEY" https://api.ticos.ai/v1/terminals
+```http
+Authorization: Bearer <terminal_secret>
 ```
 
-## Endpoints
+## Base URL
 
-### Terminals
-
-#### List Terminals
+All API endpoints are relative to the base URL:
 
 ```
-GET /v1/terminals
+https://api.ticos.ai/v1/api
 ```
 
-Returns a list of all terminals associated with your account.
+## API Endpoints
 
-#### Get Terminal
+### Face Management
 
-```
-GET /v1/terminals/{terminal_id}
-```
+#### List All Faces
 
-Returns detailed information about a specific terminal.
-
-#### Update Terminal
-
-```
-PATCH /v1/terminals/{terminal_id}
+```http
+GET /faces
 ```
 
-Updates a terminal's configuration.
+Retrieves all faces associated with the terminal's group.
 
-### Face Recognition
+**Response**
 
-#### Register Face
-
-```
-POST /v1/faces
-```
-
-Registers a new face for authentication.
-
-#### List Faces
-
-```
-GET /v1/faces
+```json
+[
+  {
+    "face_id": "face123",
+    "group_id": "user_id_identifier",
+    "id": 39,
+    "name": "Test Face"
+  }
+]
 ```
 
-Returns a list of all registered faces.
+#### Create Face
 
-## Error Handling
+```http
+POST /faces
+Content-Type: multipart/form-data
+```
 
-The API uses standard HTTP status codes to indicate the success or failure of requests:
+Creates a new face in the terminal's associated group.
 
-- 200: Success
-- 400: Bad Request
-- 401: Unauthorized
-- 404: Not Found
-- 500: Server Error
+**Parameters**
 
-## Rate Limiting
+- `image`: Face image file (required)
+- `name`: Face name (required)
 
-API requests are limited to 100 requests per minute per API key. If you exceed this limit, you will receive a 429 Too Many Requests response.
+**Response**
+
+```json
+{
+  "return_code": 0,
+  "return_message": "Success"
+}
+```
+
+#### Get Face
+
+```http
+GET /faces/{face_id}
+```
+
+Retrieves a specific face from the terminal's group.
+
+**Response**
+
+```json
+{
+  "face_id": "face123",
+  "group_id": "user_id_identifier",
+  "id": 39,
+  "name": "Test Face"
+}
+```
+
+#### Update Face
+
+```http
+PUT /faces/{face_id}
+Content-Type: multipart/form-data
+```
+
+Updates a specific face in the terminal's group.
+
+**Parameters**
+
+- `name`: Face name (required)
+- `image`: Face image file (optional)
+
+**Response**
+
+```json
+{
+  "return_code": 0,
+  "return_message": "Success"
+}
+```
+
+#### Delete Face
+
+```http
+DELETE /faces/{face_id}
+```
+
+Deletes a specific face from the terminal's group.
+
+**Response**
+
+- 204 No Content
+
+#### Get Face Image
+
+```http
+GET /faces/{face_id}/image
+```
+
+Retrieves the image of a specific face.
+
+**Response**
+
+- Image data in the appropriate MIME type
+
+### Error Responses
+
+All endpoints may return the following error responses:
+
+- `400 Bad Request`: Invalid request parameters
+- `401 Unauthorized`: Authentication failed
+- `404 Not Found`: Resource not found
+- `500 Internal Server Error`: Server error
+
+## Implementation Details
+
+### Face ID Generation
+
+When creating a face, the system automatically generates a unique face_id. The face_id is a 32-character hexadecimal string generated from 16 random bytes.
+
+## Best Practices
+
+1. **Error Handling**
+
+   - Always check response status codes
+   - Implement proper error handling for all API calls
+   - Use appropriate retry mechanisms
+
+2. **Security**
+
+   - Keep your terminal secret secure
+   - Use HTTPS for all API calls
+
+3. **Performance**
+   - Cache responses when appropriate
+   - Implement request batching
+   - Use compression for large payloads

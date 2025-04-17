@@ -1,71 +1,171 @@
-# API 文档
+---
+title: 'API 参考'
+description: 'Ticos 平台完整的 API 文档'
+---
 
-本节提供了 Ticos 平台 API 的详细信息，您可以通过这些 API 将您的应用程序与我们的服务集成。
+# API 参考
+
+Ticos 平台提供了一套完整的 API，用于管理具身智能终端、处理人脸识别以及集成 LLM 功能。本文档涵盖了所有可用的 API 端点及其使用方法。
 
 ## 认证
 
-所有 API 请求都需要使用 API 密钥进行认证。您可以从 Ticos Cloud 控制面板获取您的 API 密钥。
+所有 API 端点都需要使用 Bearer Token 进行认证。Token 应该是您的终端密钥，通过 Authorization 请求头传递：
 
-```bash
-curl -H "Authorization: Bearer YOUR_API_KEY" https://api.ticos.ai/v1/terminals
+```http
+Authorization: Bearer <terminal_secret>
 ```
 
-## 端点
+## 基础 URL
 
-### 终端
-
-#### 列出终端
+所有 API 端点都基于以下基础 URL：
 
 ```
-GET /v1/terminals
+https://api.ticos.ai/v1/api
 ```
 
-返回与您账户关联的所有终端列表。
+## API 端点
 
-#### 获取终端
+### 人脸管理
 
-```
-GET /v1/terminals/{terminal_id}
-```
+#### 获取所有人脸
 
-返回特定终端的详细信息。
-
-#### 更新终端
-
-```
-PATCH /v1/terminals/{terminal_id}
+```http
+GET /faces
 ```
 
-更新终端的配置。
+获取与终端关联组中的所有 faces。
 
-### 人脸识别
+**响应**
 
-#### 注册人脸
-
-```
-POST /v1/faces
-```
-
-注册新的人脸用于认证。
-
-#### 列出人脸
-
-```
-GET /v1/faces
+```json
+[
+  {
+    "face_id": "face123",
+    "group_id": "user_id_identifier",
+    "id": 39,
+    "name": "测试人脸"
+  }
+]
 ```
 
-返回所有已注册的人脸列表。
+#### 创建人脸
 
-## 错误处理
+```http
+POST /faces
+Content-Type: multipart/form-data
+```
 
-API 使用标准 HTTP 状态码来表示请求的成功或失败：
+在终端的关联组中创建新的人脸。
 
-- 200: 成功
-- 400: 请求错误
-- 401: 未授权
-- 404: 未找到
-- 500: 服务器错误
+**参数**
 
-## 速率限制
+- `image`: 人脸图像文件（必需）
+- `name`: 人脸名称（必需）
 
-API 请求限制为每个 API 密钥每分钟 100 个请求。如果您超过此限制，您将收到 429 Too Many Requests 响应。
+**响应**
+
+```json
+{
+  "return_code": 0,
+  "return_message": "成功"
+}
+```
+
+#### 获取特定人脸
+
+```http
+GET /faces/{face_id}
+```
+
+获取终端组中的特定人脸。
+
+**响应**
+
+```json
+{
+  "face_id": "face123",
+  "group_id": "user_id_identifier",
+  "id": 39,
+  "name": "测试人脸"
+}
+```
+
+#### 更新人脸
+
+```http
+PUT /faces/{face_id}
+Content-Type: multipart/form-data
+```
+
+更新终端组中的特定人脸。
+
+**参数**
+
+- `name`: 人脸名称（必需）
+- `image`: 人脸图像文件（可选）
+
+**响应**
+
+```json
+{
+  "return_code": 0,
+  "return_message": "成功"
+}
+```
+
+#### 删除人脸
+
+```http
+DELETE /faces/{face_id}
+```
+
+删除终端组中的特定人脸。
+
+**响应**
+
+- 204 No Content
+
+#### 获取人脸图像
+
+```http
+GET /faces/{face_id}/image
+```
+
+获取特定人脸的图像。
+
+**响应**
+
+- 图像数据（适当的 MIME 类型）
+
+### 错误响应
+
+所有端点都可能返回以下错误响应：
+
+- `400 Bad Request`: 请求参数无效
+- `401 Unauthorized`: 认证失败
+- `404 Not Found`: 资源未找到
+- `500 Internal Server Error`: 服务器错误
+
+## 实现细节
+
+### Face ID 生成
+
+创建人脸时，系统会自动生成唯一的 face_id。face_id 是一个 32 字符的十六进制字符串，由 16 个随机字节生成。
+
+## 最佳实践
+
+1. **错误处理**
+
+   - 始终检查响应状态码
+   - 为所有 API 调用实现适当的错误处理
+   - 使用合适的重试机制
+
+2. **安全性**
+
+   - 妥善保管您的终端密钥
+   - 对所有 API 调用使用 HTTPS
+
+3. **性能**
+   - 适当缓存响应
+   - 实现请求批处理
+   - 对大型负载使用压缩
