@@ -21,18 +21,15 @@ export const metadata: Metadata = {
     "Ticos Cloud is a platform for building and deploying AI agents.",
   title: {
     absolute: "",
-    template: "%s | Ticos Cloud",
+    template: "%s | Ticos Docs",
   },
-  metadataBase: new URL("https://cloud.ticos.ai"),
+  metadataBase: new URL("https://docs.ticos.ai"),
   openGraph: {
     images:
       "https://assets.vercel.com/image/upload/v1572282926/swr/twitter-card.jpg",
   },
-  twitter: {
-    site: "@vercel",
-  },
   appleWebApp: {
-    title: "Ticos Cloud",
+    title: "Ticos Docs",
   },
   other: {
     "msapplication-TileColor": "#fff",
