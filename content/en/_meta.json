@@ -1,10 +1,22 @@
 {
+  "_": {
+    "type": "separator",
+    "title": "Documentation"
+  },
   "index": {
     "title": "Getting Started",
+    "type": "page"
+  },
+  "docs": {
+    "title": "Documentation",
     "type": "page"
   },
   "api": {
     "title": "API Documentation",
     "type": "page"
+  },
+  "realtime-typescript-sdk": {
+    "type": "page",
+    "title": "Realtime TypeScript SDK"
   }
 }

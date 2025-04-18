@@ -1,8 +1,6 @@
 /* eslint-env node */
-import { SwrIcon, VercelIcon } from "@app/_icons";
 import type { Metadata } from "next";
 import {
-  Footer,
   LastUpdated,
   Layout,
   Link,
@@ -11,7 +9,6 @@ import {
 } from "nextra-theme-docs";
 import { Banner, Head } from "nextra/components";
 import { getPageMap } from "nextra/page-map";
-import Image from "next/image";
 import type { FC, ReactNode } from "react";
 import { getDictionary, getDirection } from "../_dictionaries/get-dictionary";
 import "./styles.css";
@@ -21,15 +18,11 @@ export const metadata: Metadata = {
     "Ticos Cloud is a platform for building and deploying AI agents.",
   title: {
     absolute: "",
-    template: "%s | Ticos Docs",
+    template: "%s | Ticos Cloud",
   },
   metadataBase: new URL("https://docs.ticos.ai"),
-  openGraph: {
-    images:
-      "https://assets.vercel.com/image/upload/v1572282926/swr/twitter-card.jpg",
-  },
   appleWebApp: {
-    title: "Ticos Docs",
+    title: "Ticos Cloud",
   },
   other: {
     "msapplication-TileColor": "#fff",
@@ -103,8 +96,11 @@ const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
           sidebar={{
             defaultMenuCollapseLevel: 1,
             autoCollapse: true,
+            defaultOpen: true,
+            toggleButton: true,
           }}
           toc={{
+            float: true,
             backToTop: dictionary.backToTop,
           }}
           editLink={dictionary.editPage}

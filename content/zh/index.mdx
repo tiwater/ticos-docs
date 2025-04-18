@@ -1,55 +1,172 @@
-# 欢迎使用 Ticos 平台
+<div className="space-y-20 py-10">
+  {/* Hero Section */}
+  <div className="flex flex-col items-center text-center space-y-8">
+    <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-full text-sm font-medium">
+      强大的 AI 开发平台
+    </div>
+    <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
+      Ticos Cloud <br />
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
+       构建和部署 Ticos AI 智能体
+      </span>
+    </h1>
+    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl">
+      Ticos Cloud 提供构建、训练和部署 AI 智能体所需的一切。从原型设计到生产环境，我们为您提供全方位支持。
+    </p>
+    <div className="flex flex-wrap gap-4 justify-center">
+      <a 
+        href="/zh/docs" 
+        className="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
+      >
+        开始使用
+      </a>
+      <a 
+        href="/zh/docs/api" 
+        className="px-8 py-3 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-colors"
+      >
+        API 文档
+      </a>
+    </div>
+  </div>
 
-Ticos 平台是一个基于大语言模型（LLM）的具身智能终端管理和支持解决方案。该平台为您的 AI 设备提供智能支持和运维管理能力。
+{/* Feature Cards */}
 
-## Ticos 平台是什么？
+{" "}
 
-Ticos 平台基于 Next.js 构建，为以下功能提供强大的基础：
+<div className="space-y-8">
+  <h2 className="text-3xl font-bold text-center">核心功能</h2>
+  <div className="grid md:grid-cols-3 gap-6">
+    <a
+      href="/zh/docs/getting-started"
+      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+    >
+      <div className="flex items-center mb-2">
+        <div className="mr-2 text-blue-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"
+            />
+          </svg>
+        </div>
+        <h3 className="font-bold text-lg">AI 智能体开发</h3>
+      </div>
+      <p className="text-gray-600 dark:text-gray-400">
+        使用我们直观的开发工具和丰富的组件库构建强大的 AI 智能体。
+      </p>
+    </a>
 
-- 具身智能终端管理
-- 通过 LLM 提供智能支持
-- 运维管理任务处理
-- 用户认证和访问控制
-- 人脸识别数据处理
+    <a
+      href="/zh/realtime-typescript-sdk"
+      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+    >
+      <div className="flex items-center mb-2">
+        <div className="mr-2 text-blue-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+            />
+          </svg>
+        </div>
+        <h3 className="font-bold text-lg">实时 SDK</h3>
+      </div>
+      <p className="text-gray-600 dark:text-gray-400">
+        使用我们的 TypeScript SDK 创建具有实时通信功能的交互式 AI 体验。
+      </p>
+    </a>
 
-## 核心功能
+    <a
+      href="/zh/docs/api"
+      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+    >
+      <div className="flex items-center mb-2">
+        <div className="mr-2 text-blue-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
+            />
+          </svg>
+        </div>
+        <h3 className="font-bold text-lg">API 集成</h3>
+      </div>
+      <p className="text-gray-600 dark:text-gray-400">
+        无缝集成我们全面的 API，获取高级 AI 功能。
+      </p>
+    </a>
 
-### 终端管理
+  </div>
+</div>
 
-- 集中管理 AI 终端
-- 实时监控和状态更新
-- 配置管理
-- 远程控制能力
+{/* Testimonials */}
 
-### 智能支持
+{" "}
 
-- LLM 驱动的辅助功能
-- 自然语言交互
-- 上下文感知响应
-- 多模态支持
+<div className="space-y-8 bg-gray-50 dark:bg-gray-900 p-8 rounded-xl">
+  <h2 className="text-3xl font-bold text-center">全球开发者的信赖之选</h2>
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+      <p className="text-gray-600 dark:text-gray-400 mb-4">
+        "Ticos Cloud 彻底改变了我们构建 AI
+        应用的方式。平台直观易用，文档非常出色。"
+      </p>
+      <div className="font-medium">陈丽，TechInnovate 首席技术官</div>
+    </div>
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+      <p className="text-gray-600 dark:text-gray-400 mb-4">
+        "实时 SDK 为我们节省了数月的开发时间。我们的 AI
+        智能体现在为用户提供无缝体验。"
+      </p>
+      <div className="font-medium">张伟，首席开发工程师</div>
+    </div>
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+      <p className="text-gray-600 dark:text-gray-400 mb-4">
+        "API 集成非常简单，文档让我们能够快速上手并运行。"
+      </p>
+      <div className="font-medium">李明，AI 工程师</div>
+    </div>
+  </div>
+</div>
 
-### 安全与认证
+{/* CTA Section */}
 
-- 安全的终端认证
-- 人脸识别管理
-- 访问控制和权限
-- 数据加密
-
-## 快速开始
-
-1. **平台访问**
-
-   - 访问 [Ticos Cloud](https://cloud.ticos.ai)
-   - 注册账号
-   - 完成入门流程
-
-2. **终端设置**
-
-   - 注册您的 AI 终端
-   - 配置终端设置
-   - 设置认证方式
-
-3. **基础配置**
-   - 配置 LLM 设置
-   - 设置人脸识别
-   - 定义访问控制
+  <div className="text-center space-y-6 bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-10 rounded-xl">
+    <h2 className="text-3xl font-bold">准备好使用 Ticos 构建了吗？</h2>
+    <p className="max-w-2xl mx-auto text-blue-100">
+      立即开始，加入数千名正在构建下一代 AI 应用的开发者行列。
+    </p>
+    <div>
+      <a
+        href="/zh/docs"
+        className="inline-block px-8 py-3 rounded-lg bg-white text-blue-600 hover:bg-blue-50 font-medium transition-colors"
+      >
+        立即开始构建
+      </a>
+    </div>
+  </div>
+</div>

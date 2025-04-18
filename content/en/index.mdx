@@ -1,55 +1,179 @@
-# Welcome to Ticos Platform
+<div className="space-y-20 py-10">
+  {/* Hero Section */}
+  <div className="flex flex-col items-center text-center space-y-8">
+    <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-full text-sm font-medium">
+      Powerful AI Development Platform
+    </div>
+    <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
+      Ticos Cloud <br />
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
+        Build and Deploy AI Agents with Ticos
+      </span>
+    </h1>
+    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl">
+      Ticos Cloud provides everything you need to build, train, and deploy 
+      AI agents at scale. From prototyping to production, we've got you covered.
+    </p>
+    <div className="flex flex-wrap gap-4 justify-center">
+      <a 
+        href="/docs" 
+        className="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
+      >
+        Get Started
+      </a>
+      <a 
+        href="/docs/api" 
+        className="px-8 py-3 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-colors"
+      >
+        API Reference
+      </a>
+    </div>
+  </div>
 
-Ticos Platform is a comprehensive solution for managing and supporting embodied AI terminals through Large Language Models (LLMs). This platform provides intelligent support and operational management capabilities for your AI-powered devices.
+{/* Feature Cards */}
 
-## What is Ticos Platform?
+{" "}
 
-Ticos Platform is built on Next.js and provides a robust foundation for:
+<div className="space-y-8">
+  <h2 className="text-3xl font-bold text-center">Key Features</h2>
+  <div className="grid md:grid-cols-3 gap-6">
+    <a
+      href="/docs/getting-started"
+      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+    >
+      <div className="flex items-center mb-2">
+        <div className="mr-2 text-blue-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"
+            />
+          </svg>
+        </div>
+        <h3 className="font-bold text-lg">AI Agent Development</h3>
+      </div>
+      <p className="text-gray-600 dark:text-gray-400">
+        Build powerful AI agents with our intuitive development tools and
+        extensive library of components.
+      </p>
+    </a>
 
-- Managing embodied AI terminals
-- Providing intelligent support through LLMs
-- Handling operational management tasks
-- Managing user authentication and access control
-- Processing and managing face recognition data
+    <a
+      href="/realtime-typescript-sdk"
+      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+    >
+      <div className="flex items-center mb-2">
+        <div className="mr-2 text-blue-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+            />
+          </svg>
+        </div>
+        <h3 className="font-bold text-lg">Realtime SDK</h3>
+      </div>
+      <p className="text-gray-600 dark:text-gray-400">
+        Create interactive AI experiences with our TypeScript SDK for real-time
+        communication.
+      </p>
+    </a>
 
-## Key Features
+    <a
+      href="/docs/api"
+      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+    >
+      <div className="flex items-center mb-2">
+        <div className="mr-2 text-blue-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
+            />
+          </svg>
+        </div>
+        <h3 className="font-bold text-lg">API Integration</h3>
+      </div>
+      <p className="text-gray-600 dark:text-gray-400">
+        Seamlessly integrate with our comprehensive API for advanced AI
+        capabilities.
+      </p>
+    </a>
 
-### Terminal Management
+  </div>
+</div>
 
-- Centralized management of AI terminals
-- Real-time monitoring and status updates
-- Configuration management
-- Remote control capabilities
+{/* Testimonials */}
 
-### Intelligent Support
+{" "}
 
-- LLM-powered assistance
-- Natural language interaction
-- Context-aware responses
-- Multi-modal support
+<div className="space-y-8 bg-gray-50 dark:bg-gray-900 p-8 rounded-xl">
+  <h2 className="text-3xl font-bold text-center">
+    Trusted by Developers Worldwide
+  </h2>
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+      <p className="text-gray-600 dark:text-gray-400 mb-4">
+        "Ticos Cloud has transformed how we build AI applications. The platform
+        is intuitive and the documentation is exceptional."
+      </p>
+      <div className="font-medium">Sarah Chen, CTO at TechInnovate</div>
+    </div>
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+      <p className="text-gray-600 dark:text-gray-400 mb-4">
+        "The Realtime SDK saved us months of development time. Our AI agents now
+        provide a seamless experience for our users."
+      </p>
+      <div className="font-medium">Michael Rodriguez, Lead Developer</div>
+    </div>
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+      <p className="text-gray-600 dark:text-gray-400 mb-4">
+        "API integration was straightforward and the documentation made it easy
+        to get up and running quickly."
+      </p>
+      <div className="font-medium">Ava Johnson, AI Engineer</div>
+    </div>
+  </div>
+</div>
 
-### Security & Authentication
+{/* CTA Section */}
 
-- Secure terminal authentication
-- Face recognition management
-- Access control and permissions
-- Data encryption
-
-## Getting Started
-
-1. **Platform Access**
-
-   - Visit [Ticos Cloud](https://cloud.ticos.ai)
-   - Sign up for an account
-   - Complete the onboarding process
-
-2. **Terminal Setup**
-
-   - Register your AI terminal
-   - Configure terminal settings
-   - Set up authentication
-
-3. **Basic Configuration**
-   - Configure LLM settings
-   - Set up face recognition
-   - Define access controls
+  <div className="text-center space-y-6 bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-10 rounded-xl">
+    <h2 className="text-3xl font-bold">Ready to build with Ticos?</h2>
+    <p className="max-w-2xl mx-auto text-blue-100">
+      Get started today and join thousands of developers building the next generation of AI applications.
+    </p>
+    <div>
+      <a 
+        href="/docs" 
+        className="inline-block px-8 py-3 rounded-lg bg-white text-blue-600 hover:bg-blue-50 font-medium transition-colors"
+      >
+        Start Building Now
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,22 @@
 {
+  "_": {
+    "type": "separator",
+    "title": "文档"
+  },
   "index": {
-    "title": "开始使用",
+    "title": "首页",
+    "type": "page"
+  },
+  "docs": {
+    "title": "文档",
     "type": "page"
   },
   "api": {
     "title": "API 文档",
+    "type": "page"
+  },
+  "realtime-typescript-sdk": {
+    "title": "Realtime SDK",
     "type": "page"
   }
 }

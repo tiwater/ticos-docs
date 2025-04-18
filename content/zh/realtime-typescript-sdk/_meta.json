@@ -1,0 +1,14 @@
+{
+  "classes": {
+    "title": "Classes"
+  },
+  "interfaces": {
+    "title": "Interfaces"
+  },
+  "type-aliases": {
+    "title": "Type Aliases"
+  },
+  "index": {
+    "title": "Overview"
+  }
+}
