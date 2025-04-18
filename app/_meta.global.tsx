@@ -5,7 +5,11 @@ export default {
   },
   docs: {
     type: "page",
-    title: "Documentation",
+    title: "Docs",
+    items: {
+      "getting-started": "",
+      api: "",
+    },
   },
   sdk: {
     type: "menu",
@@ -16,5 +20,10 @@ export default {
         href: "/realtime-typescript-sdk",
       },
     },
+  },
+  ticos: {
+    type: "page",
+    title: "Ticos Cloud",
+    href: "https://cloud.ticos.ai",
   },
 };

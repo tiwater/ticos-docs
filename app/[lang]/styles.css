@@ -9,7 +9,7 @@ body {
   --bg-dot-color: #d1d1d1;
 
   .dark & {
-    --bg-dot-color: #313131;
+    --bg-dot-color: #373333;
   }
 
   background:

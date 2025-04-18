@@ -1,4 +1,5 @@
-{
+// This file is auto-generated, do not edit
+export default {
   "classes": {
     "title": "Classes"
   },
@@ -11,4 +12,4 @@
   "index": {
     "title": "Overview"
   }
-}
+};

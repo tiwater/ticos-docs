@@ -1,54 +1,63 @@
-<div className="space-y-20 py-10">
+<div className="space-y-24 py-16">
   {/* Hero Section */}
-  <div className="flex flex-col items-center text-center space-y-8">
-    <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-full text-sm font-medium">
+  <div className="flex flex-col items-center text-center space-y-10">
+    <div className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-md transform hover:scale-105 transition-all">
       强大的 AI 开发平台
     </div>
-    <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
+    <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
       Ticos Cloud <br />
-      <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 animate-gradient-text">
        构建和部署 Ticos AI 智能体
       </span>
     </h1>
-    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl">
-      Ticos Cloud 提供构建、训练和部署 AI 智能体所需的一切。从原型设计到生产环境，我们为您提供全方位支持。
-    </p>
-    <div className="flex flex-wrap gap-4 justify-center">
+    <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl">
+      Ticos Cloud 提供构建、训练和部署 AI 智能体所需的一切。从原型设计到生产环境，我们为您提供全方位支持.
+    </div>
+    <div className="flex flex-wrap gap-5 justify-center">
       <a 
         href="/zh/docs" 
-        className="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
+        className="px-10 py-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1 hover-button"
       >
         开始使用
       </a>
       <a 
         href="/zh/docs/api" 
-        className="px-8 py-3 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-colors"
+        className="px-10 py-4 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1 hover-button"
       >
         API 文档
       </a>
+    </div>
+    <div className="w-full max-w-5xl mt-10 rounded-xl overflow-hidden shadow-2xl image-card dark:glow-effect">
+      <img 
+        src="/images/dashboard-preview.png" 
+        alt="Ticos 平台预览" 
+        className="w-full h-auto object-cover"
+      />
     </div>
   </div>
 
 {/* Feature Cards */}
 
-{" "}
-
-<div className="space-y-8">
-  <h2 className="text-3xl font-bold text-center">核心功能</h2>
-  <div className="grid md:grid-cols-3 gap-6">
+<div className="space-y-12">
+  <h2 className="text-4xl font-bold text-center">
+    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 animate-gradient-text">
+      核心功能
+    </span>
+  </h2>
+  <div className="grid md:grid-cols-3 gap-8">
     <a
       href="/zh/docs/getting-started"
-      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+      className="group block p-8 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-900 hover-card-shadow"
     >
-      <div className="flex items-center mb-2">
-        <div className="mr-2 text-blue-500">
+      <div className="flex items-center mb-4">
+        <div className="mr-3 text-blue-500 bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg group-hover:scale-110 transition-transform">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            strokeWidth={2}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-7 h-7"
           >
             <path
               strokeLinecap="round"
@@ -57,26 +66,26 @@
             />
           </svg>
         </div>
-        <h3 className="font-bold text-lg">AI 智能体开发</h3>
+        <h3 className="font-bold text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">AI 智能体开发</h3>
       </div>
-      <p className="text-gray-600 dark:text-gray-400">
+      <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
         使用我们直观的开发工具和丰富的组件库构建强大的 AI 智能体。
-      </p>
+      </div>
     </a>
 
     <a
       href="/zh/realtime-typescript-sdk"
-      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+      className="group block p-8 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-900 hover-card-shadow"
     >
-      <div className="flex items-center mb-2">
-        <div className="mr-2 text-blue-500">
+      <div className="flex items-center mb-4">
+        <div className="mr-3 text-blue-500 bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg group-hover:scale-110 transition-transform">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            strokeWidth={2}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-7 h-7"
           >
             <path
               strokeLinecap="round"
@@ -85,26 +94,26 @@
             />
           </svg>
         </div>
-        <h3 className="font-bold text-lg">实时 SDK</h3>
+        <h3 className="font-bold text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">实时 SDK</h3>
       </div>
-      <p className="text-gray-600 dark:text-gray-400">
-        使用我们的 TypeScript SDK 创建具有实时通信功能的交互式 AI 体验。
-      </p>
+      <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+        使用我们的 TypeScript SDK 实现实时通信，创建交互式 AI 体验。
+      </div>
     </a>
 
     <a
       href="/zh/docs/api"
-      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
+      className="group block p-8 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-900 hover-card-shadow"
     >
-      <div className="flex items-center mb-2">
-        <div className="mr-2 text-blue-500">
+      <div className="flex items-center mb-4">
+        <div className="mr-3 text-blue-500 bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg group-hover:scale-110 transition-transform">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth={1.5}
+            strokeWidth={2}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-7 h-7"
           >
             <path
               strokeLinecap="round"
@@ -113,11 +122,11 @@
             />
           </svg>
         </div>
-        <h3 className="font-bold text-lg">API 集成</h3>
+        <h3 className="font-bold text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">API 集成</h3>
       </div>
-      <p className="text-gray-600 dark:text-gray-400">
+      <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
         无缝集成我们全面的 API，获取高级 AI 功能。
-      </p>
+      </div>
     </a>
 
   </div>
@@ -125,48 +134,105 @@
 
 {/* Testimonials */}
 
-{" "}
+<div className="space-y-10 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/50 p-10 rounded-2xl">
+  <h2 className="text-4xl font-bold text-center">
+    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 animate-gradient-text">
+      全球开发者的信赖之选
+    </span>
+  </h2>
+  <div className="grid md:grid-cols-3 gap-8">
+    <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-blue-500 hover-card-shadow">
+      <svg
+        className="h-10 w-10 text-blue-500 mb-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+      </svg>
+      <div className="text-gray-600 dark:text-gray-300 mb-6 text-lg italic">
+        "Ticos Cloud 彻底改变了我们构建 AI 应用程序的方式。平台直观，文档出色。"
+      </div>
+      <div className="flex items-center">
+        <img 
+          src="https://api.dicebear.com/9.x/lorelei/svg?seed=Chen&hairColor=000000&skinColor=f2c6a2" 
+          alt="陈丽" 
+          className="w-12 h-12 rounded-full mr-4 ring-2 ring-blue-200 dark:ring-blue-800"
+        />
+        <div>
+          <div className="font-medium text-lg">陈丽</div>
+          <div className="text-gray-500 dark:text-gray-400">
+            TechInnovate 首席技术官
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div className="space-y-8 bg-gray-50 dark:bg-gray-900 p-8 rounded-xl">
-  <h2 className="text-3xl font-bold text-center">全球开发者的信赖之选</h2>
-  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
-        "Ticos Cloud 彻底改变了我们构建 AI
-        应用的方式。平台直观易用，文档非常出色。"
-      </p>
-      <div className="font-medium">陈丽，TechInnovate 首席技术官</div>
-    </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
+    <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-cyan-500 hover-card-shadow">
+      <svg
+        className="h-10 w-10 text-cyan-500 mb-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 ai-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 ai-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+      </svg>
+      <div className="text-gray-600 dark:text-gray-300 mb-6 text-lg italic">
         "实时 SDK 为我们节省了数月的开发时间。我们的 AI
-        智能体现在为用户提供无缝体验。"
-      </p>
-      <div className="font-medium">张伟，首席开发工程师</div>
+        智能体现在为用户提供了无缝的体验。"
+      </div>
+      <div className="flex items-center">
+        <img
+          src="https://api.dicebear.com/9.x/lorelei/svg?seed=Zhang&glasses=square&glassesProbability=80&hairColor=000000"
+          alt="张伟"
+          className="w-12 h-12 rounded-full mr-4 ring-2 ring-cyan-200 dark:ring-cyan-800"
+        />
+        <div>
+          <div className="font-medium text-lg">张伟</div>
+          <div className="text-gray-500 dark:text-gray-400">首席开发工程师</div>
+        </div>
+      </div>
     </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
-        "API 集成非常简单，文档让我们能够快速上手并运行。"
-      </p>
-      <div className="font-medium">李明，AI 工程师</div>
+
+    <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-indigo-500 hover-card-shadow">
+      <svg
+        className="h-10 w-10 text-indigo-500 mb-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 ai-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 ai-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+      </svg>
+      <div className="text-gray-600 dark:text-gray-300 mb-6 text-lg italic">
+        "API 集成简单直观，文档使我们能够快速上手并运行。"
+      </div>
+      <div className="flex items-center">
+        <img
+          src="https://api.dicebear.com/9.x/lorelei/svg?seed=Li&hairColor=000000&skinColor=ecd2c7"
+          alt="李明"
+          className="w-12 h-12 rounded-full mr-4 ring-2 ring-indigo-200 dark:ring-indigo-800"
+        />
+        <div>
+          <div className="font-medium text-lg">李明</div>
+          <div className="text-gray-500 dark:text-gray-400">AI 工程师</div>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 
 {/* CTA Section */}
 
-  <div className="text-center space-y-6 bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-10 rounded-xl">
-    <h2 className="text-3xl font-bold">准备好使用 Ticos 构建了吗？</h2>
-    <p className="max-w-2xl mx-auto text-blue-100">
-      立即开始，加入数千名正在构建下一代 AI 应用的开发者行列。
-    </p>
-    <div>
-      <a
-        href="/zh/docs"
-        className="inline-block px-8 py-3 rounded-lg bg-white text-blue-600 hover:bg-blue-50 font-medium transition-colors"
-      >
-        立即开始构建
-      </a>
-    </div>
+<div className="text-center space-y-8 bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600 text-white p-16 rounded-2xl shadow-2xl dark:glow-effect">
+  <h2 className="text-4xl font-bold">准备好使用 Ticos 构建了吗？</h2>
+  <div className="max-w-2xl mx-auto text-blue-100 text-xl">
+    立即开始，加入数千名开发者的行列，共同构建下一代 AI 应用程序。
   </div>
+  <div className="pt-4">
+    <a
+      href="/zh/docs"
+      className="inline-block px-10 py-4 rounded-lg bg-white text-blue-600 hover:bg-blue-50 font-medium transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover-button"
+    >
+      立即开始构建
+    </a>
+  </div>
+</div>
 </div>

@@ -1,176 +1,241 @@
-<div className="space-y-20 py-10">
+<div className="space-y-24 py-16">
   {/* Hero Section */}
-  <div className="flex flex-col items-center text-center space-y-8">
-    <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-full text-sm font-medium">
+  <div className="flex flex-col items-center text-center space-y-10">
+    <div className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-md transform hover:scale-105 transition-all">
       Powerful AI Development Platform
     </div>
-    <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
+    <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
       Ticos Cloud <br />
-      <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 animate-gradient-text">
         Build and Deploy AI Agents with Ticos
       </span>
     </h1>
-    <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl">
+    <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl">
       Ticos Cloud provides everything you need to build, train, and deploy 
       AI agents at scale. From prototyping to production, we've got you covered.
-    </p>
-    <div className="flex flex-wrap gap-4 justify-center">
+    </div>
+    <div className="flex flex-wrap gap-5 justify-center">
       <a 
         href="/docs" 
-        className="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
+        className="px-10 py-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1 hover-button"
       >
         Get Started
       </a>
       <a 
         href="/docs/api" 
-        className="px-8 py-3 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-colors"
+        className="px-10 py-4 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 font-medium transition-all duration-200 hover:shadow-lg transform hover:-translate-y-1 hover-button"
       >
         API Reference
       </a>
+    </div>
+    <div className="w-full max-w-5xl mt-10 rounded-xl overflow-hidden shadow-2xl image-card dark:glow-effect">
+      <img 
+        src="/images/dashboard-preview.png" 
+        alt="Ticos Platform Preview" 
+        className="w-full h-auto object-cover"
+      />
     </div>
   </div>
 
 {/* Feature Cards */}
 
-{" "}
-
-<div className="space-y-8">
-  <h2 className="text-3xl font-bold text-center">Key Features</h2>
-  <div className="grid md:grid-cols-3 gap-6">
-    <a
-      href="/docs/getting-started"
-      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
-    >
-      <div className="flex items-center mb-2">
-        <div className="mr-2 text-blue-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"
-            />
-          </svg>
+  <div className="space-y-12">
+    <h2 className="text-4xl font-bold text-center">
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 animate-gradient-text">
+        Key Features
+      </span>
+    </h2>
+    <div className="grid md:grid-cols-3 gap-8">
+      <a
+        href="/docs/getting-started"
+        className="group block p-8 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-900 hover-card-shadow"
+      >
+        <div className="flex items-center mb-4">
+          <div className="mr-3 text-blue-500 bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg group-hover:scale-110 transition-transform">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-7 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"
+              />
+            </svg>
+          </div>
+          <h3 className="font-bold text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">AI Agent Development</h3>
         </div>
-        <h3 className="font-bold text-lg">AI Agent Development</h3>
-      </div>
-      <p className="text-gray-600 dark:text-gray-400">
-        Build powerful AI agents with our intuitive development tools and
-        extensive library of components.
-      </p>
-    </a>
-
-    <a
-      href="/realtime-typescript-sdk"
-      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
-    >
-      <div className="flex items-center mb-2">
-        <div className="mr-2 text-blue-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
+        <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+          Build powerful AI agents with our intuitive development tools and
+          extensive library of components.
         </div>
-        <h3 className="font-bold text-lg">Realtime SDK</h3>
-      </div>
-      <p className="text-gray-600 dark:text-gray-400">
-        Create interactive AI experiences with our TypeScript SDK for real-time
-        communication.
-      </p>
-    </a>
+      </a>
 
-    <a
-      href="/docs/api"
-      className="block p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-colors hover:shadow-md"
-    >
-      <div className="flex items-center mb-2">
-        <div className="mr-2 text-blue-500">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
-            />
-          </svg>
+      <a
+        href="/realtime-typescript-sdk"
+        className="group block p-8 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-900 hover-card-shadow"
+      >
+        <div className="flex items-center mb-4">
+          <div className="mr-3 text-blue-500 bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg group-hover:scale-110 transition-transform">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-7 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z"
+              />
+            </svg>
+          </div>
+          <h3 className="font-bold text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Realtime SDK</h3>
         </div>
-        <h3 className="font-bold text-lg">API Integration</h3>
-      </div>
-      <p className="text-gray-600 dark:text-gray-400">
-        Seamlessly integrate with our comprehensive API for advanced AI
-        capabilities.
-      </p>
-    </a>
+        <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+          Create interactive AI experiences with our TypeScript SDK for real-time
+          communication.
+        </div>
+      </a>
+
+      <a
+        href="/docs/api"
+        className="group block p-8 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-900 hover-card-shadow"
+      >
+        <div className="flex items-center mb-4">
+          <div className="mr-3 text-blue-500 bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg group-hover:scale-110 transition-transform">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-7 h-7"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
+              />
+            </svg>
+          </div>
+          <h3 className="font-bold text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">API Integration</h3>
+        </div>
+        <div className="text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">
+          Seamlessly integrate with our comprehensive API for advanced AI
+          capabilities.
+        </div>
+      </a>
+    </div>
 
   </div>
-</div>
 
 {/* Testimonials */}
 
-{" "}
-
-<div className="space-y-8 bg-gray-50 dark:bg-gray-900 p-8 rounded-xl">
-  <h2 className="text-3xl font-bold text-center">
-    Trusted by Developers Worldwide
+<div className="space-y-10 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/50 p-10 rounded-2xl">
+  <h2 className="text-4xl font-bold text-center">
+    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 animate-gradient-text">
+      Trusted by Developers Worldwide
+    </span>
   </h2>
-  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
+  <div className="grid md:grid-cols-3 gap-8">
+    <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-blue-500 hover-card-shadow">
+      <svg
+        className="h-10 w-10 text-blue-500 mb-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+      </svg>
+      <div className="text-gray-600 dark:text-gray-300 mb-6 text-lg italic">
         "Ticos Cloud has transformed how we build AI applications. The platform
         is intuitive and the documentation is exceptional."
-      </p>
-      <div className="font-medium">Sarah Chen, CTO at TechInnovate</div>
+      </div>
+      <div className="flex items-center">
+        <img 
+          src="https://api.dicebear.com/9.x/lorelei/svg?seed=Sarah&hairColor=8b4513&skinColor=f2c6a2" 
+          alt="Sarah Chen" 
+          className="w-12 h-12 rounded-full mr-4 ring-2 ring-blue-200 dark:ring-blue-800"
+        />
+        <div>
+          <div className="font-medium text-lg">Sarah Chen</div>
+          <div className="text-gray-500 dark:text-gray-400">
+            CTO at TechInnovate
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
+
+    <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-cyan-500 hover-card-shadow">
+      <svg
+        className="h-10 w-10 text-cyan-500 mb-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+      </svg>
+      <div className="text-gray-600 dark:text-gray-300 mb-6 text-lg italic">
         "The Realtime SDK saved us months of development time. Our AI agents now
         provide a seamless experience for our users."
-      </p>
-      <div className="font-medium">Michael Rodriguez, Lead Developer</div>
+      </div>
+      <div className="flex items-center">
+        <img
+          src="https://api.dicebear.com/9.x/lorelei/svg?seed=Michael&glasses=round&glassesProbability=100&hairColor=272421"
+          alt="Michael Rodriguez"
+          className="w-12 h-12 rounded-full mr-4 ring-2 ring-cyan-200 dark:ring-cyan-800"
+        />
+        <div>
+          <div className="font-medium text-lg">Michael Rodriguez</div>
+          <div className="text-gray-500 dark:text-gray-400">Lead Developer</div>
+        </div>
+      </div>
     </div>
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
+
+    <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-t-4 border-indigo-500 hover-card-shadow">
+      <svg
+        className="h-10 w-10 text-indigo-500 mb-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179zm10 0C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311 1.804 .167 3.226 1.648 3.226 3.489a3.5 3.5 0 01-3.5 3.5c-1.073 0-2.099-.49-2.748-1.179z" />
+      </svg>
+      <div className="text-gray-600 dark:text-gray-300 mb-6 text-lg italic">
         "API integration was straightforward and the documentation made it easy
         to get up and running quickly."
-      </p>
-      <div className="font-medium">Ava Johnson, AI Engineer</div>
+      </div>
+      <div className="flex items-center">
+        <img
+          src="https://api.dicebear.com/9.x/lorelei/svg?seed=Ava&earrings=variant02&earringsProbability=100&hairColor=ac6651"
+          alt="Ava Johnson"
+          className="w-12 h-12 rounded-full mr-4 ring-2 ring-indigo-200 dark:ring-indigo-800"
+        />
+        <div>
+          <div className="font-medium text-lg">Ava Johnson</div>
+          <div className="text-gray-500 dark:text-gray-400">AI Engineer</div>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 
 {/* CTA Section */}
 
-  <div className="text-center space-y-6 bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-10 rounded-xl">
-    <h2 className="text-3xl font-bold">Ready to build with Ticos?</h2>
-    <p className="max-w-2xl mx-auto text-blue-100">
+  <div className="text-center space-y-8 bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600 text-white p-16 rounded-2xl shadow-2xl dark:glow-effect">
+    <h2 className="text-4xl font-bold">Ready to build with Ticos?</h2>
+    <div className="max-w-2xl mx-auto text-blue-100 text-xl">
       Get started today and join thousands of developers building the next generation of AI applications.
-    </p>
-    <div>
+    </div>
+    <div className="pt-4">
       <a 
         href="/docs" 
-        className="inline-block px-8 py-3 rounded-lg bg-white text-blue-600 hover:bg-blue-50 font-medium transition-colors"
+        className="inline-block px-10 py-4 rounded-lg bg-white text-blue-600 hover:bg-blue-50 font-medium transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover-button"
       >
         Start Building Now
       </a>

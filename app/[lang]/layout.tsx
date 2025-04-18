@@ -12,17 +12,19 @@ import { getPageMap } from "nextra/page-map";
 import type { FC, ReactNode } from "react";
 import { getDictionary, getDirection } from "../_dictionaries/get-dictionary";
 import "./styles.css";
+import "./global.css";
+import { Locale } from "@app/i18n-utils";
 
 export const metadata: Metadata = {
   description:
     "Ticos Cloud is a platform for building and deploying AI agents.",
   title: {
     absolute: "",
-    template: "%s | Ticos Cloud",
+    template: "%s | Ticos Docs",
   },
   metadataBase: new URL("https://docs.ticos.ai"),
   appleWebApp: {
-    title: "Ticos Cloud",
+    title: "Ticos Docs",
   },
   other: {
     "msapplication-TileColor": "#fff",
@@ -40,31 +42,34 @@ const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
   const { lang } = await params;
   const dictionary = await getDictionary(lang);
   let pageMap = await getPageMap(`/${lang}`);
+  const currentLocale = lang as Locale;
 
   if (lang === "en") {
     pageMap = [...pageMap];
   }
+
   const banner = (
     <Banner storageKey="swr-2">
       Ticos Cloud is out! <Link href="#">Read more →</Link>
     </Banner>
   );
+
   const navbar = (
     <Navbar
       logo={
         <>
           <img
             src="/logo.svg"
-            alt="Ticos Cloud"
+            alt="Ticos Docs"
             height="24"
             width="24"
             style={{ height: "24px", width: "auto" }}
           />
           <span
             className="ms-2 select-none font-extrabold max-md:hidden"
-            title={`Ticos Cloud: ${dictionary.logo.title}`}
+            title={`Ticos Docs: ${dictionary.logo.title}`}
           >
-            Ticos Cloud
+            Ticos Docs
           </span>
         </>
       }
@@ -73,6 +78,7 @@ const RootLayout: FC<LayoutProps> = async ({ children, params }) => {
       <LocaleSwitch lite />
     </Navbar>
   );
+
   return (
     <html lang={lang} dir={getDirection(lang)} suppressHydrationWarning>
       <Head
