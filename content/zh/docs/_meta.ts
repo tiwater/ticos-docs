@@ -7,4 +7,7 @@ export default {
   api: {
     title: "API 参考",
   },
+  "realtime-protocols": {
+    title: "实时通信协议",
+  },
 } satisfies Meta;

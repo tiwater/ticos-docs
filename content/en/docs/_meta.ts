@@ -7,4 +7,7 @@ export default {
   api: {
     title: "API Reference",
   },
+  "realtime-protocols": {
+    title: "Realtime Protocols",
+  },
 } satisfies Meta;

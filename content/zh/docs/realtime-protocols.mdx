@@ -1,0 +1,269 @@
+---
+title: "实时通信协议"
+description: "Ticos物联网设备通信中使用的实时协议综合指南"
+---
+
+# Ticos 实时通信协议
+
+Ticos 通过专门的基于 WebSocket 的协议套件为物联网设备提供强大的实时通信能力。本文档详细说明了 Ticos 实时通信协议的规范和实现。
+
+## WebSocket 连接端点
+
+Ticos 系统提供了几个 WebSocket 端点用于不同的通信目的：
+
+```
+ws://[服务器IP地址]:[端口]/[端点]
+```
+
+默认端口为 9860，端点包括：
+
+- `/system` - 系统信息交换
+- `/control` - 机器人控制命令
+- `/audio` - 音频数据流
+- `/video` - 视频/图像数据流
+- `/realtime` - 通用实时通信
+
+## 消息结构
+
+### 通用消息头格式
+
+Ticos 中所有二进制协议消息都遵循以下通用头格式：
+
+| 字节 | 值         | 描述             |
+| ---- | ---------- | ---------------- |
+| 0    | 0x54       | 同步头（字母 T） |
+| 1    | 0xXX       | 消息类型         |
+| 2~5  | 0xXXXXXXXX | 消息 ID          |
+| 6~9  | 0xXXXXXXXX | 消息数据长度     |
+| 10~n | 数据       | 消息数据         |
+| n+1  | 0xXX       | 校验码           |
+
+### JSON 消息格式
+
+对于使用 JSON 有效载荷的 WebSocket 通信，消息通常包括：
+
+- `msg_id` - 唯一消息标识符
+- `type` - 消息类型标识符
+- 基于消息类型的附加字段
+
+## 控制协议
+
+控制协议处理设备初始化、配置和命令交换。
+
+### 建立连接
+
+1. 设备建立到 `/control` 的 WebSocket 连接
+2. 设备发送带有配置和标识的 `start` 消息
+3. 服务器响应 `start_ok` 消息以确认连接
+
+### Start 消息格式
+
+```json
+{
+  "msg_id": "唯一消息ID",
+  "type": "start",
+  "group_id": 123,
+  "robot_id": 456,
+  "robot_name": "TicosBot",
+  "image_width": 1280,
+  "image_height": 720,
+  "asr_supplier": "tiwater",
+  "llm_supplier": "tiwater",
+  "tts_supplier": "tiwater",
+  "mic_sample_rate": 16000,
+  "mic_chunk_size": 320,
+  "mic_min_duration": 0.3,
+  "vad_max_silence_duration": 0.6,
+  "volume_filter_min_threshold": 0.15,
+  "llm_system_prompt": "你是太水科技生产的人形机器人小太",
+  "tts_speaker_id": "tiwater_speaker",
+  "tts_speed_ratio": 50,
+  "tts_volume_ratio": 50,
+  "tts_pitch_ratio": 50,
+  "speaker_sample_rate": 16000,
+  "speaker_encoding": "pcm",
+  "motion_tags": [
+    "move_forward",
+    "move_backward",
+    "turn_left",
+    "turn_right",
+    "wave_hand"
+  ],
+  "emotion_tags": ["neutral", "happy", "sad", "angry"],
+  "audio_downstream_type": 2
+}
+```
+
+### 情感和动作命令
+
+服务器可以发送情感和动作命令来指导设备行为：
+
+```json
+{
+  "msg_id": "唯一消息ID",
+  "type": "emotion",
+  "emotion": "happy"
+}
+```
+
+```json
+{
+  "msg_id": "唯一消息ID",
+  "type": "motion",
+  "motion": "wave_hand"
+}
+```
+
+## 音频协议
+
+音频协议处理设备和服务器之间的双向音频流。
+
+### 麦克风音频上传
+
+- 连接到 `ws://[服务器IP地址]:[端口]/audio`
+- 消息类型：`0x10`
+- 格式：PCM 音频块
+- 每个消息包含一个或多个完整的音频帧
+
+### 音频响应下载
+
+系统支持两种音频下行传输模式：
+
+1. **仅语音模式**（`audio_downstream_type = 1`）
+
+   - 消息类型：`0x11`
+   - 包含语音段 ID、序列号和 PCM 音频数据
+
+2. **语音和文本模式**（`audio_downstream_type = 2`）
+   - 消息类型：`0x13`
+   - 包含语音段 ID、序列号、文本长度、PCM 音频数据和文本数据
+
+### 音频消息结构（语音和文本）
+
+| 字段         | 字节               | 描述               |
+| ------------ | ------------------ | ------------------ |
+| 语音段 ID    | 10~13              | 语音段的整数 ID    |
+| 序列号       | 14~17              | 段内的整数序列     |
+| 生成时间戳   | 18~21              | 生成的浮点时间戳   |
+| 文本长度     | 22~25              | 文本数据长度（L1） |
+| 语音数据长度 | 26~29              | 语音数据长度（L2） |
+| 文本数据     | 30~(30+L1)         | 文本内容           |
+| 语音数据     | (31+L1)~(31+L1+L2) | PCM 音频数据       |
+
+## 视频协议
+
+视频协议处理从设备到服务器的图像和视频数据流。
+
+### 相机图像上传
+
+- 连接到 `ws://[服务器IP地址]:[端口]/video`
+- 消息类型：`0x20`
+- 格式：JPEG 图像
+- 每个消息包含一个完整的 JPEG 图像
+
+### 人脸识别数据
+
+设备可以发送从相机图像中提取的人脸识别数据：
+
+- 消息类型：`0x21`
+- 包含人脸数量、人脸数据长度和 JSON 格式的人脸元数据
+
+## 客户端 SDK 使用
+
+### 安装
+
+```bash
+# 使用 npm
+npm install @ticos/realtime-api
+
+# 使用 yarn
+yarn add @ticos/realtime-api
+
+# 使用 pnpm
+pnpm add @ticos/realtime-api
+```
+
+### 基本用法
+
+```typescript
+import { RealtimeClient } from "@ticos/realtime-api";
+
+// 初始化客户端
+const client = new RealtimeClient();
+
+// 连接到 Ticos 实时 API
+await client.connect();
+
+// 发送消息
+client.sendUserMessageContent([{ type: "text", text: "你好，Ticos！" }]);
+
+// 监听响应
+client.on("conversation.updated", (event) => {
+  if (event.item.role === "assistant") {
+    console.log("助手响应:", event.item.formatted.text);
+  }
+});
+```
+
+### 工具注册
+
+```typescript
+// 注册工具
+client.registerTool({
+  definition: {
+    name: "get_device_status",
+    description: "获取设备的当前状态",
+    type: "function",
+    parameters: {
+      type: "object",
+      properties: {
+        device_id: {
+          type: "string",
+          description: "设备的ID",
+        },
+      },
+      required: ["device_id"],
+    },
+  },
+  handler: async (params) => {
+    const { device_id } = params;
+    // 获取设备状态的实现
+    return { status: "online", battery: 85 };
+  },
+});
+```
+
+## 安全考虑
+
+- 所有通信应使用 TLS 加密
+- API 密钥应保持安全，不要在客户端代码中暴露
+- 为工具执行实施适当的访问控制
+- 定期审核工具注册和执行
+- 考虑物联网部署的网络分段
+
+## 最佳实践
+
+1. **连接管理**：实现适当的重连逻辑以处理网络中断
+2. **错误处理**：优雅地处理来自实时 API 的错误
+3. **消息批处理**：在适当的情况下批处理多个消息以减少网络开销
+4. **数据验证**：在处理前验证所有传入消息
+5. **速率限制**：实施速率限制以防止 API 滥用
+6. **事件缓冲**：在连接丢失期间缓冲事件以进行重新同步
+
+## 系统要求
+
+### 软件依赖
+
+```
+python3.9
+portaudio19-dev
+ffmpeg
+python3.9-dev
+alsa-utils
+pulseaudio
+redis
+```
+
+## 参考实现
+
+关于完整的参考实现，请查看 [GitHub 上的官方 Ticos 实时 API 存储库](https://github.com/tiwater/tips)。

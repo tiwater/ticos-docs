@@ -1,0 +1,269 @@
+---
+title: "Realtime Protocols"
+description: "A comprehensive guide to the realtime protocols used in Ticos for IoT device communication"
+---
+
+# Realtime Protocols in Ticos
+
+Ticos provides robust real-time communication capabilities for IoT devices through a specialized WebSocket-based protocol suite. This documentation details the specifications and implementation of the Ticos realtime communication protocols.
+
+## WebSocket Connection Endpoints
+
+The Ticos system exposes several WebSocket endpoints for different communication purposes:
+
+```
+ws://[server-ip-address]:[port]/[endpoint]
+```
+
+Where the default port is 9860 and endpoints include:
+
+- `/system` - System information exchange
+- `/control` - Robot control commands
+- `/audio` - Audio data streaming
+- `/video` - Video/image data streaming
+- `/realtime` - General realtime communication
+
+## Message Structure
+
+### Common Message Header Format
+
+All binary protocol messages in Ticos follow this common header format:
+
+| Byte | Value      | Description            |
+| ---- | ---------- | ---------------------- |
+| 0    | 0x54       | Sync header (letter T) |
+| 1    | 0xXX       | Message type           |
+| 2~5  | 0xXXXXXXXX | Message ID             |
+| 6~9  | 0xXXXXXXXX | Message data length    |
+| 10~n | Data       | Message data           |
+| n+1  | 0xXX       | Checksum               |
+
+### JSON Message Format
+
+For WebSocket communication using JSON payloads, messages typically include:
+
+- `msg_id` - Unique message identifier
+- `type` - Message type identifier
+- Additional fields based on the message type
+
+## Control Protocol
+
+The control protocol handles device initialization, configuration, and command exchange.
+
+### Establishing a Connection
+
+1. The device establishes a WebSocket connection to `/control`
+2. Device sends a `start` message with configuration and identification
+3. Server responds with a `start_ok` message to confirm connection
+
+### Start Message Format
+
+```json
+{
+  "msg_id": "unique-message-id",
+  "type": "start",
+  "group_id": 123,
+  "robot_id": 456,
+  "robot_name": "TicosBot",
+  "image_width": 1280,
+  "image_height": 720,
+  "asr_supplier": "tiwater",
+  "llm_supplier": "tiwater",
+  "tts_supplier": "tiwater",
+  "mic_sample_rate": 16000,
+  "mic_chunk_size": 320,
+  "mic_min_duration": 0.3,
+  "vad_max_silence_duration": 0.6,
+  "volume_filter_min_threshold": 0.15,
+  "llm_system_prompt": "You are Ticos, an AI assistant built by Tiwater",
+  "tts_speaker_id": "tiwater_speaker",
+  "tts_speed_ratio": 50,
+  "tts_volume_ratio": 50,
+  "tts_pitch_ratio": 50,
+  "speaker_sample_rate": 16000,
+  "speaker_encoding": "pcm",
+  "motion_tags": [
+    "move_forward",
+    "move_backward",
+    "turn_left",
+    "turn_right",
+    "wave_hand"
+  ],
+  "emotion_tags": ["neutral", "happy", "sad", "angry"],
+  "audio_downstream_type": 2
+}
+```
+
+### Emotion and Motion Commands
+
+The server can send emotion and motion commands to direct device behavior:
+
+```json
+{
+  "msg_id": "unique-message-id",
+  "type": "emotion",
+  "emotion": "happy"
+}
+```
+
+```json
+{
+  "msg_id": "unique-message-id",
+  "type": "motion",
+  "motion": "wave_hand"
+}
+```
+
+## Audio Protocol
+
+The audio protocol handles bidirectional audio streaming between devices and the server.
+
+### Microphone Audio Upload
+
+- Connect to `ws://[server-ip-address]:[port]/audio`
+- Message type: `0x10`
+- Format: PCM audio blocks
+- Each message contains one or more complete audio frames
+
+### Audio Response Download
+
+The system supports two modes for audio downstream transmission:
+
+1. **Voice-only mode** (`audio_downstream_type = 1`)
+
+   - Message type: `0x11`
+   - Contains voice segment ID, sequence number, and PCM audio data
+
+2. **Voice and text mode** (`audio_downstream_type = 2`)
+   - Message type: `0x13`
+   - Contains voice segment ID, sequence number, text length, PCM audio data, and text data
+
+### Audio Message Structure (Voice and Text)
+
+| Field                | Bytes              | Description                         |
+| -------------------- | ------------------ | ----------------------------------- |
+| Voice segment ID     | 10~13              | Integer ID for the voice segment    |
+| Sequence number      | 14~17              | Integer sequence within the segment |
+| Generation timestamp | 18~21              | Float timestamp of generation       |
+| Text length          | 22~25              | Length of text data (L1)            |
+| Voice data length    | 26~29              | Length of voice data (L2)           |
+| Text data            | 30~(30+L1)         | Text content                        |
+| Voice data           | (31+L1)~(31+L1+L2) | PCM audio data                      |
+
+## Video Protocol
+
+The video protocol handles image and video data streaming from devices to the server.
+
+### Camera Image Upload
+
+- Connect to `ws://[server-ip-address]:[port]/video`
+- Message type: `0x20`
+- Format: JPEG images
+- Each message contains one complete JPEG image
+
+### Facial Recognition Data
+
+Devices can send facial recognition data extracted from camera images:
+
+- Message type: `0x21`
+- Contains number of faces, face data length, and face metadata in JSON format
+
+## Client SDK Usage
+
+### Installation
+
+```bash
+# Using npm
+npm install @ticos/realtime-api
+
+# Using yarn
+yarn add @ticos/realtime-api
+
+# Using pnpm
+pnpm add @ticos/realtime-api
+```
+
+### Basic Usage
+
+```typescript
+import { RealtimeClient } from "@ticos/realtime-api";
+
+// Initialize the client
+const client = new RealtimeClient();
+
+// Connect to the Ticos Realtime API
+await client.connect();
+
+// Send a message
+client.sendUserMessageContent([{ type: "text", text: "Hello, Ticos!" }]);
+
+// Listen for responses
+client.on("conversation.updated", (event) => {
+  if (event.item.role === "assistant") {
+    console.log("Assistant response:", event.item.formatted.text);
+  }
+});
+```
+
+### Tool Registration
+
+```typescript
+// Register a tool
+client.registerTool({
+  definition: {
+    name: "get_device_status",
+    description: "Get the current status of the device",
+    type: "function",
+    parameters: {
+      type: "object",
+      properties: {
+        device_id: {
+          type: "string",
+          description: "The ID of the device",
+        },
+      },
+      required: ["device_id"],
+    },
+  },
+  handler: async (params) => {
+    const { device_id } = params;
+    // Implementation to get device status
+    return { status: "online", battery: 85 };
+  },
+});
+```
+
+## Security Considerations
+
+- All communications should be encrypted using TLS
+- API keys should be kept secure and not exposed in client-side code
+- Implement proper access control for tool executions
+- Regularly audit tool registrations and executions
+- Consider network segmentation for IoT deployments
+
+## Best Practices
+
+1. **Connection Management**: Implement proper reconnection logic to handle network interruptions
+2. **Error Handling**: Always handle errors from the realtime API gracefully
+3. **Message Batching**: Batch multiple messages when appropriate to reduce network overhead
+4. **Data Validation**: Validate all incoming messages before processing
+5. **Rate Limiting**: Implement rate limiting to prevent abuse of the API
+6. **Event Buffering**: Buffer events during connection loss for resynchronization
+
+## System Requirements
+
+### Software Dependencies
+
+```
+python3.9
+portaudio19-dev
+ffmpeg
+python3.9-dev
+alsa-utils
+pulseaudio
+redis
+```
+
+## Reference Implementation
+
+For a complete reference implementation, check out the [official Ticos Realtime API repository on GitHub](https://github.com/tiwater/tips).
