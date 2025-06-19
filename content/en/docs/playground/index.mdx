@@ -1,0 +1,63 @@
+---
+title: Playground
+description: Experience and test your Embodied Agent's capabilities in real-time.
+---
+
+# Playground
+
+The Playground is an interactive environment designed to let you experience and test the capabilities of your configured Embodied Agents in real-time. You can engage in conversations, observe its responses, and see how it perceives its surroundings through simulated visual input.
+
+## Prerequisites
+
+Before you can effectively use the Playground, ensure the following conditions are met:
+
+1.  **Active Agent**: You must have at least one Embodied Agent configured and preferably deployed. The "Select Agent" dropdown will allow you to choose which agent to interact with.
+2.  **Online Terminal**: You need an active and online terminal selected. The Playground simulates the agent operating through this chosen terminal. If no terminal is selected or available, interaction might be limited.
+
+## Interface Overview
+
+The Playground interface is typically divided into several key areas:
+
+### 1. Control Panel
+
+Located usually at the top or side, this panel contains essential controls:
+
+-   **Select Agent**: A dropdown menu (e.g., `ref=e52`) to choose which of your configured Embodied Agents you want to interact with. (Currently observed as disabled, likely requiring a terminal selection first or an agent to be available).
+-   **Select Terminal**: A dropdown menu (e.g., `ref=e57`) to choose the terminal through which the agent will operate. This is crucial for the agent to have a context for interaction.
+-   **Start Chat**: A button (e.g., `ref=e48`) to initiate or re-initiate the interaction with the selected agent and terminal.
+
+### 2. Visual Feedback Area
+
+This section provides insights into what the agent 'sees' or perceives from its (simulated) environment:
+
+-   **Face Detection**: Displays information about detected faces (e.g., `ref=e70` shows "No face detected").
+-   **Object Detection**: Shows a list or status of objects detected in the agent's view (e.g., `ref=e74` shows "No objects detected").
+
+### 3. Agent Status Indicators
+
+These indicators provide real-time information about the agent's internal state:
+
+-   **Current Emotion**: Shows the agent's prevailing emotional state (e.g., `ref=e98`, `ref=e99`).
+-   **Current Motion/Action**: Displays the agent's current physical action or motion state (e.g., `ref=e109`, `ref=e110`).
+
+### 4. Interaction Area
+
+This is the primary area for communication with the agent:
+
+-   **Messages Tab**: (e.g., `ref=e122`) This is where you type your messages to the agent and see its textual responses. The conversation history is displayed here.
+-   **Events Tab**: (e.g., `ref=e125`) This tab likely shows a log of significant events occurring during the interaction, such as API calls made by the agent, errors, or specific triggers being activated.
+
+## How to Use the Playground
+
+1.  **Navigate**: Access the Playground from the main navigation menu (e.g., link `ref=e13`).
+2.  **Select Terminal**: Choose an available and online terminal from the "Select Terminal" dropdown.
+3.  **Select Agent**: Once a terminal is selected, choose the Embodied Agent you wish to test from the "Select Agent" dropdown.
+4.  **Start Chat**: Click the "Start Chat" button to begin the interaction.
+5.  **Interact**: Type your messages in the input field within the "Messages" tab and observe the agent's responses and behavior.
+6.  **Monitor**: Check the "Events" tab for a more detailed log of the agent's actions and system events. Observe the visual feedback and status indicators to understand how the agent is perceiving and reacting to its environment and your inputs.
+
+## Notes and Tips
+
+-   The availability of agents and terminals in the dropdowns depends on your configurations in the "Agents" and "Terminal Ops" sections respectively.
+-   If the "Select Agent" dropdown is disabled, ensure you have selected an active terminal first.
+-   The Playground is an excellent tool for debugging agent behavior, testing new instructions, and getting a feel for the user experience your agent will provide.
