@@ -1,0 +1,37 @@
+---
+title: 'API Overview'
+description: 'Overview of Ticos Platform APIs, covering both Account and Terminal Level interactions.'
+---
+
+# Ticos API Overview
+
+Welcome to the Ticos Platform API documentation. Our APIs are designed to provide comprehensive control and integration capabilities for your terminals and account.
+
+## API Categories
+
+Our APIs are broadly categorized into two main levels:
+
+1.  **Account Level APIs:** These APIs are used for managing resources and configurations at the account scope. Authentication typically requires an Account API Key.
+    *   [Terminal Management](./api/account-level/terminal-management) - Manage registration and configuration of your terminals.
+
+2.  **Terminal Level APIs:** These APIs are used for interactions specific to an individual terminal, such as managing face data or real-time operations. Authentication typically requires a Terminal-specific Secret or API Key.
+    *   [Face Management](./api/terminal-level/face-management) - Manage facial recognition data on a specific terminal.
+
+## Authentication
+
+Authentication methods vary based on the API level:
+*   **Account Level APIs:** Typically use an `Account API Key` as a Bearer Token.
+*   **Terminal Level APIs:** Typically use a `Terminal Secret` as a Bearer Token.
+
+Please refer to the specific documentation for each API group for detailed authentication instructions.
+
+## Base URL
+
+The base URL for Ticos API endpoints is:
+`https://api.ticos.ai/v1`
+
+## API Versioning
+
+All API endpoints are versioned. The current version is `v1`.
+
+We recommend reviewing the "Best Practices" sections within each API group for guidance on security, error handling, and performance.

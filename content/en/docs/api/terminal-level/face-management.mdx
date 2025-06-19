@@ -1,11 +1,11 @@
 ---
-title: "API Reference"
-description: "Comprehensive API documentation for Ticos Platform"
+title: 'Face Management API'
+description: 'APIs for managing faces on a specific terminal.'
 ---
 
-# API Reference
+# Face Management (Terminal Level)
 
-Ticos Platform provides a comprehensive set of APIs for managing embodied AI terminals, handling face recognition, and integrating with LLM capabilities. This documentation covers all available API endpoints and their usage.
+These APIs are used for managing facial recognition data on a specific terminal. Authentication for these APIs is done using the **Terminal Secret** obtained during terminal registration or management.
 
 ## Authentication
 
@@ -23,11 +23,9 @@ All API endpoints are relative to the base URL:
 https://api.ticos.ai/v1/api
 ```
 
-## API Endpoints
+## Endpoints
 
-### Face Management
-
-#### List All Faces
+### List All Faces
 
 ```http
 GET /faces
@@ -48,7 +46,7 @@ Retrieves all faces associated with the terminal's group.
 ]
 ```
 
-#### Create Face
+### Create Face
 
 ```http
 POST /faces
@@ -71,7 +69,7 @@ Creates a new face in the terminal's associated group.
 }
 ```
 
-#### Get Face
+### Get Face
 
 ```http
 GET /faces/{face_id}
@@ -90,7 +88,7 @@ Retrieves a specific face from the terminal's group.
 }
 ```
 
-#### Update Face
+### Update Face
 
 ```http
 PUT /faces/{face_id}
@@ -113,7 +111,7 @@ Updates a specific face in the terminal's group.
 }
 ```
 
-#### Delete Face
+### Delete Face
 
 ```http
 DELETE /faces/{face_id}
@@ -125,7 +123,7 @@ Deletes a specific face from the terminal's group.
 
 - 204 No Content
 
-#### Get Face Image
+### Get Face Image
 
 ```http
 GET /faces/{face_id}/image
@@ -137,7 +135,7 @@ Retrieves the image of a specific face.
 
 - Image data in the appropriate MIME type
 
-### Error Responses
+## Error Responses
 
 All endpoints may return the following error responses:
 

@@ -1,0 +1,73 @@
+---
+title: '终端管理 API'
+description: '用于在账户级别管理终端的 API。'
+---
+
+# 终端管理 (账户级)
+
+这些 API 用于在您的账户级别管理终端。这些 API 的身份验证使用您的 **账户 API 密钥**。
+
+## 身份验证
+
+所有账户级 API 端点都需要使用承载令牌 (Bearer Token) 进行身份验证。该令牌应为您的 **账户 API 密钥**，通过 `Authorization` 请求头传递：
+
+```http
+Authorization: Bearer <account_api_key>
+```
+
+## API 端点
+
+### 注册新终端
+
+将新终端注册到您的账户。
+
+**请求：**
+```http
+POST /v1/terminals
+Content-Type: application/json
+Authorization: Bearer <account_api_key>
+```
+
+**请求体：**
+
+```json
+{
+  "name": "name_1",
+  "identifier": "id_1",
+  "model_id": 123,
+  "description": "型号为 123 的终端"
+}
+```
+
+**参数：**
+
+*   `name` (字符串, 必需): 用户定义的终端名称。
+*   `identifier` (字符串, 必需): 终端的唯一标识符。
+*   `model_id` (整数, 必需): 与此终端关联的模型 ID。
+*   `description` (字符串, 可选): 终端的描述。
+
+**成功响应 (示例 201 Created)：**
+
+```json
+{
+	"name": "name_1",
+	"identifier": "id_1",
+	"status": "active",
+	"model_id": 123,
+	"secret": "ts_d2d5495765f1cdecd290b4a2d291b180", // 这是用于终端的密钥
+	"description": "型号为 123 的终端"
+}
+```
+
+**错误响应 (示例)：**
+
+*   `400 Bad Request`: 无效输入 (例如，缺少必需字段，标识符不唯一)。
+    ```json
+    {
+      "detail": "标识符已存在。"
+    }
+    ```
+*   `401 Unauthorized`: 身份验证失败 (例如，无效的账户 API 密钥)。
+*   `500 Internal ServerError`: 服务器端错误。
+
+> **注意：** 确切的成功和错误响应结构以及状态码应与 API 实现确认。`Host` 应更新为生产 API 端点。

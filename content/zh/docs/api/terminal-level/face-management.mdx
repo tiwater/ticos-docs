@@ -1,11 +1,11 @@
 ---
-title: "API 参考"
-description: "Ticos 平台完整的 API 文档"
+title: '人脸管理 API'
+description: '用于在特定终端上管理人脸的 API。'
 ---
 
-# API 参考
+# 人脸管理 (终端级)
 
-Ticos 平台提供了一套完整的 API，用于管理具身智能终端、处理人脸识别以及集成 LLM 功能。本文档涵盖了所有可用的 API 端点及其使用方法。
+这些 API 用于在特定终端上管理人脸识别数据。这些 API 的身份验证使用在终端注册或管理过程中获取的 **终端密钥**。
 
 ## 认证
 
@@ -25,9 +25,7 @@ https://api.ticos.ai/v1/api
 
 ## API 端点
 
-### 人脸管理
-
-#### 获取所有人脸
+### 获取所有人脸
 
 ```http
 GET /faces
@@ -48,7 +46,7 @@ GET /faces
 ]
 ```
 
-#### 创建人脸
+### 创建人脸
 
 ```http
 POST /faces
@@ -71,7 +69,7 @@ Content-Type: multipart/form-data
 }
 ```
 
-#### 获取特定人脸
+### 获取特定人脸
 
 ```http
 GET /faces/{face_id}
@@ -90,7 +88,7 @@ GET /faces/{face_id}
 }
 ```
 
-#### 更新人脸
+### 更新人脸
 
 ```http
 PUT /faces/{face_id}
@@ -113,7 +111,7 @@ Content-Type: multipart/form-data
 }
 ```
 
-#### 删除人脸
+### 删除人脸
 
 ```http
 DELETE /faces/{face_id}
@@ -125,7 +123,7 @@ DELETE /faces/{face_id}
 
 - 204 No Content
 
-#### 获取人脸图像
+### 获取人脸图像
 
 ```http
 GET /faces/{face_id}/image
@@ -137,7 +135,7 @@ GET /faces/{face_id}/image
 
 - 图像数据（适当的 MIME 类型）
 
-### 错误响应
+## 错误响应
 
 所有端点都可能返回以下错误响应：
 

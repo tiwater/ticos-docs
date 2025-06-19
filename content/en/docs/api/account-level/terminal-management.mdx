@@ -1,0 +1,73 @@
+---
+title: 'Terminal Management API'
+description: 'APIs for managing terminals at the account level.'
+---
+
+# Terminal Management (Account Level)
+
+These APIs are used to manage your terminals at an account level. Authentication for these APIs is done using your **Account API Key**.
+
+## Authentication
+
+All Account Level API endpoints require authentication using a Bearer Token. The token should be your **Account API Key**, passed through the `Authorization` header:
+
+```http
+Authorization: Bearer <account_api_key>
+```
+
+## API Endpoints
+
+### Register New Terminal
+
+Registers a new terminal to your account.
+
+**Request:**
+```http
+POST /v1/terminals
+Content-Type: application/json
+Authorization: Bearer <account_api_key>
+```
+
+**Request Body:**
+
+```json
+{
+  "name": "name_1",
+  "identifier": "id_1",
+  "model_id": 123,
+  "description": "Terminal of model 123"
+}
+```
+
+**Parameters:**
+
+*   `name` (string, required): A user-defined name for the terminal.
+*   `identifier` (string, required): A unique identifier for the terminal.
+*   `model_id` (integer, required): The model ID associated with this terminal.
+*   `description` (string, optional): A description for the terminal.
+
+**Success Response (Example 201 Created):**
+
+```json
+{
+	"name": "name_1",
+	"identifier": "id_1",
+	"status": "active",
+	"model_id": 123,
+	"secret": "ts_d2d5495765f1cdecd290b4a2d291b180", // This is the terminal's secret
+	"description": "Terminal of model 123"
+}
+```
+
+**Error Responses (Examples):**
+
+*   `400 Bad Request`: Invalid input (e.g., missing required fields, identifier not unique).
+    ```json
+    {
+      "detail": "A terminal with this identifier already exists for this model"
+    }
+    ```
+*   `401 Unauthorized`: Authentication failed (e.g., invalid account API key).
+*   `500 Internal ServerError`: Server-side error.
+
+> **Note:** The exact success and error response structures, as well as status codes, should be confirmed with the API implementation. The `Host` should be updated to the production API endpoint.
