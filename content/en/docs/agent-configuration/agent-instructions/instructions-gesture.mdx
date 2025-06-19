@@ -1,0 +1,38 @@
+# Gesture (Reaction)
+
+The "Gesture" settings, found under the "Instructions" -> "Reaction" module, allow you to configure your Embodied Agent's physical movements and gestures. These can enhance the agent's expressiveness and make interactions feel more dynamic.
+
+## Configuration Options
+
+### 1. Idle Motion
+
+- **Control**: A toggle switch (e.g., `ref=e90` from exploration).
+- **Functionality**: This setting enables or disables subtle, continuous movements the agent makes when it is idle (i.e., not actively performing a task or specific gesture). Idle motions can make the agent appear more lifelike and less static.
+- **Example**: If enabled, the agent might exhibit slight head movements, blinking, or gentle swaying.
+
+### 2. Predefined Gestures
+
+The page typically lists a set of predefined gestures that the agent can perform. During exploration, the following gestures were observed:
+
+- **Wave Hand** (e.g., `ref=e96`)
+  - Description: A standard waving gesture.
+  - UI Text Key Example: `agent.config.gesture.waveHandDesc` (indicates placeholder for localized description).
+- **Thumbs Up** (e.g., `ref=e107`)
+  - Description: A thumbs-up gesture, typically indicating approval or positivity.
+- **Point** (e.g., `ref=e118`)
+  - Description: A pointing gesture, used to direct attention.
+- **Clap** (e.g., `ref=e129`)
+  - Description: A clapping gesture, often used for applause or expressing enthusiasm.
+
+#### For each predefined gesture, the following actions are usually available:
+
+- **Calibrate Button** (e.g., `ref=e100` for Wave Hand)
+  - **Functionality**: This likely initiates a calibration process for the specific gesture. Calibration might involve guiding the agent through the motion or adjusting its parameters to ensure it is performed correctly and smoothly by the avatar.
+- **Reset Button** (e.g., `ref=e103` for Wave Hand)
+  - **Functionality**: This would likely revert the gesture's calibration or settings back to their default state.
+
+## Custom Gestures
+
+- While not explicitly observed as a primary feature during the initial exploration, platforms often evolve to allow the creation or import of custom gestures. If this capability exists, it would likely be managed within this section or a related one.
+
+Effective use of gestures can significantly improve the non-verbal communication capabilities of your agent, making interactions more engaging and intuitive.

@@ -1,0 +1,37 @@
+# Vision (Perception)
+
+The "Vision" settings, found under the "Instructions" -> "Perception" module, allow you to configure how your Embodied Agent processes and interprets visual information from its environment.
+
+## Configuration Options
+
+### 1. Core Instructions (Visual Focus)
+
+- **Description**: While the main core instructions define overall behavior, this section within Vision might be used to add specific visual processing guidelines if available. (During exploration, this page primarily showed visual model and object detection settings directly).
+
+### 2. Response Language (Visual Context)
+
+- **Description**: This dropdown (e.g., `ref=e88` from exploration) likely dictates the language used for any text generated based on visual input, or for describing visual elements. It might be linked to or override the global response language for vision-specific tasks.
+- **Control**: Dropdown menu.
+
+### 3. Visual Model
+
+- **Description**: This setting (e.g., `ref=e95`) allows you to select the underlying AI model that the agent uses for visual processing tasks like image recognition, scene understanding, or object detection.
+- **Control**: Dropdown menu listing available visual models (e.g., "GPT-4 Vision Preview", "Gemini Pro Vision").
+- **Note**: The choice of model can significantly impact the agent's visual capabilities, accuracy, and processing speed.
+
+### 4. Detail Level
+
+- **Description**: This option (e.g., `ref=e104` for 'Low', `ref=e107` for 'High', `ref=e110` for 'Auto') controls the level of detail the agent aims for when analyzing visual input.
+- **Control**: Radio buttons or a selection group.
+    - **Low**: Faster processing, but may miss finer details.
+    - **High**: More detailed analysis, but may be slower and more resource-intensive.
+    - **Auto**: Allows the system to dynamically adjust the detail level based on the context or the selected visual model's capabilities.
+
+### 5. Object Detection
+
+- **Description**: This section (e.g., checkbox `ref=e113`) enables or disables the agent's ability to detect and identify specific objects within its visual field.
+- **Control**: Checkbox to toggle the feature.
+- **Object List**: When enabled, a list of pre-defined objects (e.g., "person", "car", "chair", "table", "door", "tv", "keyboard", "mouse", "cell phone", "book", "bottle", "cup", "handbag", "laptop", "monitor", "remote", "sofa", "bed", "refrigerator", "oven", "microwave", "sink", "toaster", "clock", "vase", "scissors", "teddy bear", "toothbrush") may be presented. During exploration, this list appeared disabled, suggesting it might be a future feature or requires specific conditions to be active.
+- **Functionality**: If active, you might be able to select which objects the agent should specifically look for or pay attention to.
+
+Configuring these vision settings appropriately ensures your agent can effectively 'see' and understand its environment according to the requirements of its tasks.

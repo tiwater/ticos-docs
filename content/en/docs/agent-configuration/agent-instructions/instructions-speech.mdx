@@ -1,0 +1,46 @@
+# Speech (Reaction)
+
+The "Speech" settings, found under the "Instructions" -> "Reaction" module, allow you to customize how your Embodied Agent vocalizes its responses and interacts using voice.
+
+## Configuration Options
+
+### 1. Use Custom Voice ID
+
+- **Control**: A toggle switch (e.g., `ref=e89` from exploration).
+- **Functionality**: This option likely enables the use of a specific, pre-defined custom voice for the agent, potentially one that has been cloned or specially configured. When enabled, it might reveal an additional input field for the Custom Voice ID.
+
+### 2. Voice Selection
+
+- **Label**: Voice (or similar)
+- **Control**: A dropdown menu (combobox, e.g., `ref=e96` from exploration).
+- **Functionality**: Allows you to choose from a list of available standard voices for your agent. These voices can vary in gender, accent, and language.
+- **Examples**: "Alice (English, US, Female)", "Mandarin Chinese, Female" (actual names might vary).
+
+### 3. Speech Speed
+
+- **Label**: Speech Speed (or similar)
+- **Control**: A slider (e.g., `ref=e111` from exploration).
+- **Functionality**: Adjusts how quickly the agent speaks. Moving the slider typically changes the words-per-minute rate.
+- **Range**: Values might range from slower (e.g., 0.5x) to faster (e.g., 2.0x) than a standard speaking rate.
+
+### 4. Voice Pitch
+
+- **Label**: Voice Pitch (or similar)
+- **Control**: A slider (e.g., `ref=e118` from exploration).
+- **Functionality**: Modifies the pitch of the agent's voice, making it sound higher or lower.
+- **Range**: Values could represent adjustments in semitones or a relative scale.
+
+### 5. Volume
+
+- **Label**: Volume (or similar)
+- **Control**: A slider (e.g., `ref=e125` from exploration).
+- **Functionality**: Controls the loudness of the agent's spoken output.
+
+### 6. Test Speech
+
+- **Functionality**: This feature allows you to preview the agent's voice with the current settings.
+- **Components**:
+    - **Text Input Field** (e.g., `ref=e134`): A textbox where you can type sample text for the agent to speak.
+    - **"Test Speech" Button** (e.g., `ref=e130`): Clicking this button will make the agent vocalize the text entered in the input field using the selected voice, speed, pitch, and volume settings.
+
+Careful configuration of these speech parameters is essential for creating an agent that is easy to understand and has a vocal persona consistent with its role and your brand.

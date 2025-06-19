@@ -1,0 +1,36 @@
+# Hearing (Perception)
+
+The "Hearing" settings, found under the "Instructions" -> "Perception" module, allow you to configure how your Embodied Agent processes audio input from its environment, particularly focusing on voice detection.
+
+## Configuration Options
+
+### 1. Voice Detection
+
+This section focuses on configuring how the agent detects human voices.
+
+- **Title**: Voice Detection
+- **Description**: Configure voice detection method and related parameters.
+
+#### a. Voice Detection Method
+
+- **Label**: Voice Detection Method
+- **Control**: A toggle switch (e.g., `ref=e199` from exploration).
+- **Functionality**: This switch likely allows you to choose between different voice detection mechanisms.
+- **Informational Text**: "Default is device-side detection, enable to use server-side detection for conversation presence." This indicates two primary modes:
+    - **Device-Side Detection (Default)**: Voice processing occurs locally on the terminal or device where the agent is running. This can be faster and preserve privacy as audio data may not need to be sent to a server.
+    - **Server-Side Detection (When Enabled)**: Voice processing is handled by a server. This might offer more powerful detection capabilities or be necessary for certain features like continuous conversation presence detection.
+
+### 2. Input Device
+
+This section deals with specifying the audio input source.
+
+- **Title**: Input Device
+
+#### a. Input Device Selection
+
+- **Label**: Input Device
+- **Control**: A dropdown menu (combobox, e.g., `ref=e208` from exploration).
+- **Functionality**: Allows you to select the specific microphone or audio input channel the agent should use to listen to the environment.
+- **Example Value**: During exploration, "PCM 16-bit" was displayed, which refers to a common audio format. The dropdown would typically list available audio input devices recognized by the system.
+
+Properly configuring these hearing settings is essential for agents that need to respond to spoken commands, engage in conversations, or react to specific sounds in their environment.

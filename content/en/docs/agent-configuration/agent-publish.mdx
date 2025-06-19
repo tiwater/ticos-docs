@@ -1,0 +1,48 @@
+# Publish Agent Changes
+
+The "Publish" module in the agent configuration is where you review and deploy any modifications made to your Embodied Agent's settings. This is a crucial step to ensure that your changes take effect and are applied to the live or active version of your agent.
+
+## Overview
+
+When you navigate to the "Publish Changes" page (e.g., `/en/agents/33/publish`), you will typically see:
+
+- **Page Title**: "Publish Changes"
+- **Subtitle/Description**: "Review and publish your staged changes or revert to the original configuration."
+- **Agent Identifier**: The name of the agent whose changes are being reviewed (e.g., "Test Agent").
+
+## Key Features and Actions
+
+### 1. Staged Changes Status
+
+- **Display**: The page will indicate if there are any pending changes that have been made but not yet published.
+- **Example Message**: "No staged changes to publish" (if no modifications are pending).
+- **If Changes Exist**: It would typically list or summarize the modifications made across different configuration modules.
+
+### 2. Primary Action Buttons
+
+- **Edit Raw Configuration Button** (e.g., `ref=e319` from exploration):
+    - **Functionality**: This option likely opens an interface (perhaps a JSON or YAML editor) that allows you to view and directly edit the agent's complete configuration in its raw format. This is an advanced feature and should be used with caution.
+
+- **Reload Agent Button** (e.g., `ref=e325` from exploration):
+    - **Functionality**: This action probably reloads the agent's current configuration, potentially to apply minor changes or to refresh its state if it seems unresponsive or out of sync. The exact behavior (e.g., whether it applies staged changes or reloads the last published version) would need clarification.
+
+### 3. Publishing and Reverting Actions
+
+These buttons are central to the publishing workflow and are typically enabled only when there are staged changes.
+
+- **Revert Changes Button** (e.g., `ref=e337` - observed as disabled when no changes were staged):
+    - **Functionality**: If there are staged changes, this button would allow you to discard them and revert the agent's configuration back to the last published state.
+
+- **Publish Changes Button** (e.g., `ref=e337` - observed as disabled when no changes were staged):
+    - **Functionality**: If there are staged changes, this is the button you would click to apply those changes to the active agent. This action makes the modifications live.
+
+## Workflow
+
+1.  Make desired changes in various agent configuration modules (Instructions, Skills, Knowledge, etc.).
+2.  Navigate to the "Publish Changes" page.
+3.  Review the summary of staged changes (if available).
+4.  Optionally, use "Edit Raw Configuration" for advanced adjustments or "Reload Agent" if needed.
+5.  If satisfied with the changes, click "Publish Changes" to make them live.
+6.  If you wish to discard the changes, click "Revert Changes."
+
+Regularly publishing your changes ensures that your agent operates with the most up-to-date configuration.
