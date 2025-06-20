@@ -4,7 +4,7 @@ export default {
   "getting-started": {
     title: "欢迎使用",
   },
-  "platform": "平台",
+  "platform": "Ticos Cloud 平台",
   "api": "API 参考",
   "realtime-protocols": {
     title: "实时通信协议",
