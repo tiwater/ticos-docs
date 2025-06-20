@@ -4,11 +4,7 @@ export default {
   "getting-started": {
     title: "Getting Started",
   },
-  "agent-configuration": "Agent Configuration",
-  "playground": "Playground",
-  "settings": "Settings",
-  "terminal-ops": "Terminal Ops",
-  "account": "Account Settings",
+  "platform": "Platform",
   "api": "API Reference",
   "realtime-protocols": {
     title: "Realtime Protocols",
