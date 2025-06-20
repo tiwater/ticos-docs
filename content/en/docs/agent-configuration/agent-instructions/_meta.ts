@@ -7,6 +7,5 @@ export default {
   "instructions-hearing": "Hearing (Perception)",
   "instructions-speech": "Speech (Reaction)",
   "instructions-emotion": "Emotion (Reaction)",
-  "instructions-gesture": "Gesture (Reaction)",
-  "instructions-behavior": "Behavior (Reaction)"
+  "instructions-gesture": "Gesture (Reaction)"
 } satisfies Meta;

@@ -7,6 +7,5 @@ export default {
   "instructions-hearing": "听觉 (感知)",
   "instructions-speech": "语音 (反应)",
   "instructions-emotion": "情感 (反应)",
-  "instructions-gesture": "姿态 (反应)",
-  "instructions-behavior": "行为 (反应)"
+  "instructions-gesture": "姿态 (反应)"
 } satisfies Meta;
