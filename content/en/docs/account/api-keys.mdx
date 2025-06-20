@@ -1,0 +1,50 @@
+---
+title: API Keys
+description: Manage your API keys for programmatic access to the Ticos platform.
+---
+
+# API Keys
+
+The API Keys page allows you to generate and manage API keys for your Ticos account. These keys enable programmatic access to Ticos platform services, allowing you to integrate Ticos functionalities into your own applications, scripts, or automated workflows.
+
+## Accessing API Keys
+
+To access the API Keys management page:
+
+1.  Click on your user avatar or profile icon, typically located in the top-right corner of the platform interface.
+2.  From the dropdown menu, select "Account Settings" or a similar option.
+3.  Within the account settings, navigate to the "API Keys" section (e.g., via a sidebar link `ref=e60`).
+
+## Managing API Keys
+
+The main interface (e.g., `ref=e62`) provides the following functionalities:
+
+### 1. Create New API Key
+
+-   Click the **"Create New API Key"** button (e.g., `ref=e67`) to generate a new key.
+-   You will typically be prompted to give your API key a descriptive name to help you identify its purpose (e.g., "My Application Integration", "Nightly Batch Script").
+-   Upon creation, the new API key will be displayed. **Important: This is usually the only time the full key is shown. Copy it immediately and store it in a secure location.**
+
+### 2. View Existing API Keys
+
+The section titled "Your API Keys" (e.g., `ref=e70`) will list all the API keys you have generated. For each key, you can typically see:
+
+-   **Name**: The descriptive name you assigned to the key.
+-   **Key Snippet**: A portion of the key (e.g., the first few or last few characters) for identification, but not the full key for security reasons.
+-   **Creation Date**: The date and time when the key was generated.
+-   **Last Used**: The date and time the key was last used to make an API call (if this information is tracked).
+-   **Status**: Whether the key is active or revoked.
+-   **Actions**: Options to manage the key, such as:
+    -   **Revoke/Delete**: Permanently disable and delete the API key. This action cannot be undone.
+    -   **Edit Name (Possibly)**: Some systems allow you to change the descriptive name of the key.
+
+*(Note: The page currently shows "Loading..." (`ref=e72`) in the "Your API Keys" section, indicating that the list of keys would appear here once populated.)*
+
+## Security Best Practices
+
+-   **Treat API keys like passwords**: Keep them confidential and secure.
+-   **Do not embed API keys directly in client-side code** or commit them to version control systems (e.g., Git).
+-   **Use environment variables** or secure secret management services to store and access API keys in your applications.
+-   **Create separate API keys for different applications** or services to limit the scope of access if one key is compromised.
+-   **Regularly review and revoke unused API keys** to minimize potential attack surfaces.
+-   **Grant only necessary permissions** to API keys if the platform supports granular permission settings for keys (this feature might not be present on this specific page but is a general best practice).

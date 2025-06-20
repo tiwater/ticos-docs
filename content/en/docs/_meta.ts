@@ -8,6 +8,7 @@ export default {
   "playground": "Playground",
   "settings": "Settings",
   "terminal-ops": "Terminal Ops",
+  "account": "Account Settings",
   "api": "API Reference",
   "realtime-protocols": {
     title: "Realtime Protocols",

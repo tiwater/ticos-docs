@@ -8,6 +8,7 @@ export default {
   "playground": "功能体验",
   "terminal-ops": "终端运维",
   "settings": "设置",
+  "account": "账户设置",
   "api": "API 参考",
   "realtime-protocols": {
     title: "实时通信协议",
