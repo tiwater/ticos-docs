@@ -5,9 +5,9 @@ description: 管理和配置 MCP 服务以扩展您的智能体的能力。
 
 # MCP 服务
 
-MCP (Multimodal Coordination Protocol, 多模态协调协议) 服务是 Ticos 平台用于扩展具身智能体能力的核心机制。通过 MCP 服务，您的智能体可以与外部系统、第三方 API 或自定义的业务逻辑进行交互，从而实现超越其内置功能的复杂任务。
+MCP（Model Context Protocol）服务是 Ticos 平台用于扩展具身智能体能力的核心机制。通过 MCP 服务，您的智能体可以与外部系统、第三方 API 或自定义的业务逻辑进行交互，从而实现超越其内置功能的复杂任务。
 
-例如，您可以创建一个 MCP 服务来：
+例如，您可以注册一个 MCP 服务来：
 -   查询天气预报 API。
 -   控制智能家居设备。
 -   连接到公司的内部知识库。
@@ -15,16 +15,14 @@ MCP (Multimodal Coordination Protocol, 多模态协调协议) 服务是 Ticos �
 
 ## 主要功能
 
-一个功能完善的“MCP 服务”管理页面通常允许您进行以下操作：
+您可以在本模块进行以下操作：
 
 -   **查看服务列表**：展示所有已注册的 MCP 服务，包括其名称、描述、端点地址和状态。
--   **注册新服务**：提供一个表单，用于添加一个新的 MCP 服务。您需要提供服务的名称、描述、API 端点 URL 以及必要的认证信息（如 API 密钥）。
+-   **注册新服务**：添加一个新的 MCP 服务。您需要提供服务的名称、描述、API 端点 URL 以及必要的认证信息（如 API 密钥）。
 -   **编辑服务配置**：修改已注册服务的详细信息。
--   **启用/禁用服务**：临时激活或停用某个服务，而无需将其从平台删除。
 -   **删除服务**：永久移除一个 MCP 服务。
 
-## 当前状态
+## 支持情况
 
-<div className="nx-mt-6 nx-rounded-lg nx-bg-yellow-100 nx-p-4 nx-text-sm nx-text-yellow-900 dark:nx-bg-yellow-500/20 dark:nx-text-yellow-200">
-  **注意**：此功能目前正在开发中。当前页面可能仅为占位符，尚未提供可交互的内容。
-</div>
+- 服务器端 Stardust 模型在 realtime 模式下支持 SSE MCP 服务。
+- 服务器端 OpenAI 的 gpt 模型在 agent responses 模式下支持 SSE 和 Streamable HTTP 两种方式的 MCP 服务。
