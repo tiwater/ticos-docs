@@ -1,0 +1,130 @@
+---
+title: Agent Responses 快速上手
+description: 通过实例快速完成车辆模型配置、终端录入并调用 Agent Responses 接口。
+---
+
+# Agent Responses 快速上手
+
+本文档以“车辆识别”场景为例，演示如何在 **Ticos Cloud** 平台中：
+
+1. 创建车辆终端型号。
+2. 录入待识别的车辆终端。
+3. 通过 Agent Responses API 发送图像并解析返回内容。
+
+阅读本指南前，请确保已经完成账户注册并获得 **API 密钥**。
+
+> 本文档与《欢迎使用》构成“快速上手”系列，建议先阅读 `getting-started.mdx`。
+
+---
+
+## 1. 登录平台
+
+访问 [https://cloud.ticos.ai](https://cloud.ticos.ai) 并使用管理员账户登录。
+
+![登录界面](/images/quickstart-agent-responses/image1.png)
+
+---
+
+## 2. 创建车辆终端型号
+
+1. 侧边栏选择 **设置 → 终端型号 → 添加型号**。
+2. 在弹窗中填写以下信息：
+   - **终端类型**：选择 `车辆`。
+   - **品牌 / 制造商**、**型号名称**、**描述**：填写实际信息。
+   - 上传车型照片并启用 **已发布**。
+3. 点击 **保存**。
+
+![添加车型](/images/quickstart-agent-responses/image2.png)
+
+保存后返回列表，点击 **编辑型号** 打开详情页，浏览器地址栏尾部数字即为 **车型 ID**，后续调用接口时需要用到。
+
+![车型 ID 位置](/images/quickstart-agent-responses/image3.png)
+
+---
+
+## 3. 录入车辆终端
+
+1. 选择 **终端运维 → 终端 → 添加终端**。
+2. 填写下表信息：
+
+| 字段          | 说明                                   |
+| ------------- | -------------------------------------- |
+| 名称          | 任意易识别名称（建议使用车牌号）       |
+| 终端 ID       | 车辆唯一编号（接口中的 *Client Identifier*） |
+| 终端型号      | 选择步骤 2 创建的车辆型号               |
+| 位置、描述等  | 视需要填写                             |
+
+3. 保存后重复上述流程，直至录入全部车辆。
+
+![添加车辆终端](/images/quickstart-agent-responses/image4.png)
+
+---
+
+## 4. 调用 Agent Responses 接口
+
+以下示例演示如何通过 **curl** 调用 API，并在请求头中传入车型 ID、终端 ID 等信息。
+
+```bash
+curl -X POST "https://api.ticos.ai/v1/agents/<AgentID>/responses" \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: <Your-API-Key>" \
+  -H "X-Model-ID: <车型ID>" \
+  -H "X-Client-Identifier: <终端ID>" \
+  -d '{
+        "input": "http://<your-domain>/path/to/image.jpeg"
+      }'
+```
+
+替换占位符说明：
+
+| 占位符            | 含义                                     |
+| ----------------- | ---------------------------------------- |
+| `<AgentID>`       | 智能体 ID，可在智能体详情页地址栏获取     |
+| `<Your-API-Key>`  | 从 **用户菜单 → API 密钥** 获取           |
+| `<车型ID>`        | 步骤 2 中记录的车型 ID                    |
+| `<终端ID>`        | 步骤 3 中填写的终端 ID（URL Encode 后可含中文） |
+
+### 返回示例
+
+成功调用后，服务返回 JSON：
+
+```json
+{
+  "id": "chatcmpl-BD4u9UtDK3gQBRi3SAZ96KRFGpEFO",
+  "object": "chat.completion",
+  "created": 1742456817,
+  "model": "gpt-4o-2024-08-06",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"timestamp\": \"2025-03-09 09:06:18\",\n  \"count\": 1,\n  \"occupation\": 0.9\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 349,
+    "completion_tokens": 42,
+    "total_tokens": 391
+  }
+}
+```
+
+其中 `choices[0].message.content` 字符串即为业务所需的 JSON 数据，可按需解析。
+
+---
+
+## 5. 常见问题
+
+| 问题                                   | 解决方案                                               |
+| -------------------------------------- | ------------------------------------------------------ |
+| 接口返回 401 Unauthorized              | 检查 `X-API-Key` 是否正确，密钥是否已撤销              |
+| 接口返回 404 Not Found                 | 确认 AgentID、模型 ID 是否存在且已发布                 |
+| 响应耗时长                              | 建议使用 CDN 或对象存储，确保图片 URL 可被公网访问     |
+| 中文车牌号作为终端 ID                  | 使用 `URLEncode` 对字符串进行编码后再放入请求头         |
+
+---
+
+完成以上步骤，即可在车辆识别场景中快速接入 **Ticos Agent Responses** 服务。

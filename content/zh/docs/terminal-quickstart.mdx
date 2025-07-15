@@ -1,0 +1,152 @@
+---
+title: 具身终端快速上手
+description: 指导您完成机器人终端型号创建、终端录入、Agent ID 获取，以及设备端 ticos-agent 安装与配置。
+---
+
+# 具身终端快速上手
+
+本文档示例以“机器人终端”场景为例，帮助您在 **Ticos Cloud** 平台快速完成以下任务：
+
+1. 创建机器人终端型号。
+2. 创建终端设备并获取终端密钥。
+3. 获取智能体（Agent）ID。
+4. 在设备端安装并配置 **ticos-agent**。
+5. 启动 agent 并接入 SDK 进行开发。
+
+> 本文档属于“快速上手”系列，建议先阅读 `getting-started.mdx` 了解平台基础概念。
+
+---
+
+## 1. 登录平台
+
+访问 [https://cloud.ticos.ai](https://cloud.ticos.ai) 并使用管理员账户登录。
+
+![登录](/images/quickstart-terminal/image1.png)
+
+---
+
+## 2. 创建机器人终端型号
+
+1. 侧边栏选择 **设置 → 终端型号 → 添加型号**。
+2. 在弹窗中填写以下信息：
+   - **终端类型**：选择 `机器人`。
+   - **品牌 / 制造商**、**型号名称**、**描述**：根据实际情况填写。
+   - 上传设备照片，并勾选 **已发布**。
+3. 点击 **保存**。
+
+![添加终端型号](/images/quickstart-terminal/image2.png)
+
+保存后界面如下所示：
+
+![终端型号列表](/images/quickstart-terminal/image3.png)
+
+---
+
+## 3. 创建终端设备并获取密钥
+
+1. 选择 **终端运维 → 终端 → 添加终端**。
+2. 在表单中填写：
+
+| 字段        | 说明                                       |
+| ----------- | ------------------------------------------ |
+| 名称        | 任意易识别名称                             |
+| 终端 ID     | 设备唯一编号（可点击自动生成）             |
+| 终端型号    | 选择步骤 2 创建的机器人型号               |
+| 位置、描述等 | 视需要填写                                 |
+
+3. 点击 **保存**。
+
+如果需要一次创建多台设备，可使用 **批量创建终端** 功能并下载终端 ID 与密钥清单。
+
+![终端列表](/images/quickstart-terminal/image4.png)
+
+在终端列表 **操作** 列点击 **查看详情**，即可复制该终端 **API 密钥**，后续配置设备端使用。
+
+![终端密钥](/images/quickstart-terminal/image5.png)
+
+---
+
+## 4. 获取 Agent ID
+
+1. 顶部导航栏选择 **具身智能体**（或最近一次访问的智能体名称）。
+2. 找到预置的 **灵童小念** 智能体（或自行创建的智能体），点击 **配置**。
+3. 浏览器地址栏最后一组数字即为 **Agent ID**，请记录，稍后配置 ticos-agent 时使用。
+
+![Agent ID](/images/quickstart-terminal/image6.png)
+
+---
+
+## 5. 安装 ticos-agent
+
+将安装包 `ticos-agent-<version>-arm64.deb` 拷贝至目标设备（示例为 RK3566），执行：
+
+```bash
+sudo dpkg -i ticos-agent-0.8.2-arm64.deb
+```
+
+> 版本号以实际包为准。
+
+---
+
+## 6. 配置 ticos-agent
+
+执行：
+
+```bash
+ticos-agent config
+```
+
+按照向导输入或选择：
+
+```text
+? 输入代理ID (agent_id) · <AgentID>
+? 选择API服务地址 › wss://stardust2.ticos.cn
+? 输入API密钥 · <终端密钥>
+? 选择你的麦克风 › HK-DXMIC-V1.0 Analog Stereo
+? 选择你的扬声器 › HK-DXMIC-V1.0 Analog Stereo
+你有摄像头吗？ (y/n) › y
+? 选择你的摄像头 › USB Camera 1080P
+VAD 阈值 (%) · 60
+VAD 静音阈值 (dB) · -20
+VAD 静音最小持续时间 (ms) · 200
+? 输入执行器地址 · 127.0.0.1:9999
+```
+
+---
+
+## 7. 启动 ticos-agent
+
+### 作为用户服务启动
+
+```bash
+systemctl --user start ticos-agent
+```
+
+查看日志：
+
+```bash
+journalctl --user -u ticos-agent -f
+```
+
+### 直接运行
+
+```bash
+ticos-agent start
+```
+
+听到“嘟”声代表已成功连接云端。
+
+---
+
+## 8. SDK 开发
+
+- GitHub: [https://github.com/tiwater/ticos-client](https://github.com/tiwater/ticos-client)
+- 示例代码：
+    - Java: [https://github.com/tiwater/ticos-client/tree/main/examples/java](https://github.com/tiwater/ticos-client/tree/main/examples/java)
+    - Python: [https://github.com/tiwater/ticos-client/tree/main/examples/python](https://github.com/tiwater/ticos-client/tree/main/examples/python)
+
+接入 SDK 后，即可调用大模型能力、动作指令等功能，实现自定义机器人应用。
+
+---
+
+完成以上步骤，您的机器人终端已成功连接 **Ticos Cloud**，可以开始开发具身智能应用。
