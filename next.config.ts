@@ -27,7 +27,17 @@ const nextConfig = withBundleAnalyzer(
     redirects: async () => [
       {
         source: "/docs",
-        destination: "/docs/getting-started",
+        destination: "/docs/quickstart",
+        statusCode: 302,
+      },
+      {
+        source: "/zh/docs",
+        destination: "/zh/docs/quickstart",
+        statusCode: 302,
+      },
+      {
+        source: "/en/docs",
+        destination: "/en/docs/quickstart",
         statusCode: 302,
       },
     ],
