@@ -1,30 +1,28 @@
 ---
-title: MCP Servers
-description: Manage and configure MCP servers to extend your agent's capabilities.
+title: MCP Services
+description: Manage and configure MCP services to extend your agent's capabilities.
 ---
 
-# MCP Servers
+# MCP Services
 
-MCP (Multimodal Coordination Protocol) Servers are a core mechanism in the Ticos platform for extending the capabilities of Embodied Agents. Through MCP Servers, your agents can interact with external systems, third-party APIs, or custom business logic, enabling them to perform complex tasks beyond their built-in functions.
+MCP (Model Context Protocol) services are a core mechanism in the Ticos platform for extending the capabilities of Embodied Agents. Through MCP services, your agents can interact with external systems, third-party APIs, or custom business logic, enabling them to perform complex tasks beyond their built-in functions.
 
-For example, you could create an MCP Server to:
+For example, you could register an MCP service to:
 -   Query a weather forecast API.
 -   Control smart home devices.
 -   Connect to a company's internal knowledge base.
 -   Perform custom computational tasks.
 
-## Key Features (Intended)
+## Key Features
 
-A fully functional "MCP Servers" management page would typically allow you to:
+You can perform the following operations in this module:
 
--   **View Server List**: Display all registered MCP servers, including their names, descriptions, endpoint addresses, and statuses.
--   **Register New Server**: Provide a form to add a new MCP server. You would need to supply the server's name, description, API endpoint URL, and any necessary authentication details (like API keys).
--   **Edit Server Configuration**: Modify the details of an already registered server.
--   **Enable/Disable Server**: Temporarily activate or deactivate a server without deleting it from the platform.
--   **Delete Server**: Permanently remove an MCP server.
+-   **View Service List**: Display all registered MCP services, including their names, descriptions, endpoint addresses, and statuses.
+-   **Register New Service**: Add a new MCP service. You need to provide the service's name, description, API endpoint URL, and necessary authentication information (such as API keys).
+-   **Edit Service Configuration**: Modify the details of an already registered service.
+-   **Delete Service**: Permanently remove an MCP service.
 
-## Current Status
+## Support Status
 
-<div className="nx-mt-6 nx-rounded-lg nx-bg-yellow-100 nx-p-4 nx-text-sm nx-text-yellow-900 dark:nx-bg-yellow-500/20 dark:nx-text-yellow-200">
-  **Note**: This feature is currently under development. The page may only serve as a placeholder and might not yet offer interactive content.
-</div>
+- Server-side Stardust model supports SSE MCP services in realtime mode.
+- Server-side OpenAI gpt models support both SSE and Streamable HTTP MCP services in agent responses mode.

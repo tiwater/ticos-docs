@@ -1,26 +1,76 @@
 ---
 title: Terminals Management
-description: View, register, and manage your Ticos terminal devices.
+description: Introduction to Ticos Terminal Management functionality
 ---
 
 # Terminals Management
 
-The Terminals Management page allows you to view and manage all terminal devices registered to the Ticos platform. Through this interface, you would typically monitor terminal status, update configurations, and perform various administrative actions.
+The Terminals Management functionality allows you to view and manage all terminal devices registered to the Ticos platform. Through this interface, you can monitor terminal status, update configurations, and perform various management operations.
 
-## Functional Overview (Intended)
+## Functional Overview
 
-The Terminals Management page is designed to provide the following key functionalities:
+The Terminals Management page provides the following main functions:
 
-1.  **View Terminal List**: Display a comprehensive list of all registered terminal devices.
-2.  **Filter Terminals**: Allow filtering of terminals by group or other criteria.
-3.  **View Terminal Details**: Access detailed information for each terminal, such as ID, name, type, status (online/offline), IP address, last activity time, and associated agents.
-4.  **Register New Terminal**: Provide a mechanism to add new terminals to the platform, likely involving inputting a unique terminal ID or token.
-5.  **Edit Terminal Configuration**: Modify settings for existing terminals, such as their assigned name or group.
-6.  **Delete Terminal**: Remove terminals that are no longer in use.
-7.  **Monitor Status and Health**: Check the connectivity and operational health of terminals.
+1. View a list of all terminal devices
+2. Filter terminals by device name or ID
+3. View terminal detailed information
+4. Update terminal configuration
+5. Monitor terminal status and health
 
-## Current Status
+## Interface Elements
 
-<div className="nx-mt-6 nx-rounded-lg nx-bg-yellow-100 nx-p-4 nx-text-sm nx-text-yellow-900 dark:nx-bg-yellow-500/20 dark:nx-text-yellow-200">
-  **Note**: This feature is currently under development. The page may only serve as a placeholder and might not yet offer interactive content.
-</div>
+The Terminals Management interface contains the following main elements:
+
+### Terminal List
+
+Displays a list of all registered terminals, including the following information:
+- Terminal ID
+- Terminal Name
+- Terminal Type
+- Status (online/offline, etc.)
+
+### Filtering and Search
+
+Provides functionality to filter terminals by the following criteria:
+- Keyword search
+
+### Terminal Details
+
+After selecting a specific terminal, you can view detailed information (requires terminal data interface):
+
+- **Terminal ID**
+- **Model**
+- **Status**
+- **Key**
+- **Location**
+- **Last Updated**
+- **Battery Level**
+- **Runtime**
+- **Software Version**
+- **Group**
+
+## Management Operations
+
+The Terminals Management page allows you to perform the following management operations:
+
+### Create Terminal
+
+- Create a single terminal device
+- Batch create terminal devices
+- Manage terminal device batches
+
+### Terminal Information Maintenance
+
+- Update terminal information (name, description)
+
+### Delete Terminal
+
+- Delete terminal devices that are no longer needed
+
+## Best Practices
+
+- Regularly check terminal status to ensure all terminals are operating normally
+
+## Notes
+
+- Some configuration changes may require restarting the terminal to take effect

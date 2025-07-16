@@ -5,27 +5,61 @@ description: View supported terminal device models on the Ticos platform.
 
 # Terminal Models
 
-The "Terminal Models" page is intended to provide a list of officially supported and pre-configured terminal hardware devices. Here, users would typically be able to view technical specifications, features, and suitable use cases for different terminal models, aiding in the selection of the most appropriate hardware for their applications.
+The "Terminal Models" page provides a list of officially supported and pre-configured terminal hardware devices. Users can view technical specifications, features, and applicable scenarios for different terminal models to select the most suitable hardware for their applications.
 
-## Key Features (Intended)
+## Main Features
 
-A fully functional "Terminal Models" page would generally include:
+The main interface displays the following information:
 
--   **Model List**: Display all compatible terminal device models, including images, names, and key feature summaries.
--   **Detailed Specifications**: Upon selecting a specific model, users could view its detailed technical parameters, such as processor, memory, camera specifications, sensor types, connectivity options, etc.
--   **Purchase Links**: Links to official or recommended channels for purchasing the hardware.
--   **Setup Guides**: Links to quick start guides and configuration documentation for specific models.
+- **Model List**: Shows all terminal device models, including type images, names, and key feature summaries.
+- **Detailed Specifications**: After clicking on a specific model, you can view its detailed technical parameters and related information.
 
-## Current Status
+## Adding or Editing Terminal Models
 
-<div className="nx-mt-6 nx-rounded-lg nx-bg-yellow-100 nx-p-4 nx-text-sm nx-text-yellow-900 dark:nx-bg-yellow-500/20 dark:nx-text-yellow-200">
-  **Note**: This feature is currently under development. The page may only serve as a placeholder and might not yet offer interactive content.
-</div>
-Capabilities:
-    - **Camera**：用于目标检测和识别的视觉输入。
-    - **Microphone**：用于语音识别和声音检测的音频输入。
-    - **Speaker**：用于语音合成和音频播放的音频输出。
-    - **Facial Display**：终端头部的屏幕，可用于表情和信息展示。
-    - **Arms**：机械臂，用于物体操作和手势表达。
-    - **Legs**：机械腿，实现双足行走。
-    - **Wheels**：轮式底盘，适合平面移动导航。
+After clicking the "Add Model" button, a dialog box will appear for defining or editing terminal models, including the following fields:
+
+- **Terminal Image**: Click to upload a terminal device image for display in the model list.
+- **Brand / Manufacturer**: Enter the terminal's brand or manufacturer information.
+- **Terminal Type**: Select the terminal type (such as robot, vehicle, camera, etc.).
+- **Name**: Specify a unique name for the terminal model for easy identification and management.
+- **Description**: Add supplementary information about the terminal model's features, applicable scenarios, etc.
+
+At the bottom of the dialog box, operation buttons are provided:
+
+- **Published**: Indicates whether the model has been published. Published models can be used directly in terminal management and other modules.
+- **Cancel**: Abandon the current edit and close the dialog box.
+- **Save**: Save the entered model information.
+
+> Please ensure all required fields are completed to facilitate subsequent terminal device configuration and management.
+
+## Editing Terminal Models
+
+After clicking the "Edit" button in the model list, you will enter the terminal model editing interface. This interface contains three tabs:
+
+### 1. Basic Information
+
+- **Terminal Image**: Click to upload a terminal device image for display in the model list and details.
+- **Brand / Manufacturer**: Enter the terminal's brand or manufacturer information.
+- **Terminal Type**: Select the terminal type (such as robot, vehicle, camera, etc.).
+- **Model Name**: Specify a unique name for the terminal model for easy identification and management.
+- **Description**: Add supplementary information about the terminal model's features, applicable scenarios, etc.
+
+### 2. Features
+
+- **Terminal Template**: You can select a preset template to quickly apply common hardware capability configurations.
+- **Hardware Capabilities**: Check or specify the main hardware functions the terminal has, including but not limited to:
+    - **Camera**: Visual input for object detection and recognition
+    - **Microphone**: Audio input for voice recognition and sound detection
+    - **Speaker**: Audio output for voice synthesis and sound playback
+    - **Facial Display**: Screen on the terminal's head for displaying emotions and information
+    - **Mechanical Arms**: For object manipulation and gestures
+    - **Mechanical Legs**: For bipedal walking
+    - **Wheels**: For movement navigation on flat surfaces
+
+### 3. 3D Model
+
+- The 3D model functionality is currently under development. In the future, it will support uploading and previewing 3D model files of terminals.
+
+---
+
+> After editing, please save your changes. The content from different tabs collectively forms the complete definition of the terminal model, which helps with subsequent terminal device configuration and capability management.

@@ -1,36 +1,24 @@
 # Hearing (Perception)
 
-The "Hearing" settings, found under the "Instructions" -> "Perception" module, allow you to configure how your Embodied Agent processes audio input from its environment, particularly focusing on voice detection.
+The "Hearing" module is used to configure how the agent processes audio input, with voice detection as its core functionality.
 
 ## Configuration Options
 
-### 1. Voice Detection
+### Voice Detection
 
-This section focuses on configuring how the agent detects human voices.
+This section is used to configure how the agent detects human voices and related parameters.
 
-- **Title**: Voice Detection
-- **Description**: Configure voice detection method and related parameters.
+- **Voice Detection Method**: This switch is used to select where voice detection is performed. The system provides two modes:
+    - **Terminal-side Detection (Default)**: Voice processing is performed locally on the device. This mode responds faster and better controls data traffic, as invalid audio data does not need to be uploaded to the server.
+    - **Server-side Detection**: When enabled, voice processing will be performed by the cloud server. This mode typically has stronger recognition capabilities but consumes more data traffic. When enabled, you can further configure the following parameters:
+    - **Sensitivity**: Used to adjust the sensitivity of voice detection. Lower values make detection more sensitive but may also more easily misidentify background noise as speech. For example, `0.05` is a relatively sensitive setting.
+    - **Voice Pre-buffer (milliseconds)**: The duration of audio captured and retained before voice detection begins. This helps ensure complete recognition even at the moment speech begins, avoiding loss of initial words.
+    - **Silence Duration (milliseconds)**: The duration of silence needed to determine the end of a sentence. When the system detects silence exceeding this duration, it considers that the user has finished speaking and sends that audio segment for recognition.
 
-#### a. Voice Detection Method
+### Input Device
 
-- **Label**: Voice Detection Method
-- **Control**: A toggle switch (e.g., `ref=e199` from exploration).
-- **Functionality**: This switch likely allows you to choose between different voice detection mechanisms.
-- **Informational Text**: "Default is device-side detection, enable to use server-side detection for conversation presence." This indicates two primary modes:
-    - **Device-Side Detection (Default)**: Voice processing occurs locally on the terminal or device where the agent is running. This can be faster and preserve privacy as audio data may not need to be sent to a server.
-    - **Server-Side Detection (When Enabled)**: Voice processing is handled by a server. This might offer more powerful detection capabilities or be necessary for certain features like continuous conversation presence detection.
+This section is used to specify the source of audio input.
 
-### 2. Input Device
+- **Input Device**: This dropdown menu is used to select the audio device the agent uses to listen to the environment, such as a specific microphone. The menu lists all available audio input channels currently recognized by the system. This option is currently only effective for PC-side testing.
 
-This section deals with specifying the audio input source.
-
-- **Title**: Input Device
-
-#### a. Input Device Selection
-
-- **Label**: Input Device
-- **Control**: A dropdown menu (combobox, e.g., `ref=e208` from exploration).
-- **Functionality**: Allows you to select the specific microphone or audio input channel the agent should use to listen to the environment.
-- **Example Value**: During exploration, "PCM 16-bit" was displayed, which refers to a common audio format. The dropdown would typically list available audio input devices recognized by the system.
-
-Properly configuring these hearing settings is essential for agents that need to respond to spoken commands, engage in conversations, or react to specific sounds in their environment.
+By correctly configuring these hearing settings, you can ensure that your agent responds sensitively to voice commands and participates smoothly in conversations.

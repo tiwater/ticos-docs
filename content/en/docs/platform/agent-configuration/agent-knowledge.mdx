@@ -1,55 +1,56 @@
-# Agent Knowledge Base
+# Knowledge Base
 
-The "Knowledge" module allows you to manage the knowledge base that your Embodied Agent uses to draw information, answer questions, and perform tasks. A well-curated knowledge base is essential for creating an intelligent and helpful agent.
+The "Knowledge Base" module allows you to manage the knowledge base that your agent uses to extract information, answer questions, and perform tasks. A well-curated knowledge base is essential for creating an intelligent and useful agent.
 
 ## Overview
 
-When you navigate to the Knowledge section for your agent, you will typically see:
+When you navigate to the agent's knowledge base section, you will typically see the following information:
 
 - **Page Title**: "Knowledge Base"
-- **Content Area**: If no knowledge has been added yet, you might see messages like "No knowledge has been added yet." and "Add knowledge to make your agent smarter."
-- **Primary Action**: An "Add Knowledge" button.
+- **Memory Function**: Enable the memory function for the knowledge base.
+- **Script Function**: Configure conversation scripts for the agent.
 
-## Adding Knowledge
+## Memory Function
 
-To add new information to your agent's knowledge base, you use the "Add Knowledge" feature.
+Configure the agent's memory function.
 
-1.  **Click the "Add Knowledge" Button** (e.g., `ref=e150` from exploration).
-    This action will open a dialog box titled "Add Knowledge" (e.g., `ref=e157`).
+- **Enable Memory Function**: When enabled, the knowledge base will transform into the agent's long-term memory, providing a more comprehensive interactive experience. For terminal-level knowledge base upload and management, please refer to the relevant API documentation.
+
+## Scripts
+
+To add new information to your agent's script library, use the "Add Script" feature. When a user's conversation includes content from the script library, the agent will be able to generate responses based on the script content.
+
+1.  **Click the "Add Script" Button**.
+    This action will open a dialog box titled "Add Script".
 
 2.  **Fill in the Knowledge Details**:
     The dialog typically contains the following fields:
 
-    -   **Name** (e.g., textbox `ref=e162`):
+    -   **Name**:
         -   **Description**: A concise and descriptive name for the knowledge item or document you are adding.
         -   **Example**: "Product Specifications Q1 2024"
 
-    -   **Description** (e.g., textbox `ref=e165`):
+    -   **Description**:
         -   **Description**: A more detailed summary of the content or purpose of this knowledge item.
         -   **Example**: "Contains detailed specifications for all products launched in the first quarter of 2024, including dimensions, materials, and features."
 
-    -   **Tags** (e.g., textbox `ref=e168`):
+    -   **Tags**:
         -   **Description**: Keywords or labels to help categorize and search for this knowledge item. Tags can be comma-separated or space-separated, depending on the system's implementation.
         -   **Example**: "product, specs, Q1, 2024, hardware"
 
 3.  **Submit the Knowledge Item**:
     The dialog will have several action buttons:
 
-    -   **Cancel Button** (e.g., `ref=e170`): Closes the dialog without saving any changes.
-    -   **Add Knowledge Button** (e.g., `ref=e171`):
-        -   **Functionality**: Submits the new knowledge item to the agent's knowledge base.
-        -   **Note on Enablement**: During exploration, this button was observed to be initially disabled. The specific conditions required to enable this button (e.g., filling all fields, specific content format for an unobserved file upload field) were unclear and require further investigation (see MEMORY[eb2b0bab-3efa-4e91-a558-c298f4c2d3ba]).
-    -   **Close Button** (e.g., `ref=e158`): Typically an 'X' icon at the top corner of the dialog to close it.
+    -   **Cancel Button**: Closes the dialog without saving any changes.
+    -   **Add Script Button**: Submits the new knowledge item to the agent's knowledge base.
+    -   **Close Button**: Typically an 'X' icon at the top corner of the dialog to close it.
 
-## Managing Existing Knowledge
+## Managing Existing Scripts
 
-Once knowledge items are added, this section would typically also provide tools to:
+After adding script items, this section typically also provides the following tools:
 
--   List and view existing knowledge items.
--   Search or filter through the knowledge base.
+-   List and view existing script items.
 -   Edit or update existing items.
 -   Delete items that are no longer relevant.
-
-(The specific UI for managing existing knowledge was not fully explored as no knowledge was added during the initial sessions.)
 
 Building a comprehensive and accurate knowledge base is an ongoing process that significantly enhances your agent's capabilities.
