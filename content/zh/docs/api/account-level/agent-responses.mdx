@@ -1,0 +1,133 @@
+---
+title: Agent Responses 接口
+description: 账户级 Agent Responses API 接口文档
+---
+
+# Agent Responses 接口
+
+本文档描述了账户级 Agent Responses API 的使用方法，该接口允许您通过账户 API 密钥调用智能体服务。
+
+## 接口说明
+
+```
+POST https://api.ticos.ai/v1/agents/<AgentID>/responses
+```
+
+### 请求头
+
+| 参数名 | 必填 | 说明 |
+| ----- | --- | ---- |
+| Content-Type | 是 | 固定值：`application/json` |
+| Authorization | 是 | 格式：`Bearer <Your-API-Key>`，API 密钥可从用户菜单 → API 密钥获取 |
+| X-Model-ID | 是 | 终端型号 ID，可从终端型号详情页地址栏获取 |
+| X-Client-Identifier | 是 | 终端 ID，需与平台录入的终端 ID 一致（URL Encode 后可含中文） |
+
+### 请求体
+
+请求体为 JSON 格式，包含以下字段：
+
+```json
+{
+  "input": "http://<your-domain>/path/to/image.jpeg"
+}
+```
+
+#### input 参数说明
+
+`input` 参数的格式参考 [OpenAI API 文档](https://platform.openai.com/docs/api-reference/responses)，可以是：
+
+1. **图像 URL**：如上例所示，提供一个可公网访问的图像 URL
+2. **文本描述**：纯文本内容，例如 `"input": "请分析这个数据的趋势"`
+3. **复杂对象**：包含多种内容类型的 JSON 对象，例如：
+   ```json
+   "input": [
+     {
+       "type": "text",
+       "text": "请分析下面的图片"
+     },
+     {
+       "type": "image_url",
+       "image_url": {
+         "url": "http://<your-domain>/path/to/image.jpeg"
+       }
+     }
+   ]
+   ```
+
+具体应提供什么内容，取决于智能体中定义的业务需求。例如，如果智能体被配置为计算图片中的人数，则应提供图片 URL。
+
+### 响应
+
+成功调用后，服务返回 JSON：
+
+```json
+{
+  "id": "chatcmpl-BD4u9UtDK3gQBRi3SAZ96KRFGpEFO",
+  "object": "chat.completion",
+  "created": 1742456817,
+  "model": "gpt-4o-2024-08-06",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"count\": 1\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 349,
+    "completion_tokens": 42,
+    "total_tokens": 391
+  }
+}
+```
+
+其中 `choices[0].message.content` 字符串即为业务所需的 JSON 数据，可按需解析。
+
+## 示例代码
+
+### cURL
+
+```bash
+curl -X POST "https://api.ticos.ai/v1/agents/<AgentID>/responses" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <Your-API-Key>" \
+  -H "X-Model-ID: <车型ID>" \
+  -H "X-Client-Identifier: <终端ID>" \
+  -d '{
+        "input": "http://<your-domain>/path/to/image.jpeg"
+      }'
+```
+
+### Python
+
+```python
+import requests
+import json
+
+url = "https://api.ticos.ai/v1/agents/<AgentID>/responses"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer <Your-API-Key>",
+    "X-Model-ID": "<车型ID>",
+    "X-Client-Identifier": "<终端ID>"
+}
+
+data = {
+    "input": "http://<your-domain>/path/to/image.jpeg"
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(data))
+result = response.json()
+print(result["choices"][0]["message"]["content"])
+```
+
+## 常见问题
+
+| 问题 | 解决方案 |
+| ---- | -------- |
+| 返回 401 Unauthorized | 检查 `Authorization` 头中的 API 密钥是否正确，密钥是否已撤销 |
+| 返回 404 Not Found | 确认 AgentID、模型 ID 是否存在且已发布 |

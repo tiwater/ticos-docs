@@ -1,0 +1,135 @@
+---
+title: 资源管理接口
+description: 终端级别的资源上传与删除接口说明
+---
+
+# 资源管理接口
+
+本文档介绍终端级别的资源管理接口，包括文件上传和删除功能。这些接口通常用于将终端采集的图像、PDF 等文件上传至云端，以便后续调用 Agent Responses 等服务进行处理。
+
+## 上传文件
+
+上传文件到资源存储服务，获取可公网访问的 URL。
+
+### 接口地址
+
+```
+POST https://api.ticos.ai/v1/assets
+```
+
+### 认证方式
+
+本接口需要使用 Bearer Token 认证。在 `Authorization` 请求头中包含终端 API 密钥。
+
+### 请求
+
+#### 请求头
+
+| 请求头 | 值 | 是否必须 | 说明 |
+| ------ | -- | ------- | ---- |
+| Authorization | Bearer \<终端密钥\> | 是 | 终端详情页获取的 API 密钥 |
+| Content-Type | multipart/form-data | 是 | 文件上传必须设置此请求头 |
+| accept | application/json | 否 | 指定返回格式为 JSON |
+
+#### 表单数据
+
+| 字段 | 类型 | 是否必须 | 说明 |
+| ---- | ---- | ------- | ---- |
+| file | 文件 | 是 | 要上传的文件。支持常见文档和媒体格式 |
+
+### 示例
+
+#### cURL 示例
+
+```bash
+curl -X 'POST' 'https://api.ticos.ai/v1/assets' \
+  -H 'Authorization: Bearer <终端密钥>' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@"/path/to/your/file.pdf"'
+```
+
+#### Python 示例
+
+```python
+import requests
+
+url = "https://api.ticos.ai/v1/assets"
+headers = {
+  "accept": "application/json",
+  "Authorization": "Bearer <终端密钥>"
+}
+files = {
+  "file": open("/path/to/your/file.pdf", "rb")
+}
+
+response = requests.post(url, headers=headers, files=files)
+print(response.json())
+```
+
+### 响应
+
+成功上传后，返回如下 JSON，`url` 字段即为文件的公网访问地址：
+
+```json
+{
+	"url": "https://assets.ticos.ai/relative/path/to_file.pdf",
+	"contentType": "application/pdf",
+	"path": "relative/path/to_file.pdf"
+}
+```
+
+## 删除文件
+
+删除已上传的资源文件。
+
+### 接口地址
+
+```
+DELETE https://api.ticos.ai/v1/assets
+```
+
+### 认证方式
+
+本接口需要使用 Bearer Token 认证。在 `Authorization` 请求头中包含终端 API 密钥。
+
+### 请求
+
+#### 请求头
+
+| 请求头 | 值 | 是否必须 | 说明 |
+| ------ | -- | ------- | ---- |
+| Authorization | Bearer \<终端密钥\> | 是 | 终端详情页获取的 API 密钥 |
+
+#### 查询参数
+
+| 参数 | 类型 | 是否必须 | 说明 |
+| ---- | ---- | ------- | ---- |
+| url | string | 是 | 要删除的文件 URL |
+
+### 示例
+
+#### cURL 示例
+
+```bash
+curl -X 'DELETE' \
+'https://api.ticos.ai/v1/assets?url=https://assets.ticos.ai/relative/path/to_file.pdf' \
+  -H 'Authorization: Bearer <终端密钥>'
+```
+
+#### Python 示例
+
+```python
+import requests
+
+url = "https://api.ticos.ai/v1/assets"
+params = {
+  "url": "https://assets.ticos.ai/asset_123456789.pdf"
+}
+headers = {
+  "Authorization": "Bearer <终端密钥>"
+}
+
+response = requests.delete(url, headers=headers, params=params)
+print(response.status_code)
+```
