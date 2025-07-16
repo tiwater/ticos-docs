@@ -1,0 +1,135 @@
+---
+title: Asset Management API
+description: Terminal-level API documentation for asset upload and deletion
+---
+
+# Asset Management API
+
+This document introduces terminal-level asset management APIs, including file upload and deletion functions. These APIs are typically used to upload images, PDFs, and other files collected by terminals to the cloud for subsequent processing by services such as Agent Responses.
+
+## Upload File
+
+Upload a file to the asset storage service to obtain a publicly accessible URL.
+
+### API Endpoint
+
+```
+POST https://api.ticos.ai/v1/assets
+```
+
+### Authentication Method
+
+This API requires Bearer Token authentication. Include the terminal API key in the `Authorization` request header.
+
+### Request
+
+#### Request Headers
+
+| Header | Value | Required | Description |
+| ------ | ----- | -------- | ----------- |
+| Authorization | Bearer \<TerminalKey\> | Yes | API key obtained from the terminal details page |
+| Content-Type | multipart/form-data | Yes | This request header must be set for file uploads |
+| accept | application/json | No | Specifies the return format as JSON |
+
+#### Form Data
+
+| Field | Type | Required | Description |
+| ----- | ---- | -------- | ----------- |
+| file | File | Yes | The file to upload. Supports common document and media formats |
+
+### Examples
+
+#### cURL Example
+
+```bash
+curl -X 'POST' 'https://api.ticos.ai/v1/assets' \
+  -H 'Authorization: Bearer <TerminalKey>' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@"/path/to/your/file.pdf"'
+```
+
+#### Python Example
+
+```python
+import requests
+
+url = "https://api.ticos.ai/v1/assets"
+headers = {
+  "accept": "application/json",
+  "Authorization": "Bearer <TerminalKey>"
+}
+files = {
+  "file": open("/path/to/your/file.pdf", "rb")
+}
+
+response = requests.post(url, headers=headers, files=files)
+print(response.json())
+```
+
+### Response
+
+After successful upload, the following JSON is returned, where the `url` field is the public access address of the file:
+
+```json
+{
+	"url": "https://assets.ticos.ai/relative/path/to_file.pdf",
+	"contentType": "application/pdf",
+	"path": "relative/path/to_file.pdf"
+}
+```
+
+## Delete File
+
+Delete an uploaded asset file.
+
+### API Endpoint
+
+```
+DELETE https://api.ticos.ai/v1/assets
+```
+
+### Authentication Method
+
+This API requires Bearer Token authentication. Include the terminal API key in the `Authorization` request header.
+
+### Request
+
+#### Request Headers
+
+| Header | Value | Required | Description |
+| ------ | ----- | -------- | ----------- |
+| Authorization | Bearer \<TerminalKey\> | Yes | API key obtained from the terminal details page |
+
+#### Query Parameters
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| url | string | Yes | URL of the file to delete |
+
+### Examples
+
+#### cURL Example
+
+```bash
+curl -X 'DELETE' \
+'https://api.ticos.ai/v1/assets?url=https://assets.ticos.ai/relative/path/to_file.pdf' \
+  -H 'Authorization: Bearer <TerminalKey>'
+```
+
+#### Python Example
+
+```python
+import requests
+
+url = "https://api.ticos.ai/v1/assets"
+params = {
+  "url": "https://assets.ticos.ai/asset_123456789.pdf"
+}
+headers = {
+  "Authorization": "Bearer <TerminalKey>"
+}
+
+response = requests.delete(url, headers=headers, params=params)
+print(response.status_code)
+```
