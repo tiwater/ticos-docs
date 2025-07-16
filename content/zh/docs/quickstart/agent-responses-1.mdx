@@ -66,7 +66,8 @@ description: 通过实例快速完成终端模型配置、终端录入并调用 
 2. 填写智能体名称、描述等基本信息。
 3. 在 **模型** 选项卡中，确保选择 OpenAI 作为模型提供商。
    - 建议选择支持视觉能力的模型（如 GPT-4o）以处理图像输入。
-4. 完成创建后，记录智能体 ID（可从浏览器地址栏获取）。
+4. 在智能体“指令”中输入希望的业务逻辑，例如：数一数图片中有几个人，用 json 格式返回 ```{"count": n}``` 。
+5. 完成创建后，记录智能体 ID（可从浏览器地址栏获取）。
 
 > 关于智能体模型的详细配置，请参阅[智能体模型配置](../platform/agent-configuration/agent-models)文档。
 
@@ -96,6 +97,9 @@ curl -X POST "https://api.ticos.ai/v1/agents/<AgentID>/responses" \
 | `<车型ID>`        | 步骤 2 中记录的车型 ID                    |
 | `<终端ID>`        | 步骤 3 中填写的终端 ID（URL Encode 后可含中文） |
 
+API-Key 如下所示，从 **用户菜单 -> API 密钥** 处可以拷贝已有 API key或自行创建新的使用。
+![获取 API-Key](/images/quickstart-agent-responses/image8.png)
+
 ### 返回示例
 
 成功调用后，服务返回 JSON：
@@ -111,7 +115,7 @@ curl -X POST "https://api.ticos.ai/v1/agents/<AgentID>/responses" \
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"timestamp\": \"2025-03-09 09:06:18\",\n  \"count\": 1,\n  \"occupation\": 0.9\n}"
+        "content": "{\n  \"count\": 1\n}"
       },
       "finish_reason": "stop"
     }
