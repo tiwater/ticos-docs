@@ -26,17 +26,20 @@ Visit [https://cloud.ticos.ai](https://cloud.ticos.ai) and log in with your acco
 ## 2. Create a Terminal Model
 
 1. Select **Settings → Terminal Models → Add Model** from the navigation bar.
+
+![Add Terminal Type](/images/agent-responses-1/image2.png)
+
 2. Fill in the following information in the popup:
    - **Terminal Type**: Select the type that suits your device, such as `Camera`. If there is no matching type, you can safely select "Other", which will not affect the actual functionality.
    - **Brand / Manufacturer**, **Model Name**, **Description**: Fill in the actual information.
    - Upload a photo of the terminal model and enable **Published**.
-3. Click **Save**.
 
-![Add Terminal Type](/images/agent-responses-1/image2.png)
+![Edit Details](/images/agent-responses-1/image3.png)
+
+3. Click **Save**.
 
 After saving, you will return to the list. Click "Edit Model" to enter the next level interface. The number at the end of the browser address bar is the model ID. Record it for later use when accessing the API.
 
-![Edit Details](/images/agent-responses-1/image3.png)
 
 ---
 
@@ -48,7 +51,7 @@ After saving, you will return to the list. Click "Edit Model" to enter the next 
 | Field | Description |
 | ----- | ----------- |
 | Name | Any easily identifiable name |
-| Terminal ID | Unique terminal device ID (the *Client Identifier* in the API) |
+| Terminal ID | Unique terminal device ID |
 | Terminal Model | Select the terminal model created in step 2 |
 | Location, Description, etc. | Fill in as needed |
 
@@ -66,7 +69,8 @@ Before calling the Agent Responses API, you need to create an agent and ensure i
 2. Fill in the agent name, description, and other basic information.
 3. In the **Models** tab, make sure to select OpenAI as the model provider.
    - It is recommended to choose a model with vision capabilities (such as GPT-4o) to process image inputs.
-4. Enter the desired business logic in the agent's "Instructions", for example: Count how many people are in the image and return in JSON format ```{"count": n}```.
+4. Enter the desired business logic in the agent's "Instructions", for example: 
+   - Count how many people are in the image and return in JSON format ```{"count": n}```.
 5. After creation, record the Agent ID (which can be obtained from the browser address bar).
 
 > For detailed configuration of agent models, please refer to the [Agent Model Configuration](../platform/agent-configuration/agent-models) documentation.
@@ -95,7 +99,7 @@ Placeholder explanations:
 | `<AgentID>` | Agent ID, can be obtained from the agent details page URL |
 | `<Your-API-Key>` | Obtained from **User Menu → API Keys** |
 | `<ModelID>` | Terminal model ID recorded in step 2 |
-| `<TerminalID>` | Terminal ID filled in step 3 (can contain Chinese characters after URL Encoding) |
+| `<TerminalID>` | Terminal ID filled in step 3 (can contain special characters after URL Encoding) |
 
 The API-Key is shown below. You can copy an existing API key or create a new one from **User Menu -> API Keys**.
 ![Get API-Key](/images/agent-responses-1/image8.png)

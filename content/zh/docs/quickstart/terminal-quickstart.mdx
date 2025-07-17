@@ -13,8 +13,6 @@ description: 指导您完成机器人终端型号创建、终端录入、Agent I
 4. 在设备端安装并配置 **ticos-agent**。
 5. 启动 agent 并接入 SDK 进行开发。
 
-> 本文档属于“快速上手”系列，建议先阅读《欢迎使用》了解平台基础概念。
-
 ---
 
 ## 1. 登录平台
@@ -84,6 +82,7 @@ description: 指导您完成机器人终端型号创建、终端录入、Agent I
 ## 5. 安装 ticos-agent
 
 目前只支持 Linux (Aarch64) 系统。如果需要支持其他系统，请联系 Ticos 团队。
+
 从 Ticos 团队获得安装包 `ticos-agent-<version>-arm64.deb`，拷贝至目标设备，执行：
 
 ```bash
@@ -138,7 +137,7 @@ VAD 静音最小持续时间 (ms) · 200
 
 #### Python 示例
 
-1. 克隆仓库：
+1. 克隆仓库到你的终端设备：
 
 ```bash
 git clone https://github.com/tiwater/ticos-client.git
@@ -157,20 +156,17 @@ pip install -r requirements.txt
 python Main.py
 ```
 
-### 集成到自己的应用
-
-通过 ticos-client SDK 及 ticos-agent，您可以实现以下功能：
-
-- **语音交互**：发送语音流并接收语音合成结果
-- **文本对话**：发送文本提示消息并接收智能体响应
-- **图像流识别**：发送图像流并获取分析结果、人脸识别结果等
-- **动作控制**：接收智能体生成的动作指令
-
-接入 SDK 后，即可调用大模型能力、动作指令等功能，实现自定义机器人应用。
-
 ---
 
 ## 8. 启动 ticos-agent
+
+在终端设备上新开一个命令行窗口，通过以下方式启动 ticos-agent：
+
+### 直接运行
+
+```bash
+ticos-agent start
+```
 
 ### 作为用户服务启动（推荐）
 
@@ -184,13 +180,26 @@ systemctl --user start ticos-agent
 journalctl --user -u ticos-agent -f
 ```
 
-### 直接运行
+停止 ticos-agent：
 
 ```bash
-ticos-agent start
+systemctl --user stop ticos-agent
 ```
 
 听到“嘟”声代表已成功连接云端。此时，您可以通过设备上的麦克风与智能体进行语音交互。
+
+---
+
+## 9. 集成到自己的应用
+
+通过 ticos-client SDK 及 ticos-agent，您可以实现以下功能：
+
+- **语音交互**：发送语音流并接收语音合成结果
+- **文本对话**：发送文本提示消息并接收智能体响应
+- **图像流识别**：发送图像流并获取分析结果、人脸识别结果等
+- **动作控制**：接收智能体生成的动作指令
+
+接入 SDK 后，即可调用大模型能力、动作指令等功能，实现自定义机器人应用。
 
 ---
 
