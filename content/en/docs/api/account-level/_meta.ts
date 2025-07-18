@@ -2,6 +2,5 @@ import type { Meta } from "nextra";
 
 export default {
   "agent-responses": "Agent Responses API",
-  "terminal-management": "Terminal Management",
-  "multimodal": "Multimodal API"
+  "terminal-management": "Terminal Management"
 } satisfies Meta;

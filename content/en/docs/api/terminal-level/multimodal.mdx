@@ -20,8 +20,6 @@ POST https://api.ticos.ai/v1/multimodal/tts
 ### Authentication
 
 This endpoint requires Bearer Token authentication. Include your API key or terminal secret in the `Authorization` header.
-- `ti_` prefix: API Key
-- `ts_` prefix: Terminal Secret
 
 ### Request Headers
 
@@ -83,3 +81,21 @@ curl -X 'POST' \
   }' \
   --output test_audio.wav
 ```
+
+## Available Voices
+
+Retrieve a list of available voice models for the TTS service.
+
+### API Description
+
+```
+GET https://stardust.ticos.cn/tts
+```
+
+### Query Parameters
+
+| Parameter | Required | Default | Description |
+| --------- | -------- | ------- | ----------- |
+| language | No | - | Filter voices by language (e.g., `chinese`, `english`) |
+| skip | No | `0` | Pagination start position |
+| top | No | `10` | Number of voices to return |
