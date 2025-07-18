@@ -1,14 +1,21 @@
+---
+title: 多模态接口
+description: 账户级多模态 API 接口文档
+---
+
 # 多模态接口
 
-本节介绍多模态相关接口服务。目前已开放如下服务：
+本文档描述了账户级多模态 API 的使用方法，该接口提供各种多模态服务。目前已开放如下服务：
 
 ## 文本转语音（TTS）
 
 将提供的文本转换为语音音频文件。
 
-### TTS 接口地址
+### 接口说明
 
-`POST /v1/multimodal/tts`
+```
+POST https://api.ticos.ai/v1/multimodal/tts
+```
 
 ### 认证方式
 
@@ -16,16 +23,16 @@
 - `ti_` 前缀: API 密钥
 - `ts_` 前缀: 终端密钥
 
-### 请求
+### 请求头
 
-#### 请求头
+| 参数名 | 必填 | 说明 |
+| ----- | ---- | ---- |
+| Content-Type | 是 | 固定值：`application/json` |
+| Authorization | 是 | 格式：`Bearer <您的令牌>`，令牌可以是 API 密钥或终端密钥 |
 
-| 请求头 | 值 | 是否必须 | 说明 |
-|---|---|---|---|
-| `Authorization` | `Bearer <您的令牌>` | 是 | 您的 API 访问凭证 |
-| `Content-Type` | `application/json` | 是 | 必须设置为 `application/json` |
+### 请求体
 
-#### 请求体
+请求体为 JSON 格式，包含以下字段：
 
 ```json
 {
@@ -37,19 +44,33 @@
 }
 ```
 
-##### 请求体字段
+#### 请求体字段
 
 | 字段 | 类型 | 是否必须 | 默认值 | 说明 |
 |---|---|---|---|---|
-| `text` | 字符串 | 是 | | 要转换为语音的文本。 |
-| `voice` | 字符串 | 否 | `null` | 使用的语音模型。 |
-| `speed_ratio` | 整数 | 否 | `50` | 语速比例 (1-100)。 |
-| `pitch_ratio` | 整数 | 否 | `50` | 音调比例 (1-100)。 |
-| `volume_ratio` | 整数 | 否 | `50` | 音量比例 (1-100)。 |
+| `text` | 字符串 | 是 | | 要转换为语音的文本 |
+| `voice` | 字符串 | 否 | `null` | 使用的语音模型 |
+| `speed_ratio` | 整数 | 否 | `50` | 语速比例 (1-100) |
+| `pitch_ratio` | 整数 | 否 | `50` | 音调比例 (1-100) |
+| `volume_ratio` | 整数 | 否 | `50` | 音量比例 (1-100) |
 
-### 示例
+### 响应
 
-#### cURL 示例
+#### 成功响应
+
+- **状态码**: `200 OK`
+- **响应头**: `Content-Type: audio/wav`
+- **响应体**: 二进制的 WAV 音频数据
+
+#### 错误响应
+
+- **400 Bad Request**: 请求体无效（例如，缺少 `text` 字段）
+- **401 Unauthorized**: 认证失败（例如，无效的令牌）
+- **500 Internal Server Error**: 服务器内部错误（例如，TTS 服务未配置或无法访问）
+
+## 示例代码
+
+### cURL
 
 ```bash
 curl -X 'POST' \
@@ -63,16 +84,32 @@ curl -X 'POST' \
   --output test_audio.wav
 ```
 
-### 响应
+### Python
 
-#### 成功响应 (200 OK)
+```python
+import requests
 
-- **状态码**: `200 OK`
-- **响应头**: `Content-Type: audio/wav`
-- **响应体**: 二进制的 WAV 音频数据。
+url = "https://api.ticos.ai/v1/multimodal/tts"
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer ts_your_api_key_1234567890"
+}
+data = {
+    "text": "这是一个TTS服务测试。",
+    "voice": "zh_female_roumeinvyou_emo_v2_mars_bigtts"
+}
 
-#### 错误响应
+response = requests.post(url, headers=headers, json=data)
 
-- **400 Bad Request**: 请求体无效（例如，缺少 `text` 字段）。
-- **401 Unauthorized**: 认证失败（例如，无效的令牌）。
-- **500 Internal Server Error**: 服务器内部错误（例如，TTS 服务未配置或无法访问）。
+# 保存音频文件
+with open("test_audio.wav", "wb") as f:
+    f.write(response.content)
+```
+
+## 常见问题
+
+| 问题 | 解决方案 |
+| ---- | -------- |
+| 返回 400 Bad Request | 检查请求体是否包含必填字段 `text` |
+| 返回 401 Unauthorized | 检查 `Authorization` 头中的令牌是否正确 |
+| 返回 500 Internal Server Error | 联系管理员检查 TTS 服务是否正常运行 |

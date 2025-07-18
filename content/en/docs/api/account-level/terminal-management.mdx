@@ -1,34 +1,28 @@
 ---
-title: 'Terminal Management API'
-description: 'APIs for managing terminals at the account level.'
+title: Terminal Management API
+description: Account Level Terminal Management API Documentation
 ---
 
-# Terminal Management (Account Level)
+# Terminal Management API
 
-These APIs are used to manage your terminals at an account level. Authentication for these APIs is done using your **Account API Key**.
+This document describes how to use the account-level Terminal Management API, which allows you to manage terminals using your account API key.
 
-## Authentication
+## API Description
 
-All Account Level API endpoints require authentication using a Bearer Token. The token should be your **Account API Key**, passed through the `Authorization` header:
-
-```http
-Authorization: Bearer <account_api_key>
+```
+POST https://api.ticos.ai/v1/terminals
 ```
 
-## API Endpoints
+### Request Headers
 
-### Register New Terminal
+| Parameter | Required | Description |
+| --------- | -------- | ----------- |
+| Content-Type | Yes | Fixed value: `application/json` |
+| Authorization | Yes | Format: `Bearer <account_api_key>`, API key can be obtained from User Menu → API Keys |
 
-Registers a new terminal to your account.
+### Request Body
 
-**Request:**
-```http
-POST /v1/terminals
-Content-Type: application/json
-Authorization: Bearer <account_api_key>
-```
-
-**Request Body:**
+The request body is in JSON format and contains the following fields:
 
 ```json
 {
@@ -39,35 +33,87 @@ Authorization: Bearer <account_api_key>
 }
 ```
 
-**Parameters:**
+#### Request Body Fields
 
-*   `name` (string, required): A user-defined name for the terminal.
-*   `identifier` (string, required): A unique identifier for the terminal.
-*   `model_id` (integer, required): The model ID associated with this terminal.
-*   `description` (string, optional): A description for the terminal.
+| Field | Type | Required | Description |
+| ----- | ---- | -------- | ----------- |
+| `name` | string | Yes | A user-defined name for the terminal |
+| `identifier` | string | Yes | A unique identifier for the terminal |
+| `model_id` | integer | Yes | The model ID associated with this terminal |
+| `description` | string | No | A description for the terminal |
 
-**Success Response (Example 201 Created):**
+### Response
+
+#### Success Response
+
+After a successful call, the service returns JSON with HTTP status code 201 Created:
 
 ```json
 {
-	"name": "name_1",
-	"identifier": "id_1",
-	"status": "active",
-	"model_id": 123,
-	"secret": "ts_d2d5495765f1cdecd290b4a2d291b180", // This is the terminal's secret
-	"description": "Terminal of model 123"
+  "name": "name_1",
+  "identifier": "id_1",
+  "status": "active",
+  "model_id": 123,
+  "secret": "ts_d2d5495765f1cdecd290b4a2d291b180", // This is the terminal's secret
+  "description": "Terminal of model 123"
 }
 ```
 
-**Error Responses (Examples):**
+#### Error Responses
 
-*   `400 Bad Request`: Invalid input (e.g., missing required fields, identifier not unique).
-    ```json
-    {
-      "detail": "A terminal with this identifier already exists for this model"
-    }
-    ```
-*   `401 Unauthorized`: Authentication failed (e.g., invalid account API key).
-*   `500 Internal ServerError`: Server-side error.
+- **400 Bad Request**: Invalid input (e.g., missing required fields, identifier not unique).
+  ```json
+  {
+    "detail": "A terminal with this identifier already exists for this model"
+  }
+  ```
+- **401 Unauthorized**: Authentication failed (e.g., invalid account API key).
+- **500 Internal Server Error**: Server-side error.
 
-> **Note:** The exact success and error response structures, as well as status codes, should be confirmed with the API implementation. The `Host` should be updated to the production API endpoint.
+## Example Code
+
+### cURL
+
+```bash
+curl -X POST "https://api.ticos.ai/v1/terminals" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <account_api_key>" \
+  -d '{
+    "name": "name_1",
+    "identifier": "id_1",
+    "model_id": 123,
+    "description": "Terminal of model 123"
+  }'
+```
+
+### Python
+
+```python
+import requests
+import json
+
+url = "https://api.ticos.ai/v1/terminals"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer <account_api_key>"
+}
+
+data = {
+    "name": "name_1",
+    "identifier": "id_1",
+    "model_id": 123,
+    "description": "Terminal of model 123"
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(data))
+result = response.json()
+print(result)
+```
+
+## Common Issues
+
+| Issue | Solution |
+| ----- | -------- |
+| Returns 400 Bad Request | Check if all required fields are provided and the identifier is unique |
+| Returns 401 Unauthorized | Check if the API key in the `Authorization` header is correct and if the key has been revoked |

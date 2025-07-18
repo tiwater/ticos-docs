@@ -1,17 +1,17 @@
 ---
 title: 资源管理接口
-description: 终端级别的资源上传与删除接口说明
+description: 终端级资源管理 API 接口文档
 ---
 
 # 资源管理接口
 
-本文档介绍终端级别的资源管理接口，包括文件上传和删除功能。这些接口通常用于将终端采集的图像、PDF 等文件上传至云端，以便后续调用 Agent Responses 等服务进行处理。
+本文档描述了终端级资源管理 API 的使用方法，该接口允许您上传和管理终端相关的资源文件。这些接口通常用于将终端采集的图像、PDF 等文件上传至云端，以便后续调用 Agent Responses 等服务进行处理。
 
 ## 上传文件
 
 上传文件到资源存储服务，获取可公网访问的 URL。
 
-### 接口地址
+### 接口说明
 
 ```
 POST https://api.ticos.ai/v1/assets
@@ -19,71 +19,50 @@ POST https://api.ticos.ai/v1/assets
 
 ### 认证方式
 
-本接口需要使用 Bearer Token 认证。在 `Authorization` 请求头中包含终端 API 密钥。
+本接口需要使用 Bearer Token 认证。在 `Authorization` 请求头中包含终端密钥。
 
-### 请求
+### 请求头
 
-#### 请求头
+| 参数名 | 必填 | 说明 |
+| ------ | ------- | ---- |
+| Content-Type | 是 | 固定值：`multipart/form-data` |
+| Authorization | 是 | 格式：`Bearer <终端密钥>`，终端密钥可从终端详情页获取 |
+| accept | 否 | 指定返回格式为 JSON |
 
-| 请求头 | 值 | 是否必须 | 说明 |
-| ------ | -- | ------- | ---- |
-| Authorization | Bearer \<终端密钥\> | 是 | 终端详情页获取的 API 密钥 |
-| Content-Type | multipart/form-data | 是 | 文件上传必须设置此请求头 |
-| accept | application/json | 否 | 指定返回格式为 JSON |
+### 请求体
 
-#### 表单数据
+请求体为 `multipart/form-data` 格式，包含以下字段：
 
 | 字段 | 类型 | 是否必须 | 说明 |
 | ---- | ---- | ------- | ---- |
-| file | 文件 | 是 | 要上传的文件。支持常见文档和媒体格式 |
-
-### 示例
-
-#### cURL 示例
-
-```bash
-curl -X 'POST' 'https://api.ticos.ai/v1/assets' \
-  -H 'Authorization: Bearer <终端密钥>' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@"/path/to/your/file.pdf"'
-```
-
-#### Python 示例
-
-```python
-import requests
-
-url = "https://api.ticos.ai/v1/assets"
-headers = {
-  "accept": "application/json",
-  "Authorization": "Bearer <终端密钥>"
-}
-files = {
-  "file": open("/path/to/your/file.pdf", "rb")
-}
-
-response = requests.post(url, headers=headers, files=files)
-print(response.json())
-```
+| file | 文件 | 是 | 要上传的文件，支持常见文档和媒体格式 |
 
 ### 响应
 
-成功上传后，返回如下 JSON，`url` 字段即为文件的公网访问地址：
+#### 成功响应
+
+- **状态码**: `200 OK`
+- **响应体**:
 
 ```json
 {
-	"url": "https://assets.ticos.ai/relative/path/to_file.pdf",
-	"contentType": "application/pdf",
-	"path": "relative/path/to_file.pdf"
+  "url": "https://assets.ticos.ai/relative/path/to_file.pdf",
+  "contentType": "application/pdf",
+  "path": "relative/path/to_file.pdf"
 }
 ```
+
+#### 错误响应
+
+- **400 Bad Request**: 请求参数无效（例如，缺失文件）
+- **401 Unauthorized**: 认证失败（例如，无效的终端密钥）
+- **500 Internal Server Error**: 服务器内部错误
 
 ## 删除文件
 
 删除已上传的资源文件。
 
-### 接口地址
+### 接口说明
 
 ```
 DELETE https://api.ticos.ai/v1/assets
@@ -91,45 +70,99 @@ DELETE https://api.ticos.ai/v1/assets
 
 ### 认证方式
 
-本接口需要使用 Bearer Token 认证。在 `Authorization` 请求头中包含终端 API 密钥。
+本接口需要使用 Bearer Token 认证。在 `Authorization` 请求头中包含终端密钥。
 
-### 请求
+### 请求头
 
-#### 请求头
+| 参数名 | 必填 | 说明 |
+| ------ | ------- | ---- |
+| Authorization | 是 | 格式：`Bearer <终端密钥>`，终端密钥可从终端详情页获取 |
 
-| 请求头 | 值 | 是否必须 | 说明 |
-| ------ | -- | ------- | ---- |
-| Authorization | Bearer \<终端密钥\> | 是 | 终端详情页获取的 API 密钥 |
+### 请求参数
 
-#### 查询参数
-
-| 参数 | 类型 | 是否必须 | 说明 |
+| 参数名 | 类型 | 必填 | 说明 |
 | ---- | ---- | ------- | ---- |
 | url | string | 是 | 要删除的文件 URL |
 
-### 示例
+### 响应
 
-#### cURL 示例
+#### 成功响应
+
+- **状态码**: `204 No Content`
+
+#### 错误响应
+
+- **400 Bad Request**: 请求参数无效（例如，缺失 URL 参数）
+- **401 Unauthorized**: 认证失败（例如，无效的终端密钥）
+- **404 Not Found**: 文件不存在
+- **500 Internal Server Error**: 服务器内部错误
+
+## 示例代码
+
+### cURL
 
 ```bash
+# 上传文件
+curl -X 'POST' 'https://api.ticos.ai/v1/assets' \
+  -H 'Authorization: Bearer <终端密钥>' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@"/path/to/your/file.pdf"'
+
+# 删除文件
 curl -X 'DELETE' \
 'https://api.ticos.ai/v1/assets?url=https://assets.ticos.ai/relative/path/to_file.pdf' \
   -H 'Authorization: Bearer <终端密钥>'
 ```
 
-#### Python 示例
+### Python
 
 ```python
 import requests
 
-url = "https://api.ticos.ai/v1/assets"
-params = {
-  "url": "https://assets.ticos.ai/asset_123456789.pdf"
-}
-headers = {
-  "Authorization": "Bearer <终端密钥>"
-}
+# 终端密钥
+TERMINAL_SECRET = "<终端密钥>"
 
-response = requests.delete(url, headers=headers, params=params)
-print(response.status_code)
+# 上传文件
+def upload_file(file_path):
+    url = "https://api.ticos.ai/v1/assets"
+    headers = {
+        "accept": "application/json",
+        "Authorization": f"Bearer {TERMINAL_SECRET}"
+    }
+    files = {
+        "file": open(file_path, "rb")
+    }
+    
+    response = requests.post(url, headers=headers, files=files)
+    return response.json()
+
+# 删除文件
+def delete_file(file_url):
+    url = "https://api.ticos.ai/v1/assets"
+    params = {
+        "url": file_url
+    }
+    headers = {
+        "Authorization": f"Bearer {TERMINAL_SECRET}"
+    }
+    
+    response = requests.delete(url, headers=headers, params=params)
+    return response.status_code == 204
+
+# 示例使用
+file_info = upload_file("/path/to/your/file.pdf")
+print(f"Uploaded file URL: {file_info['url']}")
+
+success = delete_file(file_info['url'])
+print(f"File deletion {'successful' if success else 'failed'}")
 ```
+
+## 常见问题
+
+| 问题 | 解决方案 |
+| ---- | -------- |
+| 上传文件失败 | 检查文件格式是否支持，文件大小是否超过限制 |
+| 返回 401 Unauthorized | 检查终端密钥是否正确，是否已过期 |
+| 返回 404 Not Found | 删除文件时，确认文件 URL 是否正确 |
+| 返回 500 Internal Server Error | 联系管理员检查存储服务是否正常运行 |

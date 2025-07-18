@@ -1,45 +1,79 @@
 ---
 title: Asset Management API
-description: Terminal-level API documentation for asset upload and deletion
+description: Terminal Level Asset Management API Documentation
 ---
 
 # Asset Management API
 
-This document introduces terminal-level asset management APIs, including file upload and deletion functions. These APIs are typically used to upload images, PDFs, and other files collected by terminals to the cloud for subsequent processing by services such as Agent Responses.
+This document describes how to use the terminal-level Asset Management API, which allows you to upload and delete files using your terminal key. These APIs are typically used to upload images, PDFs, and other files collected by terminals to the cloud for subsequent processing by services such as Agent Responses.
 
-## Upload File
+## Upload File API
 
-Upload a file to the asset storage service to obtain a publicly accessible URL.
-
-### API Endpoint
+### API Description
 
 ```
 POST https://api.ticos.ai/v1/assets
 ```
 
-### Authentication Method
+### Request Headers
 
-This API requires Bearer Token authentication. Include the terminal API key in the `Authorization` request header.
+| Parameter | Required | Description |
+| --------- | -------- | ----------- |
+| Content-Type | Yes | Fixed value: `multipart/form-data` |
+| Authorization | Yes | Format: `Bearer <TerminalKey>`, terminal key can be obtained from the terminal details page |
+| accept | No | Specifies the return format as JSON: `application/json` |
 
-### Request
+### Request Body
 
-#### Request Headers
-
-| Header | Value | Required | Description |
-| ------ | ----- | -------- | ----------- |
-| Authorization | Bearer \<TerminalKey\> | Yes | API key obtained from the terminal details page |
-| Content-Type | multipart/form-data | Yes | This request header must be set for file uploads |
-| accept | application/json | No | Specifies the return format as JSON |
-
-#### Form Data
+The request body should be formatted as multipart/form-data with the following fields:
 
 | Field | Type | Required | Description |
 | ----- | ---- | -------- | ----------- |
 | file | File | Yes | The file to upload. Supports common document and media formats |
 
-### Examples
+### Response
 
-#### cURL Example
+After a successful upload, the service returns JSON:
+
+```json
+{
+  "url": "https://assets.ticos.ai/relative/path/to_file.pdf",
+  "contentType": "application/pdf",
+  "path": "relative/path/to_file.pdf"
+}
+```
+
+The `url` field is the public access address of the file that can be used in other API calls.
+
+## Delete File API
+
+### API Description
+
+```
+DELETE https://api.ticos.ai/v1/assets
+```
+
+### Request Headers
+
+| Parameter | Required | Description |
+| --------- | -------- | ----------- |
+| Authorization | Yes | Format: `Bearer <TerminalKey>`, terminal key can be obtained from the terminal details page |
+
+### Query Parameters
+
+| Parameter | Type | Required | Description |
+| --------- | ---- | -------- | ----------- |
+| url | string | Yes | URL of the file to delete |
+
+### Response
+
+A successful deletion will return an HTTP 200 OK status code.
+
+## Example Code
+
+### cURL
+
+#### Upload File
 
 ```bash
 curl -X 'POST' 'https://api.ticos.ai/v1/assets' \
@@ -49,7 +83,17 @@ curl -X 'POST' 'https://api.ticos.ai/v1/assets' \
   -F 'file=@"/path/to/your/file.pdf"'
 ```
 
-#### Python Example
+#### Delete File
+
+```bash
+curl -X 'DELETE' \
+'https://api.ticos.ai/v1/assets?url=https://assets.ticos.ai/relative/path/to_file.pdf' \
+  -H 'Authorization: Bearer <TerminalKey>'
+```
+
+### Python
+
+#### Upload File
 
 ```python
 import requests
@@ -67,57 +111,7 @@ response = requests.post(url, headers=headers, files=files)
 print(response.json())
 ```
 
-### Response
-
-After successful upload, the following JSON is returned, where the `url` field is the public access address of the file:
-
-```json
-{
-	"url": "https://assets.ticos.ai/relative/path/to_file.pdf",
-	"contentType": "application/pdf",
-	"path": "relative/path/to_file.pdf"
-}
-```
-
-## Delete File
-
-Delete an uploaded asset file.
-
-### API Endpoint
-
-```
-DELETE https://api.ticos.ai/v1/assets
-```
-
-### Authentication Method
-
-This API requires Bearer Token authentication. Include the terminal API key in the `Authorization` request header.
-
-### Request
-
-#### Request Headers
-
-| Header | Value | Required | Description |
-| ------ | ----- | -------- | ----------- |
-| Authorization | Bearer \<TerminalKey\> | Yes | API key obtained from the terminal details page |
-
-#### Query Parameters
-
-| Parameter | Type | Required | Description |
-| --------- | ---- | -------- | ----------- |
-| url | string | Yes | URL of the file to delete |
-
-### Examples
-
-#### cURL Example
-
-```bash
-curl -X 'DELETE' \
-'https://api.ticos.ai/v1/assets?url=https://assets.ticos.ai/relative/path/to_file.pdf' \
-  -H 'Authorization: Bearer <TerminalKey>'
-```
-
-#### Python Example
+#### Delete File
 
 ```python
 import requests
@@ -133,3 +127,11 @@ headers = {
 response = requests.delete(url, headers=headers, params=params)
 print(response.status_code)
 ```
+
+## Common Issues
+
+| Issue | Solution |
+| ----- | -------- |
+| Returns 401 Unauthorized | Check if the terminal key in the `Authorization` header is correct and has not expired |
+| Returns 400 Bad Request | Ensure the file format is supported and the file size is within limits |
+| Returns 404 Not Found | Verify that the URL provided for deletion is correct and the file exists |

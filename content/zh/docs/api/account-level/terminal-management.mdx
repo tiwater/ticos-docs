@@ -1,34 +1,32 @@
 ---
-title: '终端管理 API'
-description: '用于在账户级别管理终端的 API。'
+title: 终端管理接口
+description: 账户级终端管理 API 接口文档
 ---
 
-# 终端管理 (账户级)
+# 终端管理接口
 
-这些 API 用于在您的账户级别管理终端。这些 API 的身份验证使用您的 **账户 API 密钥**。
+本文档描述了账户级终端管理 API 的使用方法，该接口允许您在账户级别管理终端。
 
-## 身份验证
+## 接口说明
 
-所有账户级 API 端点都需要使用承载令牌 (Bearer Token) 进行身份验证。该令牌应为您的 **账户 API 密钥**，通过 `Authorization` 请求头传递：
-
-```http
-Authorization: Bearer <account_api_key>
+```
+POST https://api.ticos.ai/v1/terminals
 ```
 
-## API 端点
+## 认证方式
 
-### 注册新终端
+所有账户级 API 端点都需要使用 Bearer Token 进行认证。该令牌应为您的**账户 API 密钥**，可从用户菜单 → API 密钥获取。
 
-将新终端注册到您的账户。
+### 请求头
 
-**请求：**
-```http
-POST /v1/terminals
-Content-Type: application/json
-Authorization: Bearer <account_api_key>
-```
+| 参数名 | 必填 | 说明 |
+| ----- | --- | ---- |
+| Content-Type | 是 | 固定值：`application/json` |
+| Authorization | 是 | 格式：`Bearer <account_api_key>`，账户 API 密钥 |
 
-**请求体：**
+### 请求体
+
+请求体为 JSON 格式，包含以下字段：
 
 ```json
 {
@@ -39,27 +37,34 @@ Authorization: Bearer <account_api_key>
 }
 ```
 
-**参数：**
+#### 请求体字段
 
-*   `name` (字符串, 必需): 用户定义的终端名称。
-*   `identifier` (字符串, 必需): 终端的唯一标识符。
-*   `model_id` (整数, 必需): 与此终端关联的模型 ID。
-*   `description` (字符串, 可选): 终端的描述。
+| 字段 | 类型 | 是否必须 | 说明 |
+| ----- | --- | ---- | ---- |
+| `name` | 字符串 | 是 | 用户定义的终端名称 |
+| `identifier` | 字符串 | 是 | 终端的唯一标识符 |
+| `model_id` | 整数 | 是 | 与此终端关联的模型 ID |
+| `description` | 字符串 | 否 | 终端的描述 |
 
-**成功响应 (示例 201 Created)：**
+### 响应
+
+#### 成功响应
+
+- **状态码**: `201 Created`
+- **响应体**:
 
 ```json
 {
-	"name": "name_1",
-	"identifier": "id_1",
-	"status": "active",
-	"model_id": 123,
-	"secret": "ts_d2d5495765f1cdecd290b4a2d291b180", // 这是用于终端的密钥
-	"description": "型号为 123 的终端"
+  "name": "name_1",
+  "identifier": "id_1",
+  "status": "active",
+  "model_id": 123,
+  "secret": "ts_d2d5495765f1cdecd290b4a2d291b180", // 这是用于终端的密钥
+  "description": "型号为 123 的终端"
 }
 ```
 
-**错误响应 (示例)：**
+#### 错误响应
 
 *   `400 Bad Request`: 无效输入 (例如，缺少必需字段，标识符不唯一)。
     ```json

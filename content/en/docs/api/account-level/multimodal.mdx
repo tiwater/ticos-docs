@@ -1,14 +1,21 @@
+---
+title: Multimodal API
+description: Account Level Multimodal API Documentation
+---
+
 # Multimodal API
 
-This section describes the multimodal interface services. Currently, the following service is available:
+This document describes how to use the account-level Multimodal API, which provides various multimodal interface services. Currently, the following service is available:
 
 ## Text-to-Speech (TTS)
 
 Converts the provided text into a speech audio file.
 
-### TTS Endpoint
+### API Description
 
-`POST /v1/multimodal/tts`
+```
+POST https://api.ticos.ai/v1/multimodal/tts
+```
 
 ### Authentication
 
@@ -16,16 +23,16 @@ This endpoint requires Bearer Token authentication. Include your API key or term
 - `ti_` prefix: API Key
 - `ts_` prefix: Terminal Secret
 
-### Request
+### Request Headers
 
-#### Headers
+| Parameter | Required | Description |
+| --------- | -------- | ----------- |
+| Content-Type | Yes | Fixed value: `application/json` |
+| Authorization | Yes | Format: `Bearer <your_token>`, where token is your API key or terminal secret |
 
-| Header | Value | Required | Description |
-|---|---|---|---|
-| `Authorization` | `Bearer <your_token>` | Yes | Your API access credential. |
-| `Content-Type` | `application/json` | Yes | Must be set to `application/json`. |
+### Request Body
 
-#### Request Body
+The request body is in JSON format and contains the following fields:
 
 ```json
 {
@@ -37,7 +44,7 @@ This endpoint requires Bearer Token authentication. Include your API key or term
 }
 ```
 
-##### Request Body Fields
+#### Request Body Fields
 
 | Field | Type | Required | Default | Description |
 |---|---|---|---|---|
@@ -47,9 +54,23 @@ This endpoint requires Bearer Token authentication. Include your API key or term
 | `pitch_ratio` | integer | No | `50` | The pitch ratio of the speech (1-100). |
 | `volume_ratio` | integer | No | `50` | The volume ratio of the speech (1-100). |
 
-### Example
+### Response
 
-#### cURL Example
+#### Success Response
+
+- **Status Code**: `200 OK`
+- **Headers**: `Content-Type: audio/wav`
+- **Body**: The binary WAV audio data.
+
+#### Error Responses
+
+- **400 Bad Request**: Invalid request body (e.g., missing `text` field).
+- **401 Unauthorized**: Authentication failed (e.g., invalid token).
+- **500 Internal Server Error**: Internal server error (e.g., TTS service is not configured or unreachable).
+
+## Example Code
+
+### cURL
 
 ```bash
 curl -X 'POST' \
@@ -62,17 +83,3 @@ curl -X 'POST' \
   }' \
   --output test_audio.wav
 ```
-
-### Response
-
-#### Success Response (200 OK)
-
-- **Status Code**: `200 OK`
-- **Headers**: `Content-Type: audio/wav`
-- **Body**: The binary WAV audio data.
-
-#### Error Responses
-
-- **400 Bad Request**: Invalid request body (e.g., missing `text` field).
-- **401 Unauthorized**: Authentication failed (e.g., invalid token).
-- **500 Internal Server Error**: Internal server error (e.g., TTS service is not configured or unreachable).

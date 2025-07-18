@@ -1,39 +1,42 @@
 ---
-title: '人脸管理 API'
-description: '用于在特定终端上管理人脸的 API。'
+title: 人脸管理接口
+description: 终端级人脸管理 API 接口文档
 ---
 
-# 人脸管理 (终端级)
+# 人脸管理接口
 
-这些 API 用于在特定终端上管理人脸识别数据。这些 API 的身份验证使用在终端注册或管理过程中获取的 **终端密钥**。
+本文档描述了终端级人脸管理 API 的使用方法，该接口允许您在特定终端上管理人脸识别数据。
 
-## 认证
-
-所有 API 端点都需要使用 Bearer Token 进行认证。Token 应该是您的终端密钥，通过 Authorization 请求头传递：
-
-```http
-Authorization: Bearer <terminal_secret>
-```
-
-## 基础 URL
-
-所有 API 端点都基于以下基础 URL：
+## 接口说明
 
 ```
-https://api.ticos.ai/v1/api
+GET/POST/PUT/DELETE https://api.ticos.ai/v1/api/faces
 ```
+
+## 认证方式
+
+所有终端级 API 端点都需要使用 Bearer Token 进行认证。该令牌应为您的**终端密钥**，在终端注册或管理过程中获取。
+
+### 请求头
+
+| 参数名 | 必填 | 说明 |
+| ----- | --- | ---- |
+| Content-Type | 是 | 取决于请求类型，一般为 `application/json` 或 `multipart/form-data` |
+| Authorization | 是 | 格式：`Bearer <terminal_secret>`，终端密钥 |
 
 ## API 端点
 
 ### 获取所有人脸
 
-```http
+获取与终端关联组中的所有人脸。
+
+#### 请求
+
+```
 GET /faces
 ```
 
-获取与终端关联组中的所有 faces。
-
-**响应**
+#### 响应
 
 ```json
 [
@@ -48,19 +51,23 @@ GET /faces
 
 ### 创建人脸
 
-```http
+在终端的关联组中创建新的人脸。
+
+#### 请求
+
+```
 POST /faces
 Content-Type: multipart/form-data
 ```
 
-在终端的关联组中创建新的人脸。
+#### 请求参数
 
-**参数**
+| 参数名 | 类型 | 必填 | 说明 |
+| ----- | --- | ---- | ---- |
+| `image` | 文件 | 是 | 人脸图像文件 |
+| `name` | 字符串 | 是 | 人脸名称 |
 
-- `image`: 人脸图像文件（必需）
-- `name`: 人脸名称（必需）
-
-**响应**
+#### 响应
 
 ```json
 {
@@ -71,13 +78,15 @@ Content-Type: multipart/form-data
 
 ### 获取特定人脸
 
-```http
+获取终端组中的特定人脸。
+
+#### 请求
+
+```
 GET /faces/{face_id}
 ```
 
-获取终端组中的特定人脸。
-
-**响应**
+#### 响应
 
 ```json
 {
@@ -90,19 +99,23 @@ GET /faces/{face_id}
 
 ### 更新人脸
 
-```http
+更新终端组中的特定人脸。
+
+#### 请求
+
+```
 PUT /faces/{face_id}
 Content-Type: multipart/form-data
 ```
 
-更新终端组中的特定人脸。
+#### 请求参数
 
-**参数**
+| 参数名 | 类型 | 必填 | 说明 |
+| ----- | --- | ---- | ---- |
+| `name` | 字符串 | 是 | 人脸名称 |
+| `image` | 文件 | 否 | 人脸图像文件 |
 
-- `name`: 人脸名称（必需）
-- `image`: 人脸图像文件（可选）
-
-**响应**
+#### 响应
 
 ```json
 {
@@ -113,36 +126,95 @@ Content-Type: multipart/form-data
 
 ### 删除人脸
 
-```http
+删除终端组中的特定人脸。
+
+#### 请求
+
+```
 DELETE /faces/{face_id}
 ```
 
-删除终端组中的特定人脸。
+#### 响应
 
-**响应**
-
-- 204 No Content
+- **状态码**: `204 No Content`
 
 ### 获取人脸图像
 
-```http
+获取特定人脸的图像。
+
+#### 请求
+
+```
 GET /faces/{face_id}/image
 ```
 
-获取特定人脸的图像。
+#### 响应
 
-**响应**
-
-- 图像数据（适当的 MIME 类型）
+- **状态码**: `200 OK`
+- **响应头**: 适当的图像 MIME 类型
+- **响应体**: 图像数据
 
 ## 错误响应
 
 所有端点都可能返回以下错误响应：
 
-- `400 Bad Request`: 请求参数无效
-- `401 Unauthorized`: 认证失败
-- `404 Not Found`: 资源未找到
-- `500 Internal Server Error`: 服务器错误
+- **400 Bad Request**: 请求参数无效
+- **401 Unauthorized**: 认证失败
+- **404 Not Found**: 资源未找到
+- **500 Internal Server Error**: 服务器错误
+
+## 示例代码
+
+### cURL
+
+```bash
+# 获取所有人脸
+curl -X GET "https://api.ticos.ai/v1/api/faces" \
+  -H "Authorization: Bearer <terminal_secret>"
+
+# 创建新人脸
+curl -X POST "https://api.ticos.ai/v1/api/faces" \
+  -H "Authorization: Bearer <terminal_secret>" \
+  -H "Content-Type: multipart/form-data" \
+  -F "name=测试人脸" \
+  -F "image=@/path/to/face.jpg"
+
+# 删除人脸
+curl -X DELETE "https://api.ticos.ai/v1/api/faces/face123" \
+  -H "Authorization: Bearer <terminal_secret>"
+```
+
+### Python
+
+```python
+import requests
+
+# 终端密钥
+TERMINAL_SECRET = "<terminal_secret>"
+
+# 获取所有人脸
+def get_all_faces():
+    url = "https://api.ticos.ai/v1/api/faces"
+    headers = {"Authorization": f"Bearer {TERMINAL_SECRET}"}
+    response = requests.get(url, headers=headers)
+    return response.json()
+
+# 创建新人脸
+def create_face(name, image_path):
+    url = "https://api.ticos.ai/v1/api/faces"
+    headers = {"Authorization": f"Bearer {TERMINAL_SECRET}"}
+    files = {"image": open(image_path, "rb")}
+    data = {"name": name}
+    response = requests.post(url, headers=headers, files=files, data=data)
+    return response.json()
+
+# 删除人脸
+def delete_face(face_id):
+    url = f"https://api.ticos.ai/v1/api/faces/{face_id}"
+    headers = {"Authorization": f"Bearer {TERMINAL_SECRET}"}
+    response = requests.delete(url, headers=headers)
+    return response.status_code == 204
+```
 
 ## 实现细节
 
@@ -150,16 +222,22 @@ GET /faces/{face_id}/image
 
 创建人脸时，系统会自动生成唯一的 face_id。face_id 是一个 32 字符的十六进制字符串，由 16 个随机字节生成。
 
+## 常见问题
+
+| 问题 | 解决方案 |
+| ---- | -------- |
+| 上传人脸失败 | 确保图像文件格式正确，大小适中，且包含清晰的人脸 |
+| 返回 401 Unauthorized | 检查终端密钥是否正确，是否已过期 |
+| 返回 404 Not Found | 确认 face_id 是否正确，是否属于当前终端 |
+
 ## 最佳实践
 
 1. **错误处理**
-
    - 始终检查响应状态码
    - 为所有 API 调用实现适当的错误处理
    - 使用合适的重试机制
 
 2. **安全性**
-
    - 妥善保管您的终端密钥
    - 对所有 API 调用使用 HTTPS
 
