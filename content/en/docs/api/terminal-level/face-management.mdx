@@ -1,21 +1,13 @@
 ---
-title: 'Face Management API'
-description: 'APIs for managing faces on a specific terminal.'
+title: Face Management API
+description: Terminal Level Face Management API Documentation
 ---
 
-# Face Management (Terminal Level)
+# Face Management API
 
-These APIs are used for managing facial recognition data on a specific terminal. Authentication for these APIs is done using the **Terminal Secret** obtained during terminal registration or management.
+This document describes how to use the terminal-level Face Management API, which allows you to manage facial recognition data using your terminal secret.
 
-## Authentication
-
-All API endpoints require authentication using Bearer Token. The token should be your terminal's secret, passed through the Authorization header:
-
-```http
-Authorization: Bearer <terminal_secret>
-```
-
-## Base URL
+## API Description
 
 All API endpoints are relative to the base URL:
 
@@ -23,17 +15,26 @@ All API endpoints are relative to the base URL:
 https://api.ticos.ai/v1/api
 ```
 
-## Endpoints
+### Request Headers
+
+| Parameter | Required | Description |
+| --------- | -------- | ----------- |
+| Authorization | Yes | Format: `Bearer <terminal_secret>`, terminal secret obtained during terminal registration |
+| Content-Type | Varies | For POST and PUT operations with file uploads: `multipart/form-data` |
+
+## API Endpoints
 
 ### List All Faces
 
-```http
+```
 GET /faces
 ```
 
 Retrieves all faces associated with the terminal's group.
 
-**Response**
+#### Response
+
+After a successful call, the service returns JSON:
 
 ```json
 [
@@ -48,19 +49,22 @@ Retrieves all faces associated with the terminal's group.
 
 ### Create Face
 
-```http
+```
 POST /faces
-Content-Type: multipart/form-data
 ```
 
 Creates a new face in the terminal's associated group.
 
-**Parameters**
+#### Request Body Fields
 
-- `image`: Face image file (required)
-- `name`: Face name (required)
+| Field | Type | Required | Description |
+| ----- | ---- | -------- | ----------- |
+| `image` | File | Yes | Face image file |
+| `name` | string | Yes | Face name |
 
-**Response**
+#### Response
+
+After a successful call, the service returns JSON:
 
 ```json
 {
@@ -71,13 +75,15 @@ Creates a new face in the terminal's associated group.
 
 ### Get Face
 
-```http
+```
 GET /faces/{face_id}
 ```
 
 Retrieves a specific face from the terminal's group.
 
-**Response**
+#### Response
+
+After a successful call, the service returns JSON:
 
 ```json
 {
@@ -90,19 +96,22 @@ Retrieves a specific face from the terminal's group.
 
 ### Update Face
 
-```http
+```
 PUT /faces/{face_id}
-Content-Type: multipart/form-data
 ```
 
 Updates a specific face in the terminal's group.
 
-**Parameters**
+#### Request Body Fields
 
-- `name`: Face name (required)
-- `image`: Face image file (optional)
+| Field | Type | Required | Description |
+| ----- | ---- | -------- | ----------- |
+| `name` | string | Yes | Face name |
+| `image` | File | No | Face image file |
 
-**Response**
+#### Response
+
+After a successful call, the service returns JSON:
 
 ```json
 {
@@ -113,25 +122,25 @@ Updates a specific face in the terminal's group.
 
 ### Delete Face
 
-```http
+```
 DELETE /faces/{face_id}
 ```
 
 Deletes a specific face from the terminal's group.
 
-**Response**
+#### Response
 
 - 204 No Content
 
 ### Get Face Image
 
-```http
+```
 GET /faces/{face_id}/image
 ```
 
 Retrieves the image of a specific face.
 
-**Response**
+#### Response
 
 - Image data in the appropriate MIME type
 
@@ -139,10 +148,105 @@ Retrieves the image of a specific face.
 
 All endpoints may return the following error responses:
 
-- `400 Bad Request`: Invalid request parameters
-- `401 Unauthorized`: Authentication failed
-- `404 Not Found`: Resource not found
-- `500 Internal Server Error`: Server error
+- **400 Bad Request**: Invalid request parameters
+- **401 Unauthorized**: Authentication failed
+- **404 Not Found**: Resource not found
+- **500 Internal Server Error**: Server error
+
+## Example Code
+
+### cURL
+
+```bash
+# List all faces
+curl -X GET "https://api.ticos.ai/v1/api/faces" \
+  -H "Authorization: Bearer <terminal_secret>"
+
+# Create a new face
+curl -X POST "https://api.ticos.ai/v1/api/faces" \
+  -H "Authorization: Bearer <terminal_secret>" \
+  -H "Content-Type: multipart/form-data" \
+  -F "name=Test Face" \
+  -F "image=@/path/to/face.jpg"
+
+# Get a specific face
+curl -X GET "https://api.ticos.ai/v1/api/faces/face123" \
+  -H "Authorization: Bearer <terminal_secret>"
+
+# Update a face
+curl -X PUT "https://api.ticos.ai/v1/api/faces/face123" \
+  -H "Authorization: Bearer <terminal_secret>" \
+  -H "Content-Type: multipart/form-data" \
+  -F "name=Updated Face Name" \
+  -F "image=@/path/to/new_face.jpg"
+
+# Delete a face
+curl -X DELETE "https://api.ticos.ai/v1/api/faces/face123" \
+  -H "Authorization: Bearer <terminal_secret>"
+
+# Get face image
+curl -X GET "https://api.ticos.ai/v1/api/faces/face123/image" \
+  -H "Authorization: Bearer <terminal_secret>" \
+  --output face.jpg
+```
+
+### Python
+
+```python
+import requests
+
+base_url = "https://api.ticos.ai/v1/api"
+headers = {
+    "Authorization": "Bearer <terminal_secret>"
+}
+
+# List all faces
+response = requests.get(f"{base_url}/faces", headers=headers)
+faces = response.json()
+print(faces)
+
+# Create a new face
+files = {
+    "image": open("/path/to/face.jpg", "rb")
+}
+data = {
+    "name": "Test Face"
+}
+response = requests.post(f"{base_url}/faces", headers=headers, files=files, data=data)
+print(response.json())
+
+# Get a specific face
+face_id = "face123"
+response = requests.get(f"{base_url}/faces/{face_id}", headers=headers)
+print(response.json())
+
+# Update a face
+files = {
+    "image": open("/path/to/new_face.jpg", "rb")
+}
+data = {
+    "name": "Updated Face Name"
+}
+response = requests.put(f"{base_url}/faces/{face_id}", headers=headers, files=files, data=data)
+print(response.json())
+
+# Delete a face
+response = requests.delete(f"{base_url}/faces/{face_id}", headers=headers)
+print(response.status_code)  # Should be 204
+
+# Get face image
+response = requests.get(f"{base_url}/faces/{face_id}/image", headers=headers)
+with open("face.jpg", "wb") as f:
+    f.write(response.content)
+```
+
+## Common Issues
+
+| Issue | Solution |
+| ----- | -------- |
+| Returns 401 Unauthorized | Check if the terminal secret in the `Authorization` header is correct |
+| Returns 400 Bad Request | Ensure all required fields are provided and the image format is supported |
+| Returns 404 Not Found | Verify that the face_id exists in the terminal's group |
 
 ## Implementation Details
 
@@ -153,13 +257,11 @@ When creating a face, the system automatically generates a unique face_id. The f
 ## Best Practices
 
 1. **Error Handling**
-
    - Always check response status codes
    - Implement proper error handling for all API calls
    - Use appropriate retry mechanisms
 
 2. **Security**
-
    - Keep your terminal secret secure
    - Use HTTPS for all API calls
 

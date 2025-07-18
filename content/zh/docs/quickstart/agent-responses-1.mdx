@@ -1,0 +1,151 @@
+---
+title: Agent Responses 快速上手（一）
+description: 通过实例快速完成终端模型配置、终端录入并调用 Agent Responses 接口。
+---
+
+# Agent Responses 快速上手（服务器端应用）
+
+本文档以“终端设备采集图像进行识别”场景为例，演示如何在 **Ticos Cloud** 平台中：
+
+1. 创建终端设备型号。
+2. 录入待支持的终端。
+3. 在服务器端应用中通过 Agent Responses API 发送图像并解析返回内容。
+
+阅读本指南前，请确保已经完成账户注册并获得 [API 密钥](../platform/account/api-keys)。
+
+---
+
+## 1. 登录平台
+
+访问 [https://cloud.ticos.ai](https://cloud.ticos.ai) 并使用您的账户登录。
+
+![登录界面](/images/agent-responses-1/image1.png)
+
+---
+
+## 2. 创建终端型号
+
+1. 导航栏选择 **设置 → 终端型号 → 添加型号**。
+
+![添加终端类型](/images/agent-responses-1/image2.png)
+
+2. 在弹窗中填写以下信息：
+   - **终端类型**：选择适合您的设备类型，例如`摄像头`，如果没有匹配的类型，可以放心选择“其他”，不会影响实际功能。
+   - **品牌 / 制造商**、**型号名称**、**描述**：填写实际信息。
+   - 上传该型终端照片并启用 **已发布**。
+
+![编辑详细信息](/images/agent-responses-1/image3.png)
+
+3. 点击 **保存**。
+
+保存后返回列表。点击“编辑型号”，进入下级界面，在浏览器地址栏最后的数字是型号 ID，记录下来后面访问接口备用。
+
+---
+
+## 3. 录入终端设备
+
+1. 选择 **终端运维 → 终端 → 添加终端**。
+2. 填写下表信息：
+
+| 字段          | 说明                                   |
+| ------------- | -------------------------------------- |
+| 名称          | 任意易识别名称       |
+| 终端 ID       | 终端设备唯一编号 |
+| 终端型号      | 选择步骤 2 创建的终端型号               |
+| 位置、描述等  | 视需要填写                             |
+
+3. 保存后重复上述流程，直至录入全部终端。
+
+![添加终端](/images/agent-responses-1/image4.png)
+
+---
+
+## 4. 创建智能体
+
+在调用 Agent Responses 接口前，您需要创建一个智能体并确保其使用 OpenAI 作为模型提供商。
+
+1. 导航栏选择 **具身智能体 → 创建智能体**。
+2. 填写智能体名称、描述等基本信息。
+3. 在 **模型** 选项卡中，确保选择 OpenAI 作为模型提供商。
+   - 建议选择支持视觉能力的模型（如 GPT-4o）以处理图像输入。
+4. 在智能体“指令”中输入希望的业务逻辑，例如：
+   - 数一数图片中有几个人，用 json 格式返回 ```{"count": n}``` 。
+5. 完成创建后，记录智能体 ID（可从浏览器地址栏获取）。
+
+> 关于智能体模型的详细配置，请参阅[智能体模型配置](../platform/agent-configuration/agent-models)文档。
+
+---
+
+## 5. 调用 Agent Responses 接口
+
+以下示例演示如何通过 **curl** 调用 API，并在请求头中传入终端型号 ID、终端 ID 等信息。
+
+```bash
+curl -X POST "https://api.ticos.ai/v1/agents/<AgentID>/responses" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <Your-API-Key>" \
+  -H "X-Model-ID: <车型ID>" \
+  -H "X-Client-Identifier: <终端ID>" \
+  -d '{
+        "input": "http://<your-domain>/path/to/image.jpeg"
+      }'
+```
+
+替换占位符说明：
+
+| 占位符            | 含义                                     |
+| ----------------- | ---------------------------------------- |
+| `<AgentID>`       | 智能体 ID，可在智能体详情页地址栏获取     |
+| `<Your-API-Key>`  | 从 **用户菜单 → API 密钥** 获取           |
+| `<终端型号ID>`        | 步骤 2 中记录的终端型号 ID                    |
+| `<终端ID>`        | 步骤 3 中填写的终端 ID（URL Encode 后可含中文） |
+
+API-Key 如下所示，从 **用户菜单 -> API 密钥** 处可以拷贝已有 API key或自行创建新的使用。
+![获取 API-Key](/images/agent-responses-1/image8.png)
+
+### input 参数说明
+
+`input` 参数的格式参考 [OpenAI API 文档](https://platform.openai.com/docs/api-reference/responses)，具体应提供什么内容，取决于智能体中定义的业务需求。例如，如果智能体被配置为计算图片中的人数，则应提供图片 URL。
+
+### 返回示例
+
+成功调用后，服务返回 JSON：
+
+```json
+{
+  "id": "chatcmpl-BD4u9UtDK3gQBRi3SAZ96KRFGpEFO",
+  "object": "chat.completion",
+  "created": 1742456817,
+  "model": "gpt-4o-2024-08-06",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"count\": 1\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 349,
+    "completion_tokens": 42,
+    "total_tokens": 391
+  }
+}
+```
+
+其中 `choices[0].message.content` 字符串即为业务所需的 JSON 数据，可按需解析。
+
+---
+
+## 6. 常见问题
+
+| 问题                                   | 解决方案                                               |
+| -------------------------------------- | ------------------------------------------------------ |
+| 接口返回 401 Unauthorized              | 检查 `X-API-Key` 是否正确，密钥是否已撤销              |
+| 接口返回 404 Not Found                 | 确认 AgentID、模型 ID 是否存在且已发布                 |
+
+---
+
+完成以上步骤，即可在所需服务器端的应用场景中快速接入 **Ticos Agent Responses** 服务。

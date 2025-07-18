@@ -1,0 +1,32 @@
+# Vision (Perception)
+
+The "Vision" module is used for configuring how the agent processes and interprets visual information. Through these settings, you can precisely control the agent's visual capabilities.
+
+## Configuration Options
+
+### Face Detection
+
+- **Face Detection**: When enabled, the agent will be able to detect whether there are faces in its field of view.
+- **Face Recognition**: When enabled, the agent will be able to recognize whether faces in its field of view belong to specific individuals in the face database.
+- **Manage Face Database**: Click this option to jump to the face database management module for adding, deleting, modifying, and querying face information.
+
+If face detection is successful, you can reference the detected face information in the model's system instructions using the following macros. When multiple faces are in view, the system will default to using the information from the largest face.
+
+| Macro                               | Description                                                        | Possible Values                                                 |
+| ------------------------------------ | ------------------------------------------------------------------ | --------------------------------------------------------------- |
+| `{{tiwater.vision.user_emotion}}`      | User's emotion (English)                                           | `happy`, `sad`, `angry`, `surprised`, `fearful`, `disgusted`, `neutral` |
+| `{{tiwater.vision.user_emotion.cn}}`   | User's emotion (Chinese)                                           | `快乐`, `伤心`, `生气`, `惊讶`, `害怕`, `厌恶`, `平静`             |
+| `{{tiwater.vision.user_gender}}`       | User's gender (English)                                            | `Man`, `Woman`                                                  |
+| `{{tiwater.vision.user_gender.cn}}`    | User's gender (Chinese)                                            | `男`, `女`                                                      |
+| `{{tiwater.vision.user_age}}`          | User's age (Arabic numerals)                                       | e.g., `28`                                                      |
+| `{{tiwater.vision.user_age_subsection.cn}}` | User's age group                                                   | `少年`, `中年`, `老年`                                          |
+| `{{tiwater.vision.user_name}}`         | User's name (must be pre-registered in the face database)         | e.g., `John Smith`                                              |
+
+**Note**: When no face is detected in the field of view, or when specific attributes (such as name) are not recognized, the macros will return default values (such as `neutral`, `平静`, `unknown`, `未知`).
+
+### Object Detection
+
+- **Description**: Enable or disable the agent's ability to detect and recognize specific objects in its field of view.
+- **Object List**: When enabled, the system will provide a predefined list of objects. You can check the objects you want the agent to pay special attention to and recognize.
+
+By properly configuring these vision settings, you can ensure that the agent efficiently and accurately "sees" and understands its environment according to its task requirements.

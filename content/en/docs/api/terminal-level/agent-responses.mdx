@@ -1,0 +1,127 @@
+---
+title: Agent Responses API
+description: Terminal Level Agent Responses API Documentation
+---
+
+# Agent Responses API
+
+This document describes how to use the terminal-level Agent Responses API, which allows you to call agent services using a terminal key.
+
+## API Description
+
+```
+POST https://api.ticos.ai/v1/agents/<AgentID>/responses
+```
+
+### Request Headers
+
+| Parameter | Required | Description |
+| --------- | -------- | ----------- |
+| Content-Type | Yes | Fixed value: `application/json` |
+| Authorization | Yes | Format: `Bearer <TerminalKey>`, terminal key can be obtained from the terminal details page |
+
+### Request Body
+
+The request body is in JSON format and contains the following fields:
+
+```json
+{
+  "input": "https://assets.ticos.ai/picture1.jpg"
+}
+```
+
+#### Input Parameter Explanation
+
+The format of the `input` parameter refers to the [OpenAI API Documentation](https://platform.openai.com/docs/api-reference/responses), which can be:
+
+1. **Image URL**: As shown in the example above, provide a publicly accessible image URL
+2. **Text Description**: Plain text content, for example `"input": "Please analyze the trend of this data"`
+3. **Complex Object**: A JSON object containing multiple content types, for example:
+   ```json
+   "input": [
+     {
+       "type": "text",
+       "text": "Please analyze the image below"
+     },
+     {
+       "type": "image_url",
+       "image_url": {
+         "url": "http://<your-domain>/path/to/image.jpeg"
+       }
+     }
+   ]
+   ```
+
+The specific content to be provided depends on the business requirements defined in the agent. For example, if the agent is configured to count the number of people in an image, an image URL should be provided.
+
+### Response
+
+After a successful call, the service returns JSON:
+
+```json
+{
+  "id": "chatcmpl-BD4u9UtDK3gQBRi3SAZ96KRFGpEFO",
+  "object": "chat.completion",
+  "created": 1742456817,
+  "model": "gpt-4o-2024-08-06",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"count\": 1\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 349,
+    "completion_tokens": 42,
+    "total_tokens": 391
+  }
+}
+```
+
+The `choices[0].message.content` string is the JSON data needed for the business, which can be parsed as needed.
+
+## Example Code
+
+### cURL
+
+```bash
+curl -X POST "https://api.ticos.ai/v1/agents/<AgentID>/responses" \
+  -H "Authorization: Bearer <TerminalKey>" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "input": "https://assets.ticos.ai/picture1.jpg"
+      }'
+```
+
+### Python
+
+```python
+import requests
+import json
+
+url = "https://api.ticos.ai/v1/agents/<AgentID>/responses"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer <TerminalKey>"
+}
+
+data = {
+    "input": "https://assets.ticos.ai/picture1.jpg"
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(data))
+result = response.json()
+print(result["choices"][0]["message"]["content"])
+```
+
+## Common Issues
+
+| Issue | Solution |
+| ----- | -------- |
+| Returns 401 Unauthorized | Confirm that the key in the `Authorization` header is correct and has not expired |
+| Parsing result is empty | Check if the agent instructions are correct |

@@ -7,7 +7,6 @@ export default {
     type: "page",
     title: "Docs",
     items: {
-      "getting-started": "",
       api: "",
     },
   },

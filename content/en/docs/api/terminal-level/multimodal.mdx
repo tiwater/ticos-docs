@@ -1,0 +1,101 @@
+---
+title: Multimodal API
+description: Account Level Multimodal API Documentation
+---
+
+# Multimodal API
+
+This document describes how to use the account-level Multimodal API, which provides various multimodal interface services. Currently, the following service is available:
+
+## Text-to-Speech (TTS)
+
+Converts the provided text into a speech audio file.
+
+### API Description
+
+```
+POST https://api.ticos.ai/v1/multimodal/tts
+```
+
+### Authentication
+
+This endpoint requires Bearer Token authentication. Include your API key or terminal secret in the `Authorization` header.
+
+### Request Headers
+
+| Parameter | Required | Description |
+| --------- | -------- | ----------- |
+| Content-Type | Yes | Fixed value: `application/json` |
+| Authorization | Yes | Format: `Bearer <your_token>`, where token is your API key or terminal secret |
+
+### Request Body
+
+The request body is in JSON format and contains the following fields:
+
+```json
+{
+  "text": "Hello, world!",
+  "voice": "en-US-Wavenet-D",
+  "speed_ratio": 50,
+  "pitch_ratio": 50,
+  "volume_ratio": 50
+}
+```
+
+#### Request Body Fields
+
+| Field | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `text` | string | Yes | | The text to be converted to speech. |
+| `voice` | string | No | `null` | The voice model to use. |
+| `speed_ratio` | integer | No | `50` | The speed ratio of the speech (1-100). |
+| `pitch_ratio` | integer | No | `50` | The pitch ratio of the speech (1-100). |
+| `volume_ratio` | integer | No | `50` | The volume ratio of the speech (1-100). |
+
+### Response
+
+#### Success Response
+
+- **Status Code**: `200 OK`
+- **Headers**: `Content-Type: audio/wav`
+- **Body**: The binary WAV audio data.
+
+#### Error Responses
+
+- **400 Bad Request**: Invalid request body (e.g., missing `text` field).
+- **401 Unauthorized**: Authentication failed (e.g., invalid token).
+- **500 Internal Server Error**: Internal server error (e.g., TTS service is not configured or unreachable).
+
+## Example Code
+
+### cURL
+
+```bash
+curl -X 'POST' \
+  'https://api.ticos.ai/v1/multimodal/tts' \
+  -H 'Authorization: Bearer ts_your_api_key_1234567890' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "text": "This is a test of the TTS service.",
+    "voice": "zhifeng_emo"
+  }' \
+  --output test_audio.wav
+```
+
+## Available Voices
+
+Retrieve a list of available voice models for the TTS service.
+
+### API Description
+
+```
+GET https://stardust.ticos.cn/tts
+```
+
+### Query Parameters
+
+| Parameter | Required | Default | Description |
+| --------- | -------- | ------- | ----------- |
+| language | No | - | Filter voices by language (e.g., `chinese`, `english`) |
+| skip | No | `0` | Pagination start position |
+| top | No | `10` | Number of voices to return |

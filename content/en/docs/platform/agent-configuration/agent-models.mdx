@@ -1,0 +1,51 @@
+# Model Configuration
+
+The Model Configuration page allows you to select and configure the underlying Large Language Model (LLM) for your agent. These settings directly determine the agent's core capabilities, such as logical reasoning, tool usage, and visual understanding.
+
+## Basic Settings
+
+This section is used to select the foundation model that powers the agent.
+
+- **Provider**: Select the provider of the large language model here. Currently supported providers include **OpenAI** and others.
+- **Model**: Based on the selected provider, choose a specific model version from the dropdown list, such as `gpt-4o-2024-08-06`. The description below the model name will indicate the specific features supported by that model, such as file uploads and function calls.
+
+## Model Capabilities
+
+Select the modalities to enable for this model. Only supported modalities can be selected.
+
+- **Text**: Process and generate text responses for conversations and content creation.
+- **Audio**: Process speech recognition and audio generation functions.
+- **Image**: Use AI-assisted processing, analysis, and generation of images.
+- **Video**: Process analysis and generation of video content.
+
+## Working Mode
+
+Configure how your agent interacts with clients.
+
+- **Realtime Mode**: Select the working mode for this agent, either Realtime mode or standard Restful API mode. Realtime mode provides a continuous interactive experience, while Restful API mode uses a standard request-response pattern.
+
+## Authentication
+
+This section is used to configure the API key required to access the model service.
+
+- **Use Custom API Key**:
+  - **Off State**: By default, the platform will use its own keys. This helps optimize costs and may provide additional features.
+  - **On State**: You can also choose to enable this switch and then enter your own API key in the input field below.
+
+## Advanced Settings
+
+Advanced settings provide parameters for fine-tuning model behavior.
+
+- **Instructions**: Enter system-level instructions (System Prompt) in this text box. These instructions will set a role, background, and behavioral guidelines for the agent, guiding it to respond in a specific style or follow specific logic.
+- **Response Format**: You can specify the format of the model output, such as forcing it to return JSON objects, to ensure downstream applications can stably process the model output.
+- **Temperature**: Set by dragging the slider or directly entering a value (0-1). Higher values (such as 0.8) will make the model output more creative and random, while lower values (such as 0.2) will make its output more deterministic and focused.
+- **Max Response Tokens**: Set the maximum number of tokens (characters) the model can generate in a single response. This helps control response length and API costs.
+- **Context Turns**: Set the number of context turns the agent can remember in a conversation (range 4-20). More turns mean the agent can "remember" earlier conversation content.
+- **Tool Choice Strategy**: Configure how the model makes decisions when it needs to use tools, such as "automatic" decision or forcing the call of a specific tool.
+- **Memory Generation**: Configure generation strategies related to agent memory.
+
+## Voice Emotion Engine
+
+This section is used to configure emotional expression related to voice output.
+
+- **Emotion Engine**: After selecting an emotion engine, the agent will be able to automatically switch its broadcast voice and emotions based on the context of the conversation and the user's emotions, making interactions more vivid and natural.

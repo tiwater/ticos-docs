@@ -1,0 +1,39 @@
+# Publish Changes
+
+The "Publish Changes" module in the agent configuration is where you review and deploy any modifications made to your Embodied Agent's settings. This is a crucial step to ensure that your changes take effect and are applied to the live or active version of your agent.
+
+## Key Features and Operations
+
+### 1. Staged Changes Status
+
+- **Display**: The page will indicate if there are any pending changes that have been made but not yet published.
+- **Example Message**: "No staged changes to publish" (if no modifications are pending).
+
+### 2. Primary Action Buttons
+
+- **Edit Raw Configuration Button**:
+    - **Functionality**: This option opens an interface that allows you to view and directly edit the agent's complete configuration in its raw JSON format. This is an advanced feature and should be used with caution.
+
+- **Reload Agent Button**:
+    - **Functionality**: This action reloads the agent's current configuration, used to refresh its state when the agent is out of sync with the database (for example, when editing the agent configuration on multiple devices simultaneously). This operation will discard current unsaved temporary changes.
+
+### 3. Publishing and Reverting Actions
+
+These buttons are central to the publishing workflow and are typically enabled only when there are staged changes.
+
+- **Revert Changes Button**:
+    - **Functionality**: If there are staged changes, this button allows you to discard them and revert the agent's configuration back to the last published state.
+
+- **Publish Changes Button**:
+    - **Functionality**: If there are staged changes, this is the button you would click to apply those changes to the active agent. This action makes the modifications effective.
+
+## Workflow
+
+1.  Make desired changes in various agent configuration modules (Instructions, Skills, Knowledge Base, etc.).
+2.  Navigate to the "Publish Changes" page.
+3.  Review the staged changes.
+4.  Optionally, use "Edit Raw Configuration" for advanced adjustments, or "Reload Agent" if needed.
+5.  If satisfied with the changes, click "Publish Changes" to make them effective.
+6.  If you wish to discard the changes, click "Revert Changes".
+
+Regularly publishing your changes ensures that your agent operates with the most up-to-date configuration.

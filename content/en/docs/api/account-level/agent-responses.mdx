@@ -1,0 +1,133 @@
+---
+title: Agent Responses API
+description: Account Level Agent Responses API Documentation
+---
+
+# Agent Responses API
+
+This document describes how to use the account-level Agent Responses API, which allows you to call agent services using your account API key.
+
+## API Description
+
+```
+POST https://api.ticos.ai/v1/agents/<AgentID>/responses
+```
+
+### Request Headers
+
+| Parameter | Required | Description |
+| --------- | -------- | ----------- |
+| Content-Type | Yes | Fixed value: `application/json` |
+| Authorization | Yes | Format: `Bearer <Your-API-Key>`, API key can be obtained from User Menu → API Keys |
+| X-Model-ID | Yes | Terminal model ID, can be obtained from the terminal model details page URL |
+| X-Client-Identifier | Yes | Terminal ID, must match the terminal ID registered in the platform (can contain Chinese characters after URL Encoding) |
+
+### Request Body
+
+The request body is in JSON format and contains the following fields:
+
+```json
+{
+  "input": "http://<your-domain>/path/to/image.jpeg"
+}
+```
+
+#### Input Parameter Explanation
+
+The format of the `input` parameter refers to the [OpenAI API Documentation](https://platform.openai.com/docs/api-reference/responses), which can be:
+
+1. **Image URL**: As shown in the example above, provide a publicly accessible image URL
+2. **Text Description**: Plain text content, for example `"input": "Please analyze the trend of this data"`
+3. **Complex Object**: A JSON object containing multiple content types, for example:
+   ```json
+   "input": [
+     {
+       "type": "text",
+       "text": "Please analyze the image below"
+     },
+     {
+       "type": "image_url",
+       "image_url": {
+         "url": "http://<your-domain>/path/to/image.jpeg"
+       }
+     }
+   ]
+   ```
+
+The specific content to be provided depends on the business requirements defined in the agent. For example, if the agent is configured to count the number of people in an image, an image URL should be provided.
+
+### Response
+
+After a successful call, the service returns JSON:
+
+```json
+{
+  "id": "chatcmpl-BD4u9UtDK3gQBRi3SAZ96KRFGpEFO",
+  "object": "chat.completion",
+  "created": 1742456817,
+  "model": "gpt-4o-2024-08-06",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"count\": 1\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 349,
+    "completion_tokens": 42,
+    "total_tokens": 391
+  }
+}
+```
+
+The `choices[0].message.content` string is the JSON data needed for the business, which can be parsed as needed.
+
+## Example Code
+
+### cURL
+
+```bash
+curl -X POST "https://api.ticos.ai/v1/agents/<AgentID>/responses" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <Your-API-Key>" \
+  -H "X-Model-ID: <ModelID>" \
+  -H "X-Client-Identifier: <TerminalID>" \
+  -d '{
+        "input": "http://<your-domain>/path/to/image.jpeg"
+      }'
+```
+
+### Python
+
+```python
+import requests
+import json
+
+url = "https://api.ticos.ai/v1/agents/<AgentID>/responses"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer <Your-API-Key>",
+    "X-Model-ID": "<ModelID>",
+    "X-Client-Identifier": "<TerminalID>"
+}
+
+data = {
+    "input": "http://<your-domain>/path/to/image.jpeg"
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(data))
+result = response.json()
+print(result["choices"][0]["message"]["content"])
+```
+
+## Common Issues
+
+| Issue | Solution |
+| ----- | -------- |
+| Returns 401 Unauthorized | Check if the API key in the `Authorization` header is correct and if the key has been revoked |
+| Returns 404 Not Found | Confirm that the AgentID and model ID exist and are published |

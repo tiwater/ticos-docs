@@ -1,0 +1,206 @@
+---
+title: 具身终端快速上手
+description: 指导您完成机器人终端型号创建、终端录入、Agent ID 获取，以及设备端 ticos-agent 安装与配置。
+---
+
+# 具身终端快速上手
+
+本文档示例以“机器人终端”场景为例，帮助您在 **Ticos Cloud** 平台快速完成以下任务：
+
+1. 创建机器人终端型号。
+2. 创建终端设备并获取终端密钥。
+3. 获取智能体（Agent）ID。
+4. 在设备端安装并配置 **ticos-agent**。
+5. 启动 agent 并接入 SDK 进行开发。
+
+---
+
+## 1. 登录平台
+
+访问 [https://cloud.ticos.ai](https://cloud.ticos.ai) 并使用管理员账户登录。
+
+![登录](/images/quickstart-terminal/image1.png)
+
+---
+
+## 2. 创建机器人终端型号
+
+1. 侧边栏选择 **设置 → 终端型号 → 添加型号**。
+
+![添加终端型号](/images/quickstart-terminal/image2.png)
+
+2. 在弹窗中填写以下信息：
+   - **终端类型**：选择 `机器人`。
+   - **品牌 / 制造商**、**型号名称**、**描述**：根据实际情况填写。
+   - 上传设备照片，并勾选 **已发布**。
+
+3. 点击 **保存**。
+
+保存后界面如下所示：
+
+![终端型号列表](/images/quickstart-terminal/image4.jpg)
+
+---
+
+## 3. 创建终端设备并获取密钥
+
+1. 选择 **终端运维 → 终端 → 添加终端**。
+![创建终端](/images/quickstart-terminal/image5.png)
+2. 在表单中填写：
+
+| 字段        | 说明                                       |
+| ----------- | ------------------------------------------ |
+| 名称        | 任意易识别名称                             |
+| 终端 ID     | 设备唯一编号（可点击自动生成）             |
+| 终端型号    | 选择步骤 2 创建的机器人型号               |
+| 位置、描述等 | 视需要填写                                 |
+
+![终端信息](/images/quickstart-terminal/image6.jpg)
+
+3. 点击 **保存**。
+
+如果需要一次创建多台设备，可使用 **批量创建终端** 功能并下载终端 ID 与密钥清单。
+
+在终端列表 **操作** 列点击 **查看详情**，即可复制该终端 **API 密钥**，后续配置设备端使用。
+![终端列表](/images/quickstart-terminal/image7.png)
+![终端密钥](/images/quickstart-terminal/image8.jpg)
+---
+
+## 4. 获取 Agent ID
+
+1. 顶部导航栏选择 **具身智能体**（或最近一次访问的智能体名称）。
+
+![智能体列表](/images/quickstart-terminal/image9.jpg)
+
+2. 创建新的智能体，或选择已创建的智能体，点击 **配置**。智能体的其他详细配置请参阅[智能体配置](../platform/agent-configuration/agent-configuration)文档。
+3. 浏览器地址栏最后一组数字即为 **Agent ID**，请记录，稍后配置 ticos-agent 时使用。
+
+![智能体 ID](/images/quickstart-terminal/image11.jpg)
+
+---
+
+## 5. 安装 ticos-agent
+
+目前只支持 Linux (Aarch64) 系统。如果需要支持其他系统，请联系 Ticos 团队。
+
+从 Ticos 团队获得安装包 `ticos-agent-<version>-arm64.deb`，拷贝至目标设备，执行：
+
+```bash
+sudo dpkg -i ticos-agent-<version>-arm64.deb
+```
+
+> 版本号以实际包为准。
+
+---
+
+## 6. 配置 ticos-agent
+
+执行：
+
+```bash
+ticos-agent config
+```
+
+按照向导输入或选择：
+
+```text
+? 输入代理ID (agent_id) · <AgentID>
+? 选择API服务地址 › wss://stardust2.ticos.cn
+? 输入API密钥 · <终端密钥>
+? 选择你的麦克风 › HK-DXMIC-V1.0 Analog Stereo
+? 选择你的扬声器 › HK-DXMIC-V1.0 Analog Stereo
+你有摄像头吗？ (y/n) › y
+? 选择你的摄像头 › USB Camera 1080P
+VAD 阈值 (%) · 60
+VAD 静音阈值 (dB) · -20
+VAD 静音最小持续时间 (ms) · 200
+? 输入执行器地址 · 127.0.0.1:9999
+```
+
+---
+
+## 7. SDK 开发
+
+为了让应用程序能够与 ticos-agent 通信并调用其能力，需要使用 ticos-client SDK。
+
+### 获取 SDK
+
+- GitHub 仓库：[https://github.com/tiwater/ticos-client](https://github.com/tiwater/ticos-client)
+- 支持的语言：
+  - Python
+  - Java (不同步，如有需求请联系 Ticos 团队)
+  - 其他语言正在开发中
+
+### 运行示例代码
+
+在开发自己的应用前，建议先运行示例代码体验功能。
+
+#### Python 示例
+
+1. 克隆仓库到你的终端设备：
+
+```bash
+git clone https://github.com/tiwater/ticos-client.git
+cd ticos-client/examples/python
+```
+
+2. 安装依赖：
+
+```bash
+pip install -r requirements.txt
+```
+
+3. 运行示例：
+
+```bash
+python Main.py
+```
+
+---
+
+## 8. 启动 ticos-agent
+
+在终端设备上新开一个命令行窗口，通过以下方式启动 ticos-agent：
+
+### 直接运行
+
+```bash
+ticos-agent start
+```
+
+### 作为用户服务启动（推荐）
+
+```bash
+systemctl --user start ticos-agent
+```
+
+查看日志：
+
+```bash
+journalctl --user -u ticos-agent -f
+```
+
+停止 ticos-agent：
+
+```bash
+systemctl --user stop ticos-agent
+```
+
+听到“嘟”声代表已成功连接云端。此时，您可以通过设备上的麦克风与智能体进行语音交互。
+
+---
+
+## 9. 集成到自己的应用
+
+通过 ticos-client SDK 及 ticos-agent，您可以实现以下功能：
+
+- **语音交互**：发送语音流并接收语音合成结果
+- **文本对话**：发送文本提示消息并接收智能体响应
+- **图像流识别**：发送图像流并获取分析结果、人脸识别结果等
+- **动作控制**：接收智能体生成的动作指令
+
+接入 SDK 后，即可调用大模型能力、动作指令等功能，实现自定义机器人应用。
+
+---
+
+完成以上步骤，您的机器人终端已成功连接 **Ticos Cloud**，可以开始开发具身智能应用。

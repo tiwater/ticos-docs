@@ -1,0 +1,28 @@
+---
+title: MCP Services
+description: Manage and configure MCP services to extend your agent's capabilities.
+---
+
+# MCP Services
+
+MCP (Model Context Protocol) services are a core mechanism in the Ticos platform for extending the capabilities of Embodied Agents. Through MCP services, your agents can interact with external systems, third-party APIs, or custom business logic, enabling them to perform complex tasks beyond their built-in functions.
+
+For example, you could register an MCP service to:
+-   Query a weather forecast API.
+-   Control smart home devices.
+-   Connect to a company's internal knowledge base.
+-   Perform custom computational tasks.
+
+## Key Features
+
+You can perform the following operations in this module:
+
+-   **View Service List**: Display all registered MCP services, including their names, descriptions, endpoint addresses, and statuses.
+-   **Register New Service**: Add a new MCP service. You need to provide the service's name, description, API endpoint URL, and necessary authentication information (such as API keys).
+-   **Edit Service Configuration**: Modify the details of an already registered service.
+-   **Delete Service**: Permanently remove an MCP service.
+
+## Support Status
+
+- Server-side Stardust model supports SSE MCP services in realtime mode.
+- Server-side OpenAI gpt models support both SSE and Streamable HTTP MCP services in agent responses mode.
