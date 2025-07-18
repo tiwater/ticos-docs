@@ -1,10 +1,10 @@
 import type { Meta } from "nextra";
 
 export default {
-  "agent-dashboard": "智能体仪表盘",
-  "agent-models": "智能体模型",
-  "agent-knowledge": "智能体知识库",
-  "agent-skills": "智能体技能",
+  "agent-dashboard": "仪表盘",
+  "agent-models": "模型",
+  "agent-knowledge": "知识库",
+  "agent-skills": "技能",
   "agent-vision": "视觉能力",
   "agent-hearing": "听觉能力",
   "agent-speech": "语音能力",

@@ -1,0 +1,78 @@
+# Multimodal API
+
+This section describes the multimodal interface services. Currently, the following service is available:
+
+## Text-to-Speech (TTS)
+
+Converts the provided text into a speech audio file.
+
+### TTS Endpoint
+
+`POST /v1/multimodal/tts`
+
+### Authentication
+
+This endpoint requires Bearer Token authentication. Include your API key or terminal secret in the `Authorization` header.
+- `ti_` prefix: API Key
+- `ts_` prefix: Terminal Secret
+
+### Request
+
+#### Headers
+
+| Header | Value | Required | Description |
+|---|---|---|---|
+| `Authorization` | `Bearer <your_token>` | Yes | Your API access credential. |
+| `Content-Type` | `application/json` | Yes | Must be set to `application/json`. |
+
+#### Request Body
+
+```json
+{
+  "text": "Hello, world!",
+  "voice": "en-US-Wavenet-D",
+  "speed_ratio": 50,
+  "pitch_ratio": 50,
+  "volume_ratio": 50
+}
+```
+
+##### Request Body Fields
+
+| Field | Type | Required | Default | Description |
+|---|---|---|---|---|
+| `text` | string | Yes | | The text to be converted to speech. |
+| `voice` | string | No | `null` | The voice model to use. |
+| `speed_ratio` | integer | No | `50` | The speed ratio of the speech (1-100). |
+| `pitch_ratio` | integer | No | `50` | The pitch ratio of the speech (1-100). |
+| `volume_ratio` | integer | No | `50` | The volume ratio of the speech (1-100). |
+
+### Example
+
+#### cURL Example
+
+```bash
+curl -X 'POST' \
+  'https://api.ticos.ai/v1/multimodal/tts' \
+  -H 'Authorization: Bearer ts_your_api_key_1234567890' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "text": "This is a test of the TTS service.",
+    "voice": "zhifeng_emo"
+  }' \
+  --output test_audio.wav
+```
+
+### Response
+
+#### Success Response (200 OK)
+
+- **Status Code**: `200 OK`
+- **Headers**: `Content-Type: audio/wav`
+- **Body**: The binary WAV audio data.
+
+#### Error Responses
+
+- **400 Bad Request**: Invalid request body (e.g., missing `text` field).
+- **401 Unauthorized**: Authentication failed (e.g., invalid token).
+- **500 Internal Server Error**: Internal server error (e.g., TTS service is not configured or unreachable).

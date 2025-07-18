@@ -1,15 +1,15 @@
 import type { Meta } from "nextra";
 
 export default {
-  "agent-dashboard": "Agent Dashboard",
-  "agent-models": "Agent Models",
-  "agent-knowledge": "Agent Knowledge",
-  "agent-skills": "Agent Skills",
-  "agent-vision": "Agent Vision",
-  "agent-hearing": "Agent Hearing",
-  "agent-speech": "Agent Speech",
-  "agent-emotion": "Agent Emotion",
-  "agent-gesture": "Agent Gesture",
-  "agent-publish": "Agent Publish",
+  "agent-dashboard": "Dashboard",
+  "agent-models": "Models",
+  "agent-knowledge": "Knowledge",
+  "agent-skills": "Skills",
+  "agent-vision": "Vision",
+  "agent-hearing": "Hearing",
+  "agent-speech": "Speech",
+  "agent-emotion": "Emotion",
+  "agent-gesture": "Gesture",
+  "agent-publish": "Publish",
   "agent-advanced-settings": "Advanced Settings",
 } satisfies Meta;
