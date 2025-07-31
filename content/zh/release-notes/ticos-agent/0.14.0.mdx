@@ -1,0 +1,50 @@
+---
+title: ticos-agent 0.14.0 版本发布说明
+date: 2025-08-01
+---
+
+[ticos-agent-0.14.0-arm64.deb 下载链接](https://releases-1305049745.cos.ap-shanghai.myqcloud.com/ticos-agent/ticos-agent-0.14.0-arm64.deb)
+
+ticos-agent 语音识别算法调整后的初始版本，本次发布的新功能主要包括：
+
+## 新功能
+
+1. 语音识别的优化，灵敏度的提高；
+2. 支持 opus + udp 音频流；
+3. 完善摄像头帧率控制；
+4. 改善音频卡死不说话的问题。
+
+## 待解决问题
+
+1. 长时间运行后时间戳错位、丢字现象。
+
+## 安装与配置
+
+安装后请执行 `ticos-agent config` 重新配置。
+大部分参数和之前一致，主要是下面的选项有调整：
+
+### 1. 新的语音识别阈值
+可以理解为接收到的音频像人声的百分比，值越高检测越严格。建议先设为默认值 0.5。
+
+![语音识别阈值](/images/release-notes/ticos-agent/0.14.0/1.jpg)
+
+### 2. 可中断配置
+由于 ESP32 目前回音消除不理想，增加了“是否可中断”的配置项：
+
+![中断配置](/images/release-notes/ticos-agent/0.14.0/2.jpg)
+
+上述选项都需要在“Configure Voice Activity Detection settings?” 选择为 yes 后才能进入编辑。
+
+### 3. 确保开启 executor 设置
+
+![executor 设置](/images/release-notes/ticos-agent/0.14.0/3.jpg)
+
+### 4. 灵敏度设置说明
+
+当前采用的 VAD 算法不支持根据声强控制识别灵敏度，如有需求，只能在后台智能体的“听觉->灵敏度”统一设置：
+
+![灵敏度设置](/images/release-notes/ticos-agent/0.14.0/4.jpg)
+
+建议初始设为 0.02，然后根据具体设备所配麦克风的灵敏度来调整以获得最佳效果。
+
+调整后记得发布变更才能生效。
